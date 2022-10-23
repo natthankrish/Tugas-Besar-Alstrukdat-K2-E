@@ -296,9 +296,8 @@ void sortListExpiry(ListStatik *l, boolean asc){
                 }
                 j++;
             }
-            int val1;
-            int *val1p = &val1;
-            deleteAt(l, val1p, minidx);
+            MAKANAN val1;
+            deleteAt(l, &val1, minidx);
             insertAt(l, min, i); //min
             i++;
         }
@@ -317,10 +316,9 @@ void sortListExpiry(ListStatik *l, boolean asc){
                 }
                 j++;
             }
-            int val1;
-            int *val1p = &val1;       
+            MAKANAN val1;      
             insertAt(l, max, i);
-            deleteAt(l, val1p, maxidx+1);
+            deleteAt(l, &val1, maxidx+1);
             i++;
         }
     }
@@ -346,9 +344,8 @@ void sortListDelivery(ListStatik *l, boolean asc){
                 }
                 j++;
             }
-            int val1;
-            int *val1p = &val1;
-            deleteAt(l, val1p, minidx);
+            MAKANAN val1;
+            deleteAt(l, &val1, minidx);
             insertAt(l, min, i); //min
             i++;
         }
@@ -367,10 +364,9 @@ void sortListDelivery(ListStatik *l, boolean asc){
                 }
                 j++;
             }
-            int val1;
-            int *val1p = &val1;       
+            MAKANAN val1;     
             insertAt(l, max, i);
-            deleteAt(l, val1p, maxidx+1);
+            deleteAt(l, &val1, maxidx+1);
             i++;
         }
     }
