@@ -8,20 +8,20 @@
 void CreateListStatik(ListStatik *l){
 /* I.S. l sembarang */
 /* F.S. Terbentuk List l kosong dengan kapasitas CAPACITY */
-    Length(*l)=0;
+    Lengthlist(*l)=0;
     return;
 }
 
 //Mengambil elemen pertama
 MAKANAN getFirstElmt(ListStatik l){
-    return ELMT(l,0);
+    return ELMTlist(l,0);
 }
 
 //Mengambil elemen terakhir
 MAKANAN getLastElmt(ListStatik l){
 /* Prekondisi : List l tidak kosong */
 /* Mengirimkan indeks elemen l terakhir */
-    return ELMT(l,Length(l)-1);
+    return ELMTlist(l,Lengthlist(l)-1);
     
 }
 
@@ -34,20 +34,20 @@ boolean isIdxValid(ListStatik l, int i){
 
 boolean isIdxEff(ListStatik l, int i){
 /* Mengirimkan true jika i adalah indeks yang terdefinisi utk List l */
-/* yaitu antara 0..length(l)-1 */
-    return (i>=0 && i<Length(l));
+/* yaitu antara 0..Lengthlist(l)-1 */
+    return (i>=0 && i<Lengthlist(l));
 }
 
 /* ********** TEST KOSONG/PENUH ********** */
 /* *** Test List kosong *** */
 boolean isEmpty(ListStatik l){
 /* Mengirimkan true jika List l kosong, mengirimkan false jika tidak */
-    return (Length(l)==0);
+    return (Lengthlist(l)==0);
 }
 /* *** Test List penuh *** */
 boolean isFull(ListStatik l){
 /* Mengirimkan true jika List l penuh, mengirimkan false jika tidak */
-    return (Length(l)==CAPACITY);
+    return (Lengthlist(l)==CAPACITY);
 }
 
 /* ********** BACA dan TULIS dengan INPUT/OUTPUT device ********** */
@@ -66,9 +66,9 @@ void readList(ListStatik *l){
         i=0;
         MAKANAN temp;
         while(i<n){
-            Length(*l)++;
+            Lengthlist(*l)++;
             scanf("%d",&temp);
-            ELMT(*l,i)=temp;
+            ELMTlist(*l,i)=temp;
             i++;
         }
     }
@@ -80,24 +80,24 @@ void readList(ListStatik *l){
 boolean isListEqual(ListStatik l1, ListStatik l2){
 /* Mengirimkan true jika l1 sama dengan l2 yaitu jika ukuran l1 = l2 dan semua 
    elemennya sama */
-    return (Length(l1)==Length(l2));
+    return (Lengthlist(l1)==Lengthlist(l2));
 }
 
 /* ********** SEARCHING ********** */
 /* ***  Perhatian : List boleh kosong!! *** */
 int indexOfID(ListStatik l, int val){
 /* Search apakah ada elemen List l yang bernilai val */
-/* Jika ada, menghasilkan indeks i terkecil, dengan ELMT(l,i) = val */
+/* Jika ada, menghasilkan indeks i terkecil, dengan ELMTlist(l,i) = val */
 /* Jika tidak ada atau jika l kosong, mengirimkan IDX_UNDEF */
 /* Skema Searching yang digunakan bebas */
     int i=0;
-    while(i<Length(l)){
-       if(ELMT(l,i).idx==val){
+    while(i<Lengthlist(l)){
+       if(ELMTlist(l,i).idx==val){
         break;
        }
        i++; 
     }
-    if(Length(l)==0 || i==Length(l)){
+    if(Lengthlist(l)==0 || i==Lengthlist(l)){
         return IDX_UNDEF;
     }else{
         return i;
@@ -106,17 +106,17 @@ int indexOfID(ListStatik l, int val){
 
 int indexOfFood(ListStatik l, char val[101]){
 /* Search apakah ada elemen List l yang bernilai val */
-/* Jika ada, menghasilkan indeks i terkecil, dengan ELMT(l,i) = val */
+/* Jika ada, menghasilkan indeks i terkecil, dengan ELMTlist(l,i) = val */
 /* Jika tidak ada atau jika l kosong, mengirimkan IDX_UNDEF */
 /* Skema Searching yang digunakan bebas */
     int i=0;
-    while(i<Length(l)){
-       if(Name(ELMT(l,i))==val){
+    while(i<Lengthlist(l)){
+       if(Name(ELMTlist(l,i))==val){
         break;
        }
        i++; 
     }
-    if(Length(l)==0 || i==Length(l)){
+    if(Lengthlist(l)==0 || i==Lengthlist(l)){
         return IDX_UNDEF;
     }else{
         return i;
@@ -130,16 +130,16 @@ void extremeValuesExpiry(ListStatik l, MAKANAN *max, MAKANAN *min){
         Min berisi nilai terkecil dalam l */
     if(!isEmpty(l)){
         int i = 0;
-        while(i<Length(l)){
+        while(i<Lengthlist(l)){
             if(i==0){
-                *min=ELMT(l,i);
-                *max=ELMT(l,i);
+                *min=ELMTlist(l,i);
+                *max=ELMTlist(l,i);
             }else{
-                if(Expiry(ELMT(l,i))<=Expiry(*min)){
-                    *min=ELMT(l,i);
+                if(Expiry(ELMTlist(l,i))<=Expiry(*min)){
+                    *min=ELMTlist(l,i);
                 }
-                if(Expiry(ELMT(l,i))>=Expiry(*max)){
-                    *max=ELMT(l,i);
+                if(Expiry(ELMTlist(l,i))>=Expiry(*max)){
+                    *max=ELMTlist(l,i);
                 }
             }
             i++;
@@ -153,16 +153,16 @@ void extremeValuesDelivery(ListStatik l, MAKANAN *max, MAKANAN *min){
         Min berisi nilai terkecil dalam l */
     if(!isEmpty(l)){
         int i = 0;
-        while(i<Length(l)){
+        while(i<Lengthlist(l)){
             if(i==0){
-                *min=ELMT(l,i);
-                *max=ELMT(l,i);
+                *min=ELMTlist(l,i);
+                *max=ELMTlist(l,i);
             }else{
-                if(DeliveryTime(ELMT(l,i))<=DeliveryTime(*min)){
-                    *min=ELMT(l,i);
+                if(DeliveryTime(ELMTlist(l,i))<=DeliveryTime(*min)){
+                    *min=ELMTlist(l,i);
                 }
-                if(DeliveryTime(ELMT(l,i))>=DeliveryTime(*max)){
-                    *max=ELMT(l,i);
+                if(DeliveryTime(ELMTlist(l,i))>=DeliveryTime(*max)){
+                    *max=ELMTlist(l,i);
                 }
             }
             i++;
@@ -176,16 +176,16 @@ void insertFirst(ListStatik *l, MAKANAN val){
 /* Proses: Menambahkan val sebagai elemen pertama List */
 /* I.S. List l boleh kosong, tetapi tidak penuh */
 /* F.S. val adalah elemen pertama l yang baru */
-    if(Length(*l)<CAPACITY){
-        int i = Length(*l);
+    if(Lengthlist(*l)<CAPACITY){
+        int i = Lengthlist(*l);
         if(i!=0){
             while(i>0){
-                ELMT(*l,i)=ELMT(*l,i-1);
+                ELMTlist(*l,i)=ELMTlist(*l,i-1);
                 i--;
             }
         }
-        ELMT(*l,0)=val;
-        Length(*l)++;
+        ELMTlist(*l,0)=val;
+        Lengthlist(*l)++;
         return;
     }
     
@@ -197,14 +197,14 @@ void insertAt(ListStatik *l, MAKANAN val, int idx){
 /* I.S. List l tidak kosong dan tidak penuh, idx merupakan index yang valid di l */
 /* F.S. val adalah elemen yang disisipkan pada index idx l */
 /* *** Menambahkan elemen terakhir *** */
-    if(Length(*l)!=0 && Length(*l)<CAPACITY && isIdxValid(*l, idx)){
-        int i = Length(*l);
+    if(Lengthlist(*l)!=0 && Lengthlist(*l)<CAPACITY && isIdxValid(*l, idx)){
+        int i = Lengthlist(*l);
         while(i>idx){
-            ELMT(*l,i)=ELMT(*l,i-1);
+            ELMTlist(*l,i)=ELMTlist(*l,i-1);
             i--;
         }
-        ELMT(*l, idx)=val;
-        Length(*l)++;
+        ELMTlist(*l, idx)=val;
+        Lengthlist(*l)++;
     }
 }
 
@@ -213,10 +213,10 @@ void insertLast(ListStatik *l, MAKANAN val){
 /* I.S. List l boleh kosong, tetapi tidak penuh */
 /* F.S. val adalah elemen terakhir l yang baru */
     //KALAU MISALNYA JUMLAH ELEMEN PAS KAPASITAS DAN DITAMBAH VAL MALAH KELEBIHAN GIMANA?
-    if(Length(*l)<CAPACITY){
-        int i = Length(*l);
-        ELMT(*l,i)=val;
-        Length(*l)++;
+    if(Lengthlist(*l)<CAPACITY){
+        int i = Lengthlist(*l);
+        ELMTlist(*l,i)=val;
+        Lengthlist(*l)++;
     }
 }
 
@@ -230,12 +230,12 @@ void deleteFirst(ListStatik *l, MAKANAN *val){
 /*      List l mungkin menjadi kosong */
     if(!isEmpty(*l)){
         int i = 0;
-        *val = ELMT(*l,i);
-        while(i<Length(*l)){
-            ELMT(*l,i)=ELMT(*l,i+1);
+        *val = ELMTlist(*l,i);
+        while(i<Lengthlist(*l)){
+            ELMTlist(*l,i)=ELMTlist(*l,i+1);
             i++;
         }
-        Length(*l)--;
+        Lengthlist(*l)--;
     }
     
 }
@@ -248,14 +248,14 @@ void deleteAt(ListStatik *l, MAKANAN *val, int idx){
 /*      List l mungkin menjadi kosong */
     if(!isEmpty(*l)){
         int i = idx;
-        *val = ELMT(*l, idx);
-        while(i<Length(*l)-1){
+        *val = ELMTlist(*l, idx);
+        while(i<Lengthlist(*l)-1){
             // printf("test\n");
-            MAKANAN temp = ELMT(*l,i+1);
-            ELMT(*l,i)=temp;
+            MAKANAN temp = ELMTlist(*l,i+1);
+            ELMTlist(*l,i)=temp;
             i++;
         }
-        Length(*l)--;
+        Lengthlist(*l)--;
     }
     
 }
@@ -267,9 +267,9 @@ void deleteLast(ListStatik *l, MAKANAN *val){
 /*      Banyaknya elemen List berkurang satu */
 /*      List l mungkin menjadi kosong */
     if(!isEmpty(*l)){
-        int i = Length(*l)-1;
-        *val = ELMT(*l, i);
-        Length(*l)--;
+        int i = Lengthlist(*l)-1;
+        *val = ELMTlist(*l, i);
+        Lengthlist(*l)--;
     }
 }
 
@@ -285,13 +285,13 @@ void sortListExpiry(ListStatik *l, boolean asc){
         int i,j;
         MAKANAN min;
         i=0;
-        while(i<Length(*l)-1){
+        while(i<Lengthlist(*l)-1){
             j=i+1;
-            min = ELMT(*l,i);
+            min = ELMTlist(*l,i);
             int minidx=i;
-            while(j<listLength(*l)){
-                if(Expiry(ELMT(*l,j))<=Expiry(min)){
-                    min=ELMT(*l, j);
+            while(j<Lengthlist(*l)){
+                if(Expiry(ELMTlist(*l,j))<=Expiry(min)){
+                    min=ELMTlist(*l, j);
                     minidx=j;
                 }
                 j++;
@@ -306,13 +306,13 @@ void sortListExpiry(ListStatik *l, boolean asc){
         int i,j;
         MAKANAN max;
         i=0;
-        while(i<Length(*l)-1){
+        while(i<Lengthlist(*l)-1){
             j=i+1;
-            max = ELMT(*l,i);
+            max = ELMTlist(*l,i);
             int maxidx=i;
-            while(j<Length(*l)){
-                if(Expiry(ELMT(*l,j))>=Expiry(max)){
-                    max=ELMT(*l, j);
+            while(j<Lengthlist(*l)){
+                if(Expiry(ELMTlist(*l,j))>=Expiry(max)){
+                    max=ELMTlist(*l, j);
                     maxidx=j;
                 }
                 j++;
@@ -335,13 +335,13 @@ void sortListDelivery(ListStatik *l, boolean asc){
         int i,j;
         MAKANAN min;
         i=0;
-        while(i<Length(*l)-1){
+        while(i<Lengthlist(*l)-1){
             j=i+1;
-            min = ELMT(*l,i);
+            min = ELMTlist(*l,i);
             int minidx=i;
-            while(j<listLength(*l)){
-                if(DeliveryTime(ELMT(*l,j))<=DeliveryTime(min)){
-                    min=ELMT(*l, j);
+            while(j<Lengthlist(*l)){
+                if(DeliveryTime(ELMTlist(*l,j))<=DeliveryTime(min)){
+                    min=ELMTlist(*l, j);
                     minidx=j;
                 }
                 j++;
@@ -356,13 +356,13 @@ void sortListDelivery(ListStatik *l, boolean asc){
         int i,j;
         MAKANAN max;
         i=0;
-        while(i<Length(*l)-1){
+        while(i<Lengthlist(*l)-1){
             j=i+1;
-            max = ELMT(*l,i);
+            max = ELMTlist(*l,i);
             int maxidx=i;
-            while(j<Length(*l)){
-                if(DeliveryTime(ELMT(*l,j))>=DeliveryTime(max)){
-                    max=ELMT(*l, j);
+            while(j<Lengthlist(*l)){
+                if(DeliveryTime(ELMTlist(*l,j))>=DeliveryTime(max)){
+                    max=ELMTlist(*l, j);
                     maxidx=j;
                 }
                 j++;

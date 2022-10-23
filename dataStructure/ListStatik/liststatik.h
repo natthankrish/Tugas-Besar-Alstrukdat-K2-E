@@ -28,14 +28,14 @@ typedef struct {
 /* Jika l adalah ListStatik, cara deklarasi dan akses: */
 /* Deklarasi : l : ListStatik */
 /* Maka cara akses: 
-   ELMT(l,i) untuk mengakses elemen ke-i */
+   ELMTlist(l,i) untuk mengakses elemen ke-i */
 /* Definisi : 
    List kosong: semua elemen bernilai MARK
-   Definisi elemen pertama: ELMT(l,i) dengan i=0 */
+   Definisi elemen pertama: ELMTlist(l,i) dengan i=0 */
 
 /* ********** SELEKTOR ********** */
-#define ELMT(l, i) (l).contents[(i)]
-#define Length(l) (l).length
+#define ELMTlist(l, i) (l).contents[(i)]
+#define Lengthlist(l) (l).length
 
 /* ********** KONSTRUKTOR ********** */
 /* Konstruktor : create List kosong  */
@@ -46,7 +46,7 @@ void CreateListStatik(ListStatik *l);
 
 /* ********** SELEKTOR (TAMBAHAN) ********** */
 /* *** Banyaknya elemen *** */
-int listLength(ListStatik l);
+int listLengthlist(ListStatik l);
 /* Mengirimkan banyaknya elemen efektif List */
 /* Mengirimkan nol jika List kosong */  
 
@@ -64,7 +64,7 @@ boolean isIdxValid(ListStatik l, int i);
 /* yaitu antara indeks yang terdefinisi utk container*/
 boolean isIdxEff(ListStatik l, int i);
 /* Mengirimkan true jika i adalah indeks yang terdefinisi utk List l */
-/* yaitu antara 0..length(l)-1 */
+/* yaitu antara 0..Lengthlist(l)-1 */
 
 /* ********** TEST KOSONG/PENUH ********** */
 /* *** Test List kosong *** */
@@ -105,7 +105,7 @@ boolean isListEqual(ListStatik l1, ListStatik l2);
 /* ***  Perhatian : List boleh kosong!! *** */
 int indexOfID(ListStatik l, int val);
 /* Search apakah ada elemen List l yang bernilai val */
-/* Jika ada, menghasilkan indeks i terkecil, dengan ELMT(l,i) = val */
+/* Jika ada, menghasilkan indeks i terkecil, dengan ELMTlist(l,i) = val */
 /* Jika tidak ada atau jika l kosong, mengirimkan IDX_UNDEF */
 /* Skema Searching yang digunakan bebas */
 
