@@ -1,9 +1,3 @@
-/* NIM : 13521162 */
-/* Nama : Antonio Natthan Krishna */
-/* Tanggal Pengerjaan : 28 September 2022 */
-/* Topik Praktikum : Word Machine */
-/* Deskripsi : wordmachine.c */
-
 #include <stdio.h>
 #include "wordmachine.h"
 
