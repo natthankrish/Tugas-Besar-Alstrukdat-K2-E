@@ -1,21 +1,16 @@
 #include <stdio.h>
-#include "../dataStructure/CharMachine/charmachinefile.c"
-#include "../dataStructure/WordMachine/wordmachinefile.c"
+//#include "copyIntegerFromFile.c"
 
 Matrix loadPeta () {
     STARTWORDFILE("config/peta.txt");
 
-    int row = 0;
-    for (int i = 0; i < currentWordFile.Length; i++) {
-        row = (row * 10) + (currentWordFile.TabWord[i] - 48); 
-    }
+    int row;
+    copyIntegerFromWordMachine(&row, currentWordFile);
 
     ADVWORDFILE();
 
-    int col = 0;
-    for (int i = 0; i < currentWordFile.Length; i++) {
-        col = (col * 10) + (currentWordFile.TabWord[i] - 48); 
-    }
+    int col;
+    copyIntegerFromWordMachine(&col, currentWordFile);
 
     Matrix Peta;
     createMatrix(row, col, &Peta);
