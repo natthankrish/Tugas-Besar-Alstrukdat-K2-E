@@ -61,7 +61,7 @@ MAKANAN getLastIdx(ListStatik l);
 boolean isIdxValid(ListStatik l, int i);
 /* Mengirimkan true jika i adalah indeks yang valid utk kapasitas List l */
 /* yaitu antara indeks yang terdefinisi utk container*/
-boolean isIdxEff(ListStatik l, int i);
+boolean isIdxListEff(ListStatik l, int i);
 /* Mengirimkan true jika i adalah indeks yang terdefinisi utk List l */
 /* yaitu antara 0..Lengthlist(l)-1 */
 

@@ -32,7 +32,7 @@ boolean isIdxValid(ListStatik l, int i){
     return (i>=IDX_MIN && i<CAPACITY);
 }
 
-boolean isIdxEff(ListStatik l, int i){
+boolean isIdxListEff(ListStatik l, int i){
 /* Mengirimkan true jika i adalah indeks yang terdefinisi utk List l */
 /* yaitu antara 0..Lengthlist(l)-1 */
     return (i>=0 && i<Lengthlist(l));
