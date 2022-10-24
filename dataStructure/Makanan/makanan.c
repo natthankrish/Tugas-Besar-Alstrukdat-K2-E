@@ -3,26 +3,28 @@
 #include "makanan.h"
 #include "../Time/time.c"
 
-void CreateFood(MAKANAN *M){
+void CreateFood(MAKANAN *M, int ID, char Nameinput[], TIME Expiry, int action, TIME deliverytime, DIMENSION size){
 /*Register food baru berdasarkan input*/
 /*Cuma buat testing*/
-    printf("Register food ID: ");
-    scanf("%d", &ID(*M));
-    printf("Register food name: ");
-    scanf("%s", Name(*M));
-    printf("Register expiry time\n");
-    printf("Day(s): Hour(s): Minute(S): \n");
-    scanf("%d %d %d", &(*M).expiry.D, &(*M).expiry.HH, &(*M).expiry.MM);
-    printf("1.Buy 2.Chop 3.Fry 4.Boil 5.Mix\n");
-    printf("Register cooking action from above options: ");
-    scanf("%d", &Action(*M));
-    printf("Register delivery time\n");
-    printf("Day(s): Hour(s): Minute(S): \n");
-    scanf("%d %d %d", &(*M).deliveryTime.D, &(*M).deliveryTime.HH, &(*M).deliveryTime.MM);
-    printf("Register food size\n");
-    printf("Width: Height:\n");
-    scanf("%d %d", &Width(*M), &Height(*M));
-    printf("FOOD HAS BEEN FULLY REGISTERED!\n");
+    (*M).idx = ID;
+    copyString(Nameinput, Name(*M));
+    (*M).expiry = Expiry;
+    (*M).action = action;
+    (*M).deliveryTime = deliverytime;
+    (*M).size = size;
+}
+
+void CreateDimension (DIMENSION *D, int heightval, int widthval) {
+    (*D).height = heightval;
+    (*D).width = widthval;
+}
+
+void copyString (char input[], char output[]) {
+    for (int i = 0; i < 101; i++) {
+        if (input[i] != '\n') {
+            output[i] = input[i];
+        }
+    }
 }
 
 const char* getAction(MAKANAN M, boolean caps){
@@ -161,4 +163,3 @@ boolean isFit(MAKANAN M, int X, int Y){
 /*Menentukan apakah ukuran makanan M muat pada tempat dengan lebar X dan tinggi Y*/
     return (Height(M)<=Y && Width(M)<+X);
 }
-

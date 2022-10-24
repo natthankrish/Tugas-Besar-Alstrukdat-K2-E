@@ -17,7 +17,7 @@ typedef struct
   int height; /*Tinggi*/
   int width; /*Lebar*/
 
-} DIMENTION;
+} DIMENSION;
 
 typedef struct
 {
@@ -26,7 +26,7 @@ typedef struct
    TIME expiry; /*Kadaluarsa makanan*/
    int action; /*Aksi makanan*/
    TIME deliveryTime; /*Waktu delivery makanan*/
-   DIMENTION size; /*Ukuran makanan*/
+   DIMENSION size; /*Ukuran makanan*/
 } MAKANAN;
 
 /* *** Selektor *** */
@@ -38,9 +38,13 @@ typedef struct
 #define Name(M) (M).name
 #define ID(M) (M).idx
 
-void CreateFood(MAKANAN *M);
+void CreateFood(MAKANAN *M, int ID, char Nameinput[], TIME Expiry, int action, TIME deliverytime, DIMENSION size);
 /*Register food baru berdasarkan input*/
 /*Cuma buat testing*/
+
+void CreateDimension (DIMENSION *D, int height, int width);
+
+void copyString (char input[], char output[]);
 
 const char* getAction(MAKANAN M, boolean caps);
 /*Mengambil aksi makanan*/
