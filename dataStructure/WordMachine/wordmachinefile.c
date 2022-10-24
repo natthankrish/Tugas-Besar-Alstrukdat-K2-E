@@ -85,3 +85,11 @@ void LowerCaseFile() {
         }
     }
 }
+
+void copyIntegerFromWordMachine(int *num, WordFile word){
+    *num = 0;
+    for (int i = 0; i < word.Length; i++) {
+        *num = (*num * 10) + (word.TabWord[i] - 48); 
+    }
+}
+
