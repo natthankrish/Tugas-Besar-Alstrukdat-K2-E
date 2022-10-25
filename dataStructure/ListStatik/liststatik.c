@@ -45,7 +45,7 @@ boolean isEmpty(ListStatik l){
     return (Lengthlist(l)==0);
 }
 /* *** Test List penuh *** */
-boolean isFull(ListStatik l){
+boolean isListFull(ListStatik l){
 /* Mengirimkan true jika List l penuh, mengirimkan false jika tidak */
     return (Lengthlist(l)==CAPACITY);
 }
