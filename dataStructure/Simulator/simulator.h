@@ -3,10 +3,10 @@
 #include "../boolean.h"
 #include "../Point/point.h"
 #include "../PrioQueue/prioqueue.h"
-#include "../WordMachine/wordmachine.h"
+
 
 typedef struct { 
-	Word NAMA; /* nama pengguna   */
+	char * NAMA; /* nama pengguna   */
 	POINT LOKASI; /* lokasi pada map */
     PrioQueue INVENTORY; /* inventory */
 } SIMULATOR;
@@ -18,11 +18,11 @@ typedef struct {
         
 /* *** DEFINISI PROTOTIPE PRIMITIF *** */
 /* *** Konstruktor membentuk SIMULATOR *** */
-SIMULATOR CreateSIMULATOR (Word X, POINT Y, PrioQueue Z);
-/* Membentuk SIMULATOR sebgai output funsi */
+void CreateSIMULATOR (SIMULATOR * S, char * X, POINT Y, PrioQueue Z);
+/* Membentuk SIMULATOR dari input parameteter prosedur */
 
 /* *** Kelompok Primitif *** */
-Word getName(SIMULATOR S);
+char * getName(SIMULATOR S);
 /* Mendapatkan nama pengguna*/
 
 POINT getPoint(SIMULATOR S);
@@ -31,7 +31,7 @@ POINT getPoint(SIMULATOR S);
 PrioQueue getInventory(SIMULATOR S);
 /* Mendapatkan inventory simulator saat ini*/
 
-void setName(SIMULATOR * S, Word X);
+void setName(SIMULATOR * S, char * X);
 /* Mengubah nama pengguna pada simulator sesuai masukan yang diberikan pada parameter*/
 
 void setPoint(SIMULATOR * S, POINT P);

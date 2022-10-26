@@ -5,18 +5,17 @@
 
 /* *** DEFINISI PROTOTIPE PRIMITIF *** */
 /* *** Konstruktor membentuk SIMULATOR *** */
-SIMULATOR CreateSIMULATOR (Word X, POINT P, PrioQueue I){
-    SIMULATOR S;
-    Nama(S) = X;
-    Lokasi(S) = P;
-    Inventory(S) = I;
-    return S;
+void CreateSIMULATOR (SIMULATOR * S, char * X, POINT P, PrioQueue I){
+    Nama(*S) = X;
+    Lokasi(*S) = P;
+    Inventory(*S) = I;
+    
 
 }
-/* Membentuk SIMULATOR sebgai output funsi */
+/* Membentuk SIMULATOR dari input parameter yang diberikan */
 
 /* *** Kelompok Primitif *** */
-Word getName(SIMULATOR S){
+char * getName(SIMULATOR S){
     return Nama(S);
 }
 /* Mendapatkan nama pengguna*/
@@ -31,7 +30,7 @@ PrioQueue getInventory(SIMULATOR S){
 }
 /* Mendapatkan inventory simulator saat ini*/
 
-void setName(SIMULATOR * S, Word X){
+void setName(SIMULATOR * S, char * X){
     Nama(*S) = X;
 }
 /* Mengubah nama pengguna pada simulator sesuai masukan yang diberikan pada parameter*/
