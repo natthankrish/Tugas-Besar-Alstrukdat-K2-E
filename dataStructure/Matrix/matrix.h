@@ -4,6 +4,7 @@
 #define MATRIX_H
 
 #include "../boolean.h"
+#include "../Point/point.h"
 
 /* Ukuran maksimum baris dan kolom */
 #define ROW_CAP 100
@@ -42,7 +43,7 @@ IdxType getLastIdxRow(Matrix m);
 /* Mengirimkan Index baris terbesar m */
 IdxType getLastIdxCol(Matrix m);
 /* Mengirimkan Index kolom terbesar m */
-boolean isIdxEffMatrix(Matrix m, IdxType i, IdxType j);
+boolean isIdxEff(Matrix m, IdxType i, IdxType j);
 /* Mengirimkan true jika i, j adalah Index efektif bagi m */
 ElType getElmtDiagonal(Matrix m, IdxType i);
 /* Mengirimkan elemen m(i,i) */
@@ -131,6 +132,12 @@ void pTranspose(Matrix *m);
 /* I.S. m terdefinisi dan IsSquare(m) */
 /* F.S. m "di-transpose", yaitu setiap elemen m(i,j) ditukar nilainya dengan elemen m(j,i) */
 void RotateMat(Matrix *m);
-void getSimulatorLocation(Matrix m, int *idx_i, int *idx_j);
+
+int getEast (Matrix m, POINT currentpoint);
+
+int getWest (Matrix m, POINT currentpoint);
+int getNorth (Matrix m, POINT currentpoint);
+int getSouth (Matrix m, POINT currentpoint);
+POINT getSimulatorLocation (Matrix map);
 
 #endif
