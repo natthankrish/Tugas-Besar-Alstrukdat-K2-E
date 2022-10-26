@@ -15,6 +15,7 @@ int main () {
     Matrix mapconfig;
     ListStatik makananconfig;
     SIMULATOR BNMO;
+
     TIME machinetime;
     setClockZero(&machinetime);
 
