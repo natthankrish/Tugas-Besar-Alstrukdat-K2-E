@@ -6,7 +6,8 @@
 #include "loadConfig.c"
 
 
-void inputCommand (boolean *isStarted, boolean *isExit, Matrix *peta, ListStatik *makanan) {
+
+void inputCommand (boolean *isStarted, boolean *isExit, Matrix *peta, ListStatik *makanan, TIME *machinetime, SIMULATOR *BNMO) {
     printf("Enter Command: ");
     STARTWORD();
 
@@ -18,6 +19,7 @@ void inputCommand (boolean *isStarted, boolean *isExit, Matrix *peta, ListStatik
             *isStarted = true;
             printf("LOADING...\n");
             loadConfig(peta, makanan);
+            printf("Konfigurasi berhasil dimuat.\n");
         }
     } else if (compareString(currentWord.TabWord, currentWord.Length, "EXIT", 4)) {
         *isExit = true;
