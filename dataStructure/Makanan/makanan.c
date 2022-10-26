@@ -62,7 +62,7 @@ const char* getAction(MAKANAN M, boolean caps){
 void decreaseExpiry(MAKANAN *M){
 /*Mengurangi waktu expiry sebanyak 1 menit*/
 /*Tidak bisa kurang dari 0*/
-    (*M).expiry=PrevMinute((*M).expiry);
+    PrevMinute(&(*M).expiry);
     if(Expiry(*M)<0){
         (*M).expiry=MinuteToTIME(0);
     }
@@ -70,13 +70,13 @@ void decreaseExpiry(MAKANAN *M){
 
 void increaseExpiry(MAKANAN *M){
 /*Menambah waktu expiry sebanyak 1 menit*/
-    (*M).expiry=NextMinute((*M).expiry);
+    NextMinute(&(*M).expiry);
 }
 
 void decreaseDelivery(MAKANAN *M){
 /*Mengurangi waktu delivery sebanyak 1 menit*/
 /*Tidak bisa kurang dari 0*/
-    (*M).deliveryTime=PrevMinute((*M).deliveryTime);
+    PrevMinute(&(*M).deliveryTime);
     if(DeliveryTime(*M)<0){
         (*M).deliveryTime=MinuteToTIME(0);
     }
@@ -84,7 +84,7 @@ void decreaseDelivery(MAKANAN *M){
 
 void increaseDelivery(MAKANAN *M){
 /*Menambah waktu delivery sebanyak 1 menit*/
-    (*M).deliveryTime=NextMinute((*M).deliveryTime);
+    NextMinute(&(*M).deliveryTime);
 }
 
 boolean isExpired(MAKANAN M){
