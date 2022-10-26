@@ -3,7 +3,7 @@
 #define _USE_MATH_DEFINES
 #include <math.h>
 
-POINT MakePOINT (float X, float Y){
+POINT MakePOINT (int X, int Y){
     POINT p ;
     Absis(p) = X ;
     Ordinat(p) = Y;
@@ -12,12 +12,12 @@ POINT MakePOINT (float X, float Y){
 
 void BacaPOINT (POINT * P){
     float x, y;
-    scanf("%f %f", &x, &y);
+    scanf("%d %d", &x, &y);
     *P = MakePOINT(x, y);
 }
 
 void TulisPOINT (POINT P){
-    printf("(%.2f,%.2f)", Absis(P), Ordinat(P) );
+    printf("(%d,%d)", Absis(P), Ordinat(P) );
 }
 
 boolean EQ (POINT P1, POINT P2) {
