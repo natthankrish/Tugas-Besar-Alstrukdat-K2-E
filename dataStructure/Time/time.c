@@ -65,12 +65,24 @@ long TIMEToMinute (TIME T){
     return sum;
 }
 
+long CLOCKToMinute (TIME T){
+    long sum = Hour(T)*60 + Minute(T);
+    return sum;
+}
+
 
 TIME MinuteToTIME (long N){
     TIME time;
     Day(time) = N/1440;
     Hour(time) = (N%1440)/60;
     Minute(time) = (N%1440)%60;
+    return time;
+}
+
+TIME MinuteToCLOCK (long N){
+    TIME time;
+    Hour(time) = N/60;
+    Minute(time) = N%60;
     return time;
 }
 
@@ -106,36 +118,76 @@ TIME Longest(TIME T1, TIME T2){
     return T2;
 }
 
-TIME NextMinute (TIME T){
-    long minute = TIMEToMinute(T);
+void NextMinute (TIME *T){
+    long minute = TIMEToMinute(*T);
     minute= minute+1;
-    TIME Ti = MinuteToTIME(minute);
-    return Ti;
+    *T = MinuteToTIME(minute);
 }
 
-TIME NextNMinute (TIME T, int N){
-    long minute = TIMEToMinute(T);
+void NextMinuteClock (TIME *T){
+    long minute = CLOCKToMinute(*T);
+    if(minute+1>=1440){
+        minute-=1440;
+    }
+    minute= minute+1;
+    *T = MinuteToCLOCK(minute);
+}
+
+
+void NextNMinute (TIME *T, int N){
+    long minute = CLOCKToMinute(*T);
+    if(minute+N>=1440){
+        minute-=1440;
+    }
     minute=minute+N;
-    TIME Ti = MinuteToTIME(minute);
-    return Ti;
+    *T= MinuteToCLOCK(minute);
+}
+
+void NextNMinuteClock (TIME *T, int N){
+    long minute = TIMEToMinute(*T);
+    minute=minute+N;
+    *T= MinuteToTIME(minute);
 }
 
 void PrevMinute (TIME *T){
     long minute = TIMEToMinute(*T);
-    if(minute-N<0){
-        Hour(*T)--;
-        Minute(*T) = 60;
+    if(minute-1<0){
+        minute=0;
     }
-    Minute(*T)--;
+    else{
+        minute--;
+    }
+    *T=MinuteToTIME(minute);
+}
+
+void PrevMinuteClock(TIME *T){
+    long minute = CLOCKToMinute(*T);
+    if(minute-1<0){
+        minute=1440;
+    }
+    minute--;
+    *T=MinuteToCLOCK(minute);
 }
 
 void PrevNMinute (TIME *T, int N){
     long minute = TIMEToMinute(*T);
     if(minute-N<0){
-        Hour(*T)--;
-        Minute(*T) = Minute(*T)+60;
+        minute=0;
     }
-    Minute(*T)-=N;
+    else{
+        minute-=N;
+    }
+    *T=MinuteToTIME(minute);
+
+}
+
+void PrevNMinuteClock(TIME *T, int N){
+    long minute = CLOCKToMinute(*T);
+    if(minute-N<0){
+        minute=1440;
+    }
+    minute-=N;
+    *T=MinuteToCLOCK(minute);
 }
 
 long MinuteDuration(TIME Tbegin, TIME Tend){
