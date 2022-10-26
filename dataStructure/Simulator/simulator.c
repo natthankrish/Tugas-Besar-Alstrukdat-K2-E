@@ -6,20 +6,23 @@
 /* *** DEFINISI PROTOTIPE PRIMITIF *** */
 /* *** Konstruktor membentuk SIMULATOR *** */
 void CreateSIMULATOR (SIMULATOR * S, char X[], POINT P, PrioQueue I){
-    Nama(*S) = X;
+    copySimulatorName(X, Nama(*S));
     Lokasi(*S) = P;
     Inventory(*S) = I;
-    
-
 }
+
+void copySimulatorName (char input[], char output[]) {
+    for (int i = 0; i < 101; i++) {
+        if (input[i] != '\n') {
+            output[i] = input[i];
+        }
+    }
+}
+
 /* I.S. Sembarang */
 /* F.S. S terdefinisi */
 
 /* *** Kelompok Primitif *** */
-char * getName(SIMULATOR S){
-    return Nama(S);
-}
-/* Mendapatkan nama pengguna*/
 
 POINT getPoint(SIMULATOR S){
     return Lokasi(S);
@@ -31,9 +34,6 @@ PrioQueue getInventory(SIMULATOR S){
 }
 /* Mendapatkan inventory simulator saat ini*/
 
-void setName(SIMULATOR * S, char X[]){
-    Nama(*S) = X;
-}
 /* I.S. Sembarang */
 /* F.S. Nilai NAMA pada S diset sesuai input */
 

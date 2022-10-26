@@ -5,8 +5,8 @@
 #include "../PrioQueue/prioqueue.h"
 
 
-typedef struct { 
-	char NAMA[]; /* nama pengguna   */
+typedef struct simulator { 
+	char NAMA[101]; /* nama pengguna   */
 	POINT LOKASI; /* lokasi pada map */
     PrioQueue INVENTORY; /* inventory */
 } SIMULATOR;
@@ -23,18 +23,14 @@ void CreateSIMULATOR (SIMULATOR * S, char X[], POINT Y, PrioQueue Z);
 /* F.S. S terdefinisi */
 
 /* *** Kelompok Primitif *** */
-char * getName(SIMULATOR S);
-/* Mendapatkan nama pengguna*/
+
+void copySimulatorName (char input[], char output[]);
 
 POINT getPoint(SIMULATOR S);
 /* Mendapatkan lokasi simulator pada map pada saat ini*/
 
 PrioQueue getInventory(SIMULATOR S);
 /* Mendapatkan inventory simulator saat ini*/
-
-void setName(SIMULATOR * S, char X[]);
-/* I.S. Sembarang */
-/* F.S. Nilai NAMA pada S diset sesuai input */
 
 void setPoint(SIMULATOR * S, POINT P);
 /* I.S. Sembarang */
