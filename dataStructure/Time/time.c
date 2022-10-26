@@ -120,18 +120,22 @@ TIME NextNMinute (TIME T, int N){
     return Ti;
 }
 
-TIME PrevMinute (TIME T){
-    long minute = TIMEToMinute(T);
-    minute=minute-1;
-    TIME Ti = MinuteToTIME(minute);
-    return Ti;
+void PrevMinute (TIME *T){
+    long minute = TIMEToMinute(*T);
+    if(minute-N<0){
+        Hour(*T)--;
+        Minute(*T) = 60;
+    }
+    Minute(*T)--;
 }
 
-TIME PrevNMinute (TIME T, int N){
-    long minute = TIMEToMinute(T);
-    minute=minute-N;
-    TIME Ti = MinuteToTIME(minute);
-    return Ti;
+void PrevNMinute (TIME *T, int N){
+    long minute = TIMEToMinute(*T);
+    if(minute-N<0){
+        Hour(*T)--;
+        Minute(*T) = Minute(*T)+60;
+    }
+    Minute(*T)-=N;
 }
 
 long MinuteDuration(TIME Tbegin, TIME Tend){

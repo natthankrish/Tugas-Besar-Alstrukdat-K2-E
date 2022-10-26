@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include "../boolean.h"
 #include "makanan.h"
-#include "../Time/time.c"
+#include "../Time/time.h"
 
 void CreateFood(MAKANAN *M, int ID, char Nameinput[], TIME Expiry, int action, TIME deliverytime, DIMENSION size){
 /*Register food baru berdasarkan input*/

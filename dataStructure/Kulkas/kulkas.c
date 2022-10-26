@@ -160,7 +160,22 @@ void displayFoodList(KULKAS K){
 
 /* Menampilkan isi Kulkas K beserta list makanan yang ada di dalamnya*/
 void displayFridge(KULKAS K){
-    displayMatrix(Contents(K));
+    for(int i=0;i<FridgeWidth(K)+1;i++){
+        printf("*");
+    }
+    printf("*\n");
+    for(int i=0;i<FridgeHeight(K);i++){
+        printf("*");
+        for(int j=0;j<FridgeWidth(K);j++){
+            printf("%d",FridgeELMT(K,i,j));
+        }
+        printf("*\n");
+    }
+    for(int i=0;i<FridgeWidth(K)+1;i++){
+        printf("*");
+    }
+    printf("*\n");
+    //displayMatrix(Contents(K));
     displayFoodList(K);
 }
 

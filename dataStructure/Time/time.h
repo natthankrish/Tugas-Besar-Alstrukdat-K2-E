@@ -92,13 +92,13 @@ boolean TGT (TIME T1, TIME T2);
 /* Mengirimkan true jika T1>T2, false jika tidak */
 TIME Longest(TIME T1, TIME T2);
 /* *** Operator aritmatika TIME *** */
-TIME NextMinute (TIME T);
+void NextMinute (TIME *T);
 /* Mengirim 1 detik setelah T dalam bentuk TIME */
-TIME NextNMinute (TIME T, int N);
+void NextNMinute (TIME *T, int N);
 /* Mengirim N detik setelah T dalam bentuk TIME */
-TIME PrevMinute (TIME T);
+void PrevMinute (TIME *T);
 /* Mengirim 1 detik sebelum T dalam bentuk TIME */
-TIME PrevNMinute (TIME T, int N);
+void PrevNMinute (TIME *T, int N);
 /* Mengirim N detik sebelum T dalam bentuk TIME */
 /* *** Kelompok Operator Aritmetika *** */
 TIME Duration (TIME Tbegin, TIME Tend);
