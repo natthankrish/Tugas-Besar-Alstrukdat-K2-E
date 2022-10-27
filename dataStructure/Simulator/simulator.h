@@ -1,5 +1,5 @@
 #ifndef SIMULATOR_H
-#define SIMULAOR_H
+#define SIMULATOR_H
 #include "../boolean.h"
 #include "../Point/point.h"
 #include "../PrioQueue/prioqueue.h"
