@@ -72,11 +72,15 @@ long TIMEToMinute (TIME T);
 /* Rumus : detik = 3600*HH + 60*MM + SS */
 /* Nilai maksimum = 3600*23+59*60+59 */
 
+long CLOCKToMinute (TIME T);
+
 TIME MinuteToTIME (long N); 
 /* Mengirim  konversi detik ke TIME */
 /* Catatan: Jika N >= 86400, maka harus dikonversi dulu menjadi jumlah detik yang 
    mewakili jumlah detik yang mungkin dalam 1 hari, yaitu dengan rumus: 
    N1 = N mod 86400, baru N1 dikonversi menjadi TIME */
+
+TIME MinuteToCLOCK (long N);
 
 /* ***************************************************************** */
 /* KELOMPOK OPERASI TERHADAP TYPE                                    */
@@ -92,15 +96,21 @@ boolean TGT (TIME T1, TIME T2);
 /* Mengirimkan true jika T1>T2, false jika tidak */
 TIME Longest(TIME T1, TIME T2);
 /* *** Operator aritmatika TIME *** */
-TIME NextMinute (TIME T);
+void NextMinute (TIME *T);
 /* Mengirim 1 detik setelah T dalam bentuk TIME */
-TIME NextNMinute (TIME T, int N);
+void NextMinuteClock (TIME *T);
+
+void NextNMinute (TIME *T, int N);
 /* Mengirim N detik setelah T dalam bentuk TIME */
-TIME PrevMinute (TIME T);
+void NextNMinuteClock (TIME *T, int N);
+
+void PrevMinute (TIME *T);
 /* Mengirim 1 detik sebelum T dalam bentuk TIME */
-TIME PrevNMinute (TIME T, int N);
+void PrevMinuteClock(TIME *T);
+void PrevNMinute (TIME *T, int N);
 /* Mengirim N detik sebelum T dalam bentuk TIME */
 /* *** Kelompok Operator Aritmetika *** */
+void PrevNMinute (TIME *T, int N);
 TIME Duration (TIME Tbegin, TIME Tend);
 /* Mengirim TAkh-TAw dlm Detik, dengan kalkulasi */
 /* Jika TAw > TAkh, maka TAkh adalah 1 hari setelah TAw */

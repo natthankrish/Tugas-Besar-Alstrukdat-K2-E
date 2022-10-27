@@ -70,7 +70,7 @@ boolean isIdxListEff(ListStatik l, int i);
 boolean isEmpty(ListStatik l);
 /* Mengirimkan true jika List l kosong, mengirimkan false jika tidak */
 /* *** Test List penuh *** */
-boolean isFull(ListStatik l);
+boolean isListFull(ListStatik l);
 /* Mengirimkan true jika List l penuh, mengirimkan false jika tidak */
 
 /* ********** BACA dan TULIS dengan INPUT/OUTPUT device ********** */

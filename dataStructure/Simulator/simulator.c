@@ -5,21 +5,24 @@
 
 /* *** DEFINISI PROTOTIPE PRIMITIF *** */
 /* *** Konstruktor membentuk SIMULATOR *** */
-SIMULATOR CreateSIMULATOR (Word X, POINT P, PrioQueue I){
-    SIMULATOR S;
-    Nama(S) = X;
-    Lokasi(S) = P;
-    Inventory(S) = I;
-    return S;
-
+void CreateSIMULATOR (SIMULATOR * S, char X[], POINT P, PrioQueue I){
+    copySimulatorName(X, Nama(*S));
+    Lokasi(*S) = P;
+    Inventory(*S) = I;
 }
-/* Membentuk SIMULATOR sebgai output funsi */
+
+void copySimulatorName (char input[], char output[]) {
+    for (int i = 0; i < 101; i++) {
+        if (input[i] != '\n') {
+            output[i] = input[i];
+        }
+    }
+}
+
+/* I.S. Sembarang */
+/* F.S. S terdefinisi */
 
 /* *** Kelompok Primitif *** */
-Word getName(SIMULATOR S){
-    return Nama(S);
-}
-/* Mendapatkan nama pengguna*/
 
 POINT getPoint(SIMULATOR S){
     return Lokasi(S);
@@ -31,18 +34,17 @@ PrioQueue getInventory(SIMULATOR S){
 }
 /* Mendapatkan inventory simulator saat ini*/
 
-void setName(SIMULATOR * S, Word X){
-    Nama(*S) = X;
-}
-/* Mengubah nama pengguna pada simulator sesuai masukan yang diberikan pada parameter*/
+/* I.S. Sembarang */
+/* F.S. Nilai NAMA pada S diset sesuai input */
 
 void setPoint(SIMULATOR * S, POINT P){
     Lokasi(*S) = P;
 }
-/* Mengubah lokasi simulator pada peta sesuai dengna masukan yang diberikan pada paraeter*/
+/* I.S. Sembarang */
+/* F.S. Nilai LOKASI pada S diset sesuai input */
 
 void setInventory(SIMULATOR * S, PrioQueue I){
     Inventory(*S) = I;
 }
-/* Mengubah inventory sesuai dengan masukan yang diberikan pada parameter*/
-
+/* I.S. Sembarang */
+/* F.S. Nilai INVENTORY pada S diset sesuai input */

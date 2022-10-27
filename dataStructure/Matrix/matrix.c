@@ -485,3 +485,97 @@ void RotateMat(Matrix *m) {
         //}
     }
 }
+
+int getEast (Matrix m, POINT currentpoint) {
+    if (isIdxEff(m, Absis(currentpoint)++, Ordinat(currentpoint))) {
+        if (ELMT(m, Absis(currentpoint)++, Ordinat(currentpoint)) == 'T') {
+            return 1;
+        } else if (ELMT(m, Absis(currentpoint)++, Ordinat(currentpoint)) == 'C') {
+            return 2;
+        } else if (ELMT(m, Absis(currentpoint)++, Ordinat(currentpoint)) == 'F') {
+            return 3;
+        } else if (ELMT(m, Absis(currentpoint)++, Ordinat(currentpoint)) == 'B') {
+            return 4;
+        } else if (ELMT(m, Absis(currentpoint)++, Ordinat(currentpoint)) == 'M') {
+            return 5;
+        } if (ELMT(m, Absis(currentpoint)++, Ordinat(currentpoint)) == '#') {
+            return 0;
+        }
+    } else {
+        return -1;
+    }
+}
+
+int getWest (Matrix m, POINT currentpoint) {
+    if (isIdxEff(m, Absis(currentpoint)--, Ordinat(currentpoint))) {
+        if (ELMT(m, Absis(currentpoint)--, Ordinat(currentpoint)) == 'T') {
+            return 1;
+        } else if (ELMT(m, Absis(currentpoint)--, Ordinat(currentpoint)) == 'C') {
+            return 2;
+        } else if (ELMT(m, Absis(currentpoint)--, Ordinat(currentpoint)) == 'F') {
+            return 3;
+        } else if (ELMT(m, Absis(currentpoint)--, Ordinat(currentpoint)) == 'B') {
+            return 4;
+        } else if (ELMT(m, Absis(currentpoint)--, Ordinat(currentpoint)) == 'M') {
+            return 5;
+        } if (ELMT(m, Absis(currentpoint)--, Ordinat(currentpoint)) == '#') {
+            return 0;
+        }
+    } else {
+        return -1;
+    }
+}
+
+int getNorth (Matrix m, POINT currentpoint) {
+    if (isIdxEff(m, Absis(currentpoint), Ordinat(currentpoint)--)) {
+        if (ELMT(m, Absis(currentpoint), Ordinat(currentpoint)--) == 'T') {
+            return 1;
+        } else if (ELMT(m, Absis(currentpoint), Ordinat(currentpoint)--) == 'C') {
+            return 2;
+        } else if (ELMT(m, Absis(currentpoint), Ordinat(currentpoint)--) == 'F') {
+            return 3;
+        } else if (ELMT(m, Absis(currentpoint), Ordinat(currentpoint)--) == 'B') {
+            return 4;
+        } else if (ELMT(m, Absis(currentpoint), Ordinat(currentpoint)--) == 'M') {
+            return 5;
+        } if (ELMT(m, Absis(currentpoint), Ordinat(currentpoint)--) == '#') {
+            return 0;
+        }
+    } else {
+        return -1;
+    }
+}
+
+int getSouth (Matrix m, POINT currentpoint) {
+    if (isIdxEff(m, Absis(currentpoint), Ordinat(currentpoint)++)) {
+        if (ELMT(m, Absis(currentpoint), Ordinat(currentpoint)++) == 'T') {
+            return 1;
+        } else if (ELMT(m, Absis(currentpoint), Ordinat(currentpoint)++) == 'C') {
+            return 2;
+        } else if (ELMT(m, Absis(currentpoint), Ordinat(currentpoint)++) == 'F') {
+            return 3;
+        } else if (ELMT(m, Absis(currentpoint), Ordinat(currentpoint)++) == 'B') {
+            return 4;
+        } else if (ELMT(m, Absis(currentpoint), Ordinat(currentpoint)++) == 'M') {
+            return 5;
+        } if (ELMT(m, Absis(currentpoint), Ordinat(currentpoint)++) == '#') {
+            return 0;
+        }
+    } else {
+        return -1;
+    }
+}
+
+POINT getSimulatorLocation (Matrix map) {
+    int foundi, foundj;
+    for (int i = 0; i < ROW_EFF(map); i++) {
+        for (int j = 0; j < COL_EFF(map); j++) {
+            if (ELMT(map, i, j) == 'S') {
+                foundi = i;
+                foundj = j;
+            }
+        }
+    }
+    return MakePOINT(foundi, foundj);
+}
+

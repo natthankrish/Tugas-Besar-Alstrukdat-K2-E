@@ -3,10 +3,10 @@
 #include "../boolean.h"
 #include "../Point/point.h"
 #include "../PrioQueue/prioqueue.h"
-#include "../WordMachine/wordmachine.h"
 
-typedef struct { 
-	Word NAMA; /* nama pengguna   */
+
+typedef struct simulator { 
+	char NAMA[101]; /* nama pengguna   */
 	POINT LOKASI; /* lokasi pada map */
     PrioQueue INVENTORY; /* inventory */
 } SIMULATOR;
@@ -18,12 +18,13 @@ typedef struct {
         
 /* *** DEFINISI PROTOTIPE PRIMITIF *** */
 /* *** Konstruktor membentuk SIMULATOR *** */
-SIMULATOR CreateSIMULATOR (Word X, POINT Y, PrioQueue Z);
-/* Membentuk SIMULATOR sebgai output funsi */
+void CreateSIMULATOR (SIMULATOR * S, char X[], POINT Y, PrioQueue Z);
+/* I.S. Sembarang */
+/* F.S. S terdefinisi */
 
 /* *** Kelompok Primitif *** */
-Word getName(SIMULATOR S);
-/* Mendapatkan nama pengguna*/
+
+void copySimulatorName (char input[], char output[]);
 
 POINT getPoint(SIMULATOR S);
 /* Mendapatkan lokasi simulator pada map pada saat ini*/
@@ -31,17 +32,14 @@ POINT getPoint(SIMULATOR S);
 PrioQueue getInventory(SIMULATOR S);
 /* Mendapatkan inventory simulator saat ini*/
 
-void setName(SIMULATOR * S, Word X);
-/* Mengubah nama pengguna pada simulator sesuai masukan yang diberikan pada parameter*/
-
 void setPoint(SIMULATOR * S, POINT P);
-/* Mengubah lokasi simulator pada peta sesuai dengna masukan yang diberikan pada paraeter*/
+/* I.S. Sembarang */
+/* F.S. Nilai LOKASI pada S diset sesuai input */
 
 void setInventory(SIMULATOR * S, PrioQueue I);
-/* Mengubah inventory sesuai dengan masukan yang diberikan pada parameter*/
+/* I.S. Sembarang */
+/* F.S. Nilai INVENTORY pada S diset sesuai input */
 
 
-
-/* *** Kelompok ----*/
 
 #endif

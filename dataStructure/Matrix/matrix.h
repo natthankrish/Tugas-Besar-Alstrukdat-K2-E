@@ -4,6 +4,7 @@
 #define MATRIX_H
 
 #include "../boolean.h"
+#include "../Point/point.h"
 
 /* Ukuran maksimum baris dan kolom */
 #define ROW_CAP 100
@@ -131,5 +132,12 @@ void pTranspose(Matrix *m);
 /* I.S. m terdefinisi dan IsSquare(m) */
 /* F.S. m "di-transpose", yaitu setiap elemen m(i,j) ditukar nilainya dengan elemen m(j,i) */
 void RotateMat(Matrix *m);
+
+int getEast (Matrix m, POINT currentpoint);
+
+int getWest (Matrix m, POINT currentpoint);
+int getNorth (Matrix m, POINT currentpoint);
+int getSouth (Matrix m, POINT currentpoint);
+POINT getSimulatorLocation (Matrix map);
 
 #endif
