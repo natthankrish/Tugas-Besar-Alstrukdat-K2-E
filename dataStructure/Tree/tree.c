@@ -6,7 +6,7 @@ void CreateTree (TREE * T, MAKANAN parent, int jumlahAnak) {
 /* I.S. Sembarang */
 /* F.S. Terbentuk TREE dengan jumlah anak yang terdefinisi dan listChild kosong berukuran 10 */
     NumOfChild(*T) = jumlahAnak;
-    MAKANAN
+    Parent(T) = parent;
     ListStatik Childlist;
     CreateListStatik(&Childlist);
 }

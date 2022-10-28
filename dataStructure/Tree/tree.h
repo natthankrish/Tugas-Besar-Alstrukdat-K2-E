@@ -20,7 +20,7 @@ typedef struct {
 
 /* *** DEFINISI PROTOTIPE PRIMITIF *** */
 /* *** Konstruktor membentuk TREE *** */
-void CreateTree (TREE * T, int jumlahAnak);
+void CreateTree (TREE * T, MAKANAN parent, int jumlahAnak);
 /* I.S. Sembarang */
 /* F.S. Terbentuk TREE dengan jumlah anak 
    yang terdefinisi dan listChild kosong berukuran 10 */
