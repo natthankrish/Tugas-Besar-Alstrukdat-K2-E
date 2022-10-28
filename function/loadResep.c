@@ -3,7 +3,7 @@
 #include "../Makanan/makanan.h"
 #include "../WordMachine/wordmachinefile.h"
 
-MAKANAN getMakananFromID(int ID, ListStatik listMakanan) {
+MAKANAN getMakananByID(int ID, ListStatik listMakanan) {
     MAKANAN Food;
     for (int j = 0; j < Lengthlist(listMakanan); j++) {
         MAKANAN curFood = ELMTlistMakanan(listMakanan, j);
@@ -32,7 +32,7 @@ ListStatik loadResep(ListStatik listMakanan) {
         // menentukan parent dari curTree
         int IDcurParent;
         copyIntegerFromWordMachine(&IDcurParent, currentWordFile);
-        MAKANAN curParent = getMakananFromID(IDcurParent, listMakanan);
+        MAKANAN curParent = getMakananByID(IDcurParent, listMakanan);
         ADVWORDFILE();        
 
         // menentukan jumlah anak dari curTree
@@ -47,7 +47,7 @@ ListStatik loadResep(ListStatik listMakanan) {
             int IDcurChild;
             copyIntegerFromWordMachine(&IDcurChild, currentWordFile);
 
-            MAKANAN child = getMakananFromID(IDcurChild, listMakanan);
+            MAKANAN child = getMakananByID(IDcurChild, listMakanan);
             setChild(&curTree, child);
             ADVWORDFILE();
         }
