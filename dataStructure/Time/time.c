@@ -44,7 +44,7 @@ void SetTIME (TIME * T){
 void displayCLOCK(TIME T){
 /*Menampilkan jam*/
 /*Pastikan time yang dimasukkan merupakan time clock dan bukan time biasa*/
-    printf("%d.%d", Hour(T), Minute(T));
+    printf("%0.2d.%0.2d", Hour(T), Minute(T));
 }
 
 void DisplayExpiryTIME (TIME T){

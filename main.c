@@ -23,7 +23,7 @@ int main () {
     inputCommand(&isStarted, &isExit, &mapconfig, &makananconfig, &machinetime, &BNMO);
     while (!isExit) {
         if (isStarted) {
-            printStatus(mapconfig, machinetime);
+            printStatus(mapconfig, machinetime, BNMO);
         }
         inputCommand(&isStarted, &isExit, &mapconfig, &makananconfig, &machinetime, &BNMO);
     }

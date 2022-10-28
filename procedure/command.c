@@ -2,6 +2,10 @@
 #include "../dataStructure/CharMachine/charmachine.c"
 #include "../dataStructure/WordMachine/wordmachine.c"
 #include "../function/compareString.c"
+#include "moveNorth.c"
+#include "moveSouth.c"
+#include "moveEast.c"
+#include "moveWest.c"
 #include "catalog.c"
 #include "loadConfig.c"
 
@@ -20,7 +24,6 @@ void inputCommand (boolean *isStarted, boolean *isExit, Matrix *peta, ListStatik
                 printf("LOADING...\n");
                 loadConfig(peta, makanan);
                 POINT p = getSimulatorLocation(*peta);
-                printf("%d %d\n", p.X, p.Y);
                 printf("Masukkan nama pengguna: ");
                 START();
                 char BNMOName[100];
@@ -93,7 +96,27 @@ void inputCommand (boolean *isStarted, boolean *isExit, Matrix *peta, ListStatik
                 if (!(*isStarted)) {
                     printf("Program belum dimulai. silahkan jalankan command START terlebih dahulu.\n");
                 } else {
-                    printf("north");
+                    int movestatus = getNorth(*peta, Lokasi(*BNMO));
+                    if (movestatus == 0) {
+                        moveNorth(BNMO, peta);
+                    } else {
+                        printf("Tidak bisa bergerak ke utara. ");
+                        if (movestatus == 1) {
+                            printf("Ada kios telepon.\n");
+                        } else if (movestatus == 2) {
+                            printf("Ada kios pemotongan makanan.\n");
+                        } else if (movestatus == 3) {
+                            printf("Ada kios penggorengan makanan.\n");
+                        } else if (movestatus == 4) {
+                            printf("Ada kios perebusan makanan.\n");
+                        } else if (movestatus == 5) {
+                            printf("Ada kios pencampuran makanan.\n");
+                        } else if (movestatus == 6) {
+                            printf("Ada tembok.\n");
+                        } else {
+                            printf("Ada batas peta.\n");
+                        }
+                    }
                 }
             } else {
                 while (!endWord) {
@@ -106,8 +129,27 @@ void inputCommand (boolean *isStarted, boolean *isExit, Matrix *peta, ListStatik
                 if (!(*isStarted)) {
                     printf("Program belum dimulai. silahkan jalankan command START terlebih dahulu.\n");
                 } else {
-                    
-                    printf("south");
+                    int movestatus = getSouth(*peta, Lokasi(*BNMO));
+                    if (movestatus == 0) {
+                        moveSouth(BNMO, peta);
+                    } else {
+                        printf("Tidak bisa bergerak ke selatan. ");
+                        if (movestatus == 1) {
+                            printf("Ada kios telepon.\n");
+                        } else if (movestatus == 2) {
+                            printf("Ada kios pemotongan makanan.\n");
+                        } else if (movestatus == 3) {
+                            printf("Ada kios penggorengan makanan.\n");
+                        } else if (movestatus == 4) {
+                            printf("Ada kios perebusan makanan.\n");
+                        } else if (movestatus == 5) {
+                            printf("Ada kios pencampuran makanan.\n");
+                        } else if (movestatus == 6) {
+                            printf("Ada tembok.\n");
+                        } else {
+                            printf("Ada batas peta.\n");
+                        }
+                    }
                 }
             } else {
                 while (!endWord) {
@@ -120,7 +162,27 @@ void inputCommand (boolean *isStarted, boolean *isExit, Matrix *peta, ListStatik
                 if (!(*isStarted)) {
                     printf("Program belum dimulai. silahkan jalankan command START terlebih dahulu.\n");
                 } else {
-                    printf("east");
+                    int movestatus = getEast(*peta, Lokasi(*BNMO));
+                    if (movestatus == 0) {
+                        moveEast(BNMO, peta);
+                    } else {
+                        printf("Tidak bisa bergerak ke timur. ");
+                        if (movestatus == 1) {
+                            printf("Ada kios telepon.\n");
+                        } else if (movestatus == 2) {
+                            printf("Ada kios pemotongan makanan.\n");
+                        } else if (movestatus == 3) {
+                            printf("Ada kios penggorengan makanan.\n");
+                        } else if (movestatus == 4) {
+                            printf("Ada kios perebusan makanan.\n");
+                        } else if (movestatus == 5) {
+                            printf("Ada kios pencampuran makanan.\n");
+                        }  else if (movestatus == 6) {
+                            printf("Ada tembok.\n");
+                        } else {
+                            printf("Ada batas peta.\n");
+                        }
+                    }
                 }
             } else {
                 while (!endWord) {
@@ -133,7 +195,27 @@ void inputCommand (boolean *isStarted, boolean *isExit, Matrix *peta, ListStatik
                 if (!(*isStarted)) {
                     printf("Program belum dimulai. silahkan jalankan command START terlebih dahulu.\n");
                 } else {
-                    printf("west");
+                    int movestatus = getWest(*peta, Lokasi(*BNMO));
+                    if (movestatus == 0) {
+                        moveWest(BNMO, peta);
+                    } else {
+                        printf("Tidak bisa bergerak ke barat. ");
+                        if (movestatus == 1) {
+                            printf("Ada kios telepon.\n");
+                        } else if (movestatus == 2) {
+                            printf("Ada kios pemotongan makanan.\n");
+                        } else if (movestatus == 3) {
+                            printf("Ada kios penggorengan makanan.\n");
+                        } else if (movestatus == 4) {
+                            printf("Ada kios perebusan makanan.\n");
+                        } else if (movestatus == 5) {
+                            printf("Ada kios pencampuran makanan.\n");
+                        }  else if (movestatus == 6) {
+                            printf("Ada tembok.\n");
+                        } else {
+                            printf("Ada batas peta.\n");
+                        }
+                    }
                 }
             } else {
                 while (!endWord) {

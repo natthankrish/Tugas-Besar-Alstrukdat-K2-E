@@ -487,19 +487,21 @@ void RotateMat(Matrix *m) {
 }
 
 int getEast (Matrix m, POINT currentpoint) {
-    if (isIdxEff(m, Absis(currentpoint)++, Ordinat(currentpoint))) {
-        if (ELMT(m, Absis(currentpoint)++, Ordinat(currentpoint)) == 'T') {
+    if (isIdxEff(m, Absis(currentpoint), Ordinat(currentpoint)+1)) {
+        if (ELMT(m, Absis(currentpoint), Ordinat(currentpoint)+1) == 'T') {
             return 1;
-        } else if (ELMT(m, Absis(currentpoint)++, Ordinat(currentpoint)) == 'C') {
+        } else if (ELMT(m, Absis(currentpoint), Ordinat(currentpoint)+1) == 'C') {
             return 2;
-        } else if (ELMT(m, Absis(currentpoint)++, Ordinat(currentpoint)) == 'F') {
+        } else if (ELMT(m, Absis(currentpoint), Ordinat(currentpoint)+1) == 'F') {
             return 3;
-        } else if (ELMT(m, Absis(currentpoint)++, Ordinat(currentpoint)) == 'B') {
+        } else if (ELMT(m, Absis(currentpoint), Ordinat(currentpoint)+1) == 'B') {
             return 4;
-        } else if (ELMT(m, Absis(currentpoint)++, Ordinat(currentpoint)) == 'M') {
+        } else if (ELMT(m, Absis(currentpoint), Ordinat(currentpoint)+1) == 'M') {
             return 5;
-        } if (ELMT(m, Absis(currentpoint)++, Ordinat(currentpoint)) == '#') {
+        } else if (ELMT(m, Absis(currentpoint), Ordinat(currentpoint)+1) == '#') {
             return 0;
+        } else {
+            return 6;
         }
     } else {
         return -1;
@@ -507,19 +509,21 @@ int getEast (Matrix m, POINT currentpoint) {
 }
 
 int getWest (Matrix m, POINT currentpoint) {
-    if (isIdxEff(m, Absis(currentpoint)--, Ordinat(currentpoint))) {
-        if (ELMT(m, Absis(currentpoint)--, Ordinat(currentpoint)) == 'T') {
+    if (isIdxEff(m, Absis(currentpoint), Ordinat(currentpoint)-1)) {
+        if (ELMT(m, Absis(currentpoint), Ordinat(currentpoint)-1) == 'T') {
             return 1;
-        } else if (ELMT(m, Absis(currentpoint)--, Ordinat(currentpoint)) == 'C') {
+        } else if (ELMT(m, Absis(currentpoint), Ordinat(currentpoint)-1) == 'C') {
             return 2;
-        } else if (ELMT(m, Absis(currentpoint)--, Ordinat(currentpoint)) == 'F') {
+        } else if (ELMT(m, Absis(currentpoint), Ordinat(currentpoint)-1) == 'F') {
             return 3;
-        } else if (ELMT(m, Absis(currentpoint)--, Ordinat(currentpoint)) == 'B') {
+        } else if (ELMT(m, Absis(currentpoint), Ordinat(currentpoint)-1) == 'B') {
             return 4;
-        } else if (ELMT(m, Absis(currentpoint)--, Ordinat(currentpoint)) == 'M') {
+        } else if (ELMT(m, Absis(currentpoint), Ordinat(currentpoint)-1) == 'M') {
             return 5;
-        } if (ELMT(m, Absis(currentpoint)--, Ordinat(currentpoint)) == '#') {
+        } else if (ELMT(m, Absis(currentpoint), Ordinat(currentpoint)-1) == '#') {
             return 0;
+        } else {
+            return 6;
         }
     } else {
         return -1;
@@ -527,19 +531,21 @@ int getWest (Matrix m, POINT currentpoint) {
 }
 
 int getNorth (Matrix m, POINT currentpoint) {
-    if (isIdxEff(m, Absis(currentpoint), Ordinat(currentpoint)--)) {
-        if (ELMT(m, Absis(currentpoint), Ordinat(currentpoint)--) == 'T') {
+    if (isIdxEff(m, Absis(currentpoint)-1, Ordinat(currentpoint))) {
+        if (ELMT(m, Absis(currentpoint)-1, Ordinat(currentpoint)) == 'T') {
             return 1;
-        } else if (ELMT(m, Absis(currentpoint), Ordinat(currentpoint)--) == 'C') {
+        } else if (ELMT(m, Absis(currentpoint)-1, Ordinat(currentpoint)) == 'C') {
             return 2;
-        } else if (ELMT(m, Absis(currentpoint), Ordinat(currentpoint)--) == 'F') {
+        } else if (ELMT(m, Absis(currentpoint)-1, Ordinat(currentpoint)) == 'F') {
             return 3;
-        } else if (ELMT(m, Absis(currentpoint), Ordinat(currentpoint)--) == 'B') {
+        } else if (ELMT(m, Absis(currentpoint)-1, Ordinat(currentpoint)) == 'B') {
             return 4;
-        } else if (ELMT(m, Absis(currentpoint), Ordinat(currentpoint)--) == 'M') {
+        } else if (ELMT(m, Absis(currentpoint)-1, Ordinat(currentpoint)) == 'M') {
             return 5;
-        } if (ELMT(m, Absis(currentpoint), Ordinat(currentpoint)--) == '#') {
+        } else if (ELMT(m, Absis(currentpoint)-1, Ordinat(currentpoint)) == '#') {
             return 0;
+        } else {
+            return 6;
         }
     } else {
         return -1;
@@ -547,19 +553,21 @@ int getNorth (Matrix m, POINT currentpoint) {
 }
 
 int getSouth (Matrix m, POINT currentpoint) {
-    if (isIdxEff(m, Absis(currentpoint), Ordinat(currentpoint)++)) {
-        if (ELMT(m, Absis(currentpoint), Ordinat(currentpoint)++) == 'T') {
+    if (isIdxEff(m, Absis(currentpoint)+1, Ordinat(currentpoint))) {
+        if (ELMT(m, Absis(currentpoint)+1, Ordinat(currentpoint)) == 'T') {
             return 1;
-        } else if (ELMT(m, Absis(currentpoint), Ordinat(currentpoint)++) == 'C') {
+        } else if (ELMT(m, Absis(currentpoint)+1, Ordinat(currentpoint)) == 'C') {
             return 2;
-        } else if (ELMT(m, Absis(currentpoint), Ordinat(currentpoint)++) == 'F') {
+        } else if (ELMT(m, Absis(currentpoint)+1, Ordinat(currentpoint)) == 'F') {
             return 3;
-        } else if (ELMT(m, Absis(currentpoint), Ordinat(currentpoint)++) == 'B') {
+        } else if (ELMT(m, Absis(currentpoint)+1, Ordinat(currentpoint)) == 'B') {
             return 4;
-        } else if (ELMT(m, Absis(currentpoint), Ordinat(currentpoint)++) == 'M') {
+        } else if (ELMT(m, Absis(currentpoint)+1, Ordinat(currentpoint)) == 'M') {
             return 5;
-        } if (ELMT(m, Absis(currentpoint), Ordinat(currentpoint)++) == '#') {
+        } else if (ELMT(m, Absis(currentpoint)+1, Ordinat(currentpoint)) == '#') {
             return 0;
+        } else {
+            return 6;
         }
     } else {
         return -1;

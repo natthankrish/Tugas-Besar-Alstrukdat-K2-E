@@ -14,7 +14,7 @@ void IgnoreBlanksFile() {
     /* Mengabaikan satu atau beberapa BLANK
     I.S. : currentChar sembarang
     F.S. : currentChar ≠ BLANK atau currentChar = MARK */
-    while (currentCharFile == BLANK || currentCharFile == '\n') {
+    while (currentCharFile == BLANK) {
         ADVFILE();
     }
 }

@@ -1,9 +1,16 @@
 #include <stdio.h>
 #include "../dataStructure/Matrix/matrix.h"
 
-void printStatus (Matrix mapconfig, TIME time) {
+void printStatus (Matrix mapconfig, TIME time, SIMULATOR simulator) {
     printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
-    printf("BNMO ada di posisi: \n");
+    char simName[101];
+    copySimulatorName(Nama(simulator), simName);
+    for (int i = 0; i < 101; i++) {
+        printf("%c", simName[i]);
+    }
+    printf(" ada di posisi: ");
+    TulisPOINT(getPoint(simulator));
+    printf("\n");
     printf("Waktu: ");
     displayCLOCK(time);
     printf("\n");
