@@ -8,6 +8,7 @@
 
 #include "../boolean.h"
 #include "../Makanan/makanan.h"
+#include "../Tree/tree.h"
 
 /*  Kamus Umum */
 #define CAPACITY 100
@@ -17,10 +18,17 @@
 #define IDX_UNDEF -1
 /* Indeks tak terdefinisi*/
 
+typedef union {
+   MAKANAN food;
+   TREE parent;
+} ElType;
+
+#define Makanan(E) ElType.food
+#define Tree(E) ElType.parent
 
 /* Definisi elemen dan koleksi objek */
 typedef struct {
-   MAKANAN contents[CAPACITY]; /* memori tempat penyimpan elemen (container) */
+   ElType contents[CAPACITY]; /* memori tempat penyimpan elemen (container) */
    int length;
 } ListStatik;
 /* Indeks yang digunakan [0..CAPACITY-1] */
@@ -34,6 +42,8 @@ typedef struct {
 
 /* ********** SELEKTOR ********** */
 #define ELMTlist(l, i) (l).contents[(i)]
+#define ELMTlistMakanan(l,i) Makanan((l).contents[(i)])
+#define ELMTlistTree(l,i) Tree((l).contents[(i)])
 #define Lengthlist(l) (l).length
 
 /* ********** KONSTRUKTOR ********** */
@@ -50,10 +60,10 @@ int listLengthlist(ListStatik l);
 /* Mengirimkan nol jika List kosong */  
 
 /* *** Selektor INDEKS *** */
-MAKANAN getFirstIdx(ListStatik l);
+ElType getFirstIdx(ListStatik l);
 /* Prekondisi : List l tidak kosong */
 /* Mengirimkan indeks elemen l pertama */
-MAKANAN getLastIdx(ListStatik l);
+ElType getLastIdx(ListStatik l);
 /* Prekondisi : List l tidak kosong */
 /* Mengirimkan indeks elemen l terakhir */
 
@@ -111,50 +121,50 @@ int indexOfID(ListStatik l, int val);
 int indexOfFood(ListStatik l, char val[101]);
 
 /* ********** NILAI EKSTREM ********** */
-void extremeValuesExpiry(ListStatik l, MAKANAN *max, MAKANAN *min);
+void extremeValuesExpiry(ListStatik l, ElType *max, ElType *min);
 /* I.S. List l tidak kosong */
 /* F.S. Max berisi nilai terbesar dalam l;
         Min berisi nilai terkecil dalam l */
 
-void extremeValuesDelivery(ListStatik l, MAKANAN *max, MAKANAN *min);
+void extremeValuesDelivery(ListStatik l, ElType *max, ElType *min);
 /* I.S. List l tidak kosong */
 /* F.S. Max berisi nilai terbesar dalam l;
         Min berisi nilai terkecil dalam l */
 
 /* ********** MENAMBAH ELEMEN ********** */
 /* *** Menambahkan elemen terakhir *** */
-void insertFirst(ListStatik *l, MAKANAN val);
+void insertFirst(ListStatik *l, ElType val);
 /* Proses: Menambahkan val sebagai elemen pertama List */
 /* I.S. List l boleh kosong, tetapi tidak penuh */
 /* F.S. val adalah elemen pertama l yang baru */
 /* *** Menambahkan elemen pada index tertentu *** */
-void insertAt(ListStatik *l, MAKANAN val, int idx);
+void insertAt(ListStatik *l, ElType val, int idx);
 /* Proses: Menambahkan val sebagai elemen pada index idx List */
 /* I.S. List l tidak kosong dan tidak penuh, idx merupakan index yang valid di l */
 /* F.S. val adalah elemen yang disisipkan pada index idx l */
 /* *** Menambahkan elemen terakhir *** */
-void insertLast(ListStatik *l, MAKANAN val);
+void insertLast(ListStatik *l, ElType val);
 /* Proses: Menambahkan val sebagai elemen terakhir List */
 /* I.S. List l boleh kosong, tetapi tidak penuh */
 /* F.S. val adalah elemen terakhir l yang baru */
 
 /* ********** MENGHAPUS ELEMEN ********** */
 /* *** Menghapus elemen pertama *** */
-void deleteFirst(ListStatik *l, MAKANAN *val);
+void deleteFirst(ListStatik *l, ElType *val);
 /* Proses : Menghapus elemen pertama List */
 /* I.S. List tidak kosong */
 /* F.S. val adalah nilai elemen pertama l sebelum penghapusan, */
 /*      Banyaknya elemen List berkurang satu */
 /*      List l mungkin menjadi kosong */
 /* *** Menghapus elemen pada index tertentu *** */
-void deleteAt(ListStatik *l, MAKANAN *val, int idx);
+void deleteAt(ListStatik *l, ElType *val, int idx);
 /* Proses : Menghapus elemen pada index idx List */
 /* I.S. List tidak kosong, idx adalah index yang valid di l */
 /* F.S. val adalah nilai elemen pada index idx l sebelum penghapusan, */
 /*      Banyaknya elemen List berkurang satu */
 /*      List l mungkin menjadi kosong */
 /* *** Menghapus elemen terakhir *** */
-void deleteLast(ListStatik *l, MAKANAN *val);
+void deleteLast(ListStatik *l, ElType *val);
 /* Proses : Menghapus elemen terakhir List */
 /* I.S. List tidak kosong */
 /* F.S. val adalah nilai elemen terakhir l sebelum penghapusan, */
