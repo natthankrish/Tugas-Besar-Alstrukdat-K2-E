@@ -6,7 +6,7 @@
 MAKANAN getMakananByID(int ID, ListStatik listMakanan) {
     MAKANAN Food;
     for (int j = 0; j < Lengthlist(listMakanan); j++) {
-        MAKANAN curFood = ELMTlistMakanan(listMakanan, j);
+        MAKANAN curFood = ELMTlist(listMakanan, j);
         if (ID = ID(curFood)) {
             Food = curFood;
             break;

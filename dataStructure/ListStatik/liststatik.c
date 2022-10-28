@@ -13,12 +13,12 @@ void CreateListStatik(ListStatik *l){
 }
 
 //Mengambil elemen pertama
-ElType getFirstElmt(ListStatik l){
+MAKANAN getFirstElmt(ListStatik l){
     return ELMTlist(l,0);
 }
 
 //Mengambil elemen terakhir
-ElType getLastElmt(ListStatik l){
+MAKANAN getLastElmt(ListStatik l){
 /* Prekondisi : List l tidak kosong */
 /* Mengirimkan indeks elemen l terakhir */
     return ELMTlist(l,Lengthlist(l)-1);
@@ -64,7 +64,7 @@ void readList(ListStatik *l){
     CreateListStatik(l);
     if(n!=0){
         i=0;
-        ElType temp;
+        MAKANAN temp;
         while(i<n){
             Lengthlist(*l)++;
             scanf("%d",&temp);
@@ -124,7 +124,7 @@ int indexOfFood(ListStatik l, char val[101]){
 }
 
 /* ********** NILAI EKSTREM ********** */
-void extremeValuesExpiry(ListStatik l, ElType *max, ElType *min){
+void extremeValuesExpiry(ListStatik l, MAKANAN *max, MAKANAN *min){
 /* I.S. List l tidak kosong */
 /* F.S. Max berisi nilai terbesar dalam l;
         Min berisi nilai terkecil dalam l */
@@ -147,7 +147,7 @@ void extremeValuesExpiry(ListStatik l, ElType *max, ElType *min){
     }
 }
 
-void extremeValuesDelivery(ListStatik l, ElType *max, ElType *min){
+void extremeValuesDelivery(ListStatik l, MAKANAN *max, MAKANAN *min){
 /* I.S. List l tidak kosong */
 /* F.S. Max berisi nilai terbesar dalam l;
         Min berisi nilai terkecil dalam l */
@@ -172,7 +172,7 @@ void extremeValuesDelivery(ListStatik l, ElType *max, ElType *min){
 
 /* ********** MENAMBAH ELEMEN ********** */
 /* *** Menambahkan elemen terakhir *** */
-void insertFirst(ListStatik *l, ElType val){
+void insertFirst(ListStatik *l, MAKANAN val){
 /* Proses: Menambahkan val sebagai elemen pertama List */
 /* I.S. List l boleh kosong, tetapi tidak penuh */
 /* F.S. val adalah elemen pertama l yang baru */
@@ -192,7 +192,7 @@ void insertFirst(ListStatik *l, ElType val){
 }
 
 /* *** Menambahkan elemen pada index tertentu *** */
-void insertAt(ListStatik *l, ElType val, int idx){
+void insertAt(ListStatik *l, MAKANAN val, int idx){
 /* Proses: Menambahkan val sebagai elemen pada index idx List */
 /* I.S. List l tidak kosong dan tidak penuh, idx merupakan index yang valid di l */
 /* F.S. val adalah elemen yang disisipkan pada index idx l */
@@ -208,7 +208,7 @@ void insertAt(ListStatik *l, ElType val, int idx){
     }
 }
 
-void insertLast(ListStatik *l, ElType val){
+void insertLast(ListStatik *l, MAKANAN val){
 /* Proses: Menambahkan val sebagai elemen terakhir List */
 /* I.S. List l boleh kosong, tetapi tidak penuh */
 /* F.S. val adalah elemen terakhir l yang baru */
@@ -222,7 +222,7 @@ void insertLast(ListStatik *l, ElType val){
 
 /* ********** MENGHAPUS ELEMEN ********** */
 /* *** Menghapus elemen pertama *** */
-void deleteFirst(ListStatik *l, ElType *val){
+void deleteFirst(ListStatik *l, MAKANAN *val){
 /* Proses : Menghapus elemen pertama List */
 /* I.S. List tidak kosong */
 /* F.S. val adalah nilai elemen pertama l sebelum penghapusan, */
@@ -241,7 +241,7 @@ void deleteFirst(ListStatik *l, ElType *val){
 }
 
 /* *** Menghapus elemen pada index tertentu *** */
-void deleteAt(ListStatik *l, ElType *val, int idx){
+void deleteAt(ListStatik *l, MAKANAN *val, int idx){
 /* I.S. List tidak kosong, idx adalah index yang valid di l */
 /* F.S. val adalah nilai elemen pada index idx l sebelum penghapusan, */
 /*      Banyaknya elemen List berkurang satu */
@@ -251,7 +251,7 @@ void deleteAt(ListStatik *l, ElType *val, int idx){
         *val = ELMTlist(*l, idx);
         while(i<Lengthlist(*l)-1){
             // printf("test\n");
-            ElType temp = ELMTlist(*l,i+1);
+            MAKANAN temp = ELMTlist(*l,i+1);
             ELMTlist(*l,i)=temp;
             i++;
         }
@@ -261,7 +261,7 @@ void deleteAt(ListStatik *l, ElType *val, int idx){
 }
 
 /* *** Menghapus elemen terakhir *** */
-void deleteLast(ListStatik *l, ElType *val){
+void deleteLast(ListStatik *l, MAKANAN *val){
 /* I.S. List tidak kosong */
 /* F.S. val adalah nilai elemen terakhir l sebelum penghapusan, */
 /*      Banyaknya elemen List berkurang satu */
@@ -283,7 +283,7 @@ void sortListExpiry(ListStatik *l, boolean asc){
    algoritma bebas */
     if(asc){
         int i,j;
-        ElType min;
+        MAKANAN min;
         i=0;
         while(i<Lengthlist(*l)-1){
             j=i+1;
@@ -296,14 +296,14 @@ void sortListExpiry(ListStatik *l, boolean asc){
                 }
                 j++;
             }
-            ElType val1;
+            MAKANAN val1;
             deleteAt(l, &val1, minidx);
             insertAt(l, min, i); //min
             i++;
         }
     }else{
         int i,j;
-        ElType max;
+        MAKANAN max;
         i=0;
         while(i<Lengthlist(*l)-1){
             j=i+1;
@@ -316,7 +316,7 @@ void sortListExpiry(ListStatik *l, boolean asc){
                 }
                 j++;
             }
-            ElType val1;      
+            MAKANAN val1;      
             insertAt(l, max, i);
             deleteAt(l, &val1, maxidx+1);
             i++;
@@ -331,7 +331,7 @@ void sortListDelivery(ListStatik *l, boolean asc){
 /*      Jika asc = false, l terurut mengecil */
     if(asc){
         int i,j;
-        ElType min;
+        MAKANAN min;
         i=0;
         while(i<Lengthlist(*l)-1){
             j=i+1;
@@ -344,14 +344,14 @@ void sortListDelivery(ListStatik *l, boolean asc){
                 }
                 j++;
             }
-            ElType val1;
+            MAKANAN val1;
             deleteAt(l, &val1, minidx);
             insertAt(l, min, i); //min
             i++;
         }
     }else{
         int i,j;
-        ElType max;
+        MAKANAN max;
         i=0;
         while(i<Lengthlist(*l)-1){
             j=i+1;
@@ -364,7 +364,7 @@ void sortListDelivery(ListStatik *l, boolean asc){
                 }
                 j++;
             }
-            ElType val1;     
+            MAKANAN val1;     
             insertAt(l, max, i);
             deleteAt(l, &val1, maxidx+1);
             i++;

@@ -5,6 +5,14 @@
 #include "../ListStatik/liststatik.h"
 #include "../Makanan/makanan.h"
 
+/* *** Definisi LIST TREE  *** */
+typedef struct {
+   TREE contents[100];
+   int length;
+}ListTree;
+
+#define ELMTListTree(l, i) (l).contents[i]
+#define ListTreeLength(l) (l).length
 
 /* *** Definisi TYPE TREE  *** */
 typedef struct {
