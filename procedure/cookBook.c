@@ -3,8 +3,8 @@
 #include "../dataStructure/ListStatik/liststatik.h"
 #include "../dataStructure/Makanan/makanan.h"
 
-void printCatalog(ListTree listResep, ListStatik listMakanan){
-    printf("List Resep\n");
+void printCatalog(ListTree listResep){
+    printf("\nList Resep\n");
     printf("  ( aksi yang diperlukan - bahan... )\n");
     int i, j, k;
     for(i = 0; i < ListTreeLength(listResep); i++){
@@ -29,7 +29,7 @@ void printCatalog(ListTree listResep, ListStatik listMakanan){
         for(j = 0; j < ELMTListTree(listResep,i).numChild; j++){
             printf(" - ");
             for(k = 0; k < 101; k++){
-                printf("%c", ELMTListTree(listResep,i).listChild.contents[j].name[k])
+                printf("%c", ELMTListTree(listResep,i).listChild.contents[j].name[k]);
             }
         }
 
