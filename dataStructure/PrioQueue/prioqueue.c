@@ -44,7 +44,7 @@ void Enqueue (PrioQueue * Q, MAKANAN X){
     Tail(*Q) = (Tail(*Q)+1) % MaxEl(*Q);
     InfoTail(*Q) = X;
     int i = Tail(*Q) == 0 ? NBElmt(*Q) - 1 : Tail(*Q) - 1;
-    while (i != Head(*Q) && TLT(X.expiry , Elmt(*Q,i).expiry)) {
+    while (i != Head(*Q) && ExpiryLT(X, Elmt(*Q,i))) {
       temp = Elmt(*Q,i);
       Elmt(*Q,i) = X;
       Elmt(*Q, i+1) = temp;
@@ -56,7 +56,7 @@ void Enqueue (PrioQueue * Q, MAKANAN X){
       }
     }
 
-    if (i == Head(*Q) && TLT(X.expiry , Elmt(*Q, i).expiry)) {
+    if (i == Head(*Q) && ExpiryLT(X, Elmt(*Q,i))) {
       temp = Elmt(*Q,i);
       Elmt(*Q,i) = X;
       Elmt(*Q, i+1) = temp;
@@ -74,15 +74,3 @@ void Dequeue (PrioQueue * Q, MAKANAN * X){
     Head(*Q) = (Head(*Q) + 1) % MaxEl(*Q);
   }
 }
-
-void PrintPrioQueue (PrioQueue Q){ // belum selesai bagian print name
-  if (IsEmpty(Q)) {
-    printf("#\n");
-  } else {
-    for (int i = Head(Q); i < (NBElmt(Q) + Head(Q)); i++){
-      printf("%d %c\n", Elmt(Q, i % MaxEl(Q)).expiry, Elmt(Q, i % MaxEl(Q)).name);
-    }
-    printf("#\n");
-  }
-}
-

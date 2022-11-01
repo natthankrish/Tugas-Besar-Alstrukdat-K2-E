@@ -1,7 +1,7 @@
 /* File : prioqueue.h */
-/* Definisi ADT Priority Queue Time dengan representasi array secara eksplisit dan alokasi dinamik */
+/* Definisi ADT prioqueue dengan menggunakan array secara eksplisit dan alokasi dinamik */
 /* Model Implementasi Versi III dengan circular buffer */
-/* Elemen queue terurut membesar berdasarkan elemen time */
+/* Elemen queue terurut membesar berdasarkan elemen expiry makanan */
 
 #ifndef prioqueue_H
 #define prioqueue_H
@@ -23,7 +23,6 @@ typedef struct {
     int MaxEl;     /* Max elemen queue */
 } PrioQueue;
 /* Definisi PrioQueue kosong: HEAD=Nil; TAIL=Nil. */
-/* Catatan implementasi: T[0] tidak pernah dipakai */
 
 /* ********* AKSES (Selektor) ********* */
 /* Jika e adalah infotype dan Q adalah PrioQueue, maka akses elemen : */
@@ -47,7 +46,7 @@ int NBElmt (PrioQueue Q);
 void MakeEmpty (PrioQueue * Q, int Max);
 /* I.S. sembarang */
 /* F.S. Sebuah Q kosong terbentuk dan salah satu kondisi sbb: */
-/* Jika alokasi berhasil, Tabel memori dialokasi berukuran Max+1 */
+/* Jika alokasi berhasil, Tabel memori dialokasi berukuran Max */
 /* atau : jika alokasi gagal, Q kosong dg MaxEl=0 */
 /* Proses : Melakukan alokasi, membuat sebuah Q kosong */
 
@@ -59,7 +58,7 @@ void DeAlokasi(PrioQueue * Q);
 
 /* *** Primitif Add/Delete *** */
 void Enqueue (PrioQueue * Q, MAKANAN X);
-/* Proses: Menambahkan X pada Q dengan aturan priority queue, terurut membesar berdasarkan time */
+/* Proses: Menambahkan X pada Q dengan aturan priority queue, terurut membesar berdasarkan expiry time */
 /* I.S. Q mungkin kosong, tabel penampung elemen Q TIDAK penuh */
 /* F.S. X disisipkan pada posisi yang tepat sesuai dengan prioritas,
         TAIL "maju" dengan mekanisme circular buffer; */
@@ -68,16 +67,5 @@ void Dequeue (PrioQueue * Q, MAKANAN * X);
 /* I.S. Q tidak mungkin kosong */
 /* F.S. X = nilai elemen HEAD pd I.S., HEAD "maju" dengan mekanisme circular buffer;
         Q mungkin kosong */
-
-/* Operasi Tambahan */
-void PrintPrioQueue (PrioQueue Q);
-/* Mencetak isi queue Q ke layar */
-/* I.S. Q terdefinisi, mungkin kosong */
-/* F.S. Q tercetak ke layar dengan format:
-<time-1> <elemen-1>
-...
-<time-n> <elemen-n>
-#
-*/
 
 #endif
