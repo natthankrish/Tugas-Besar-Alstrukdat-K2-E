@@ -5,6 +5,17 @@
 #include "../ListStatik/liststatik.h"
 #include "../Makanan/makanan.h"
 
+
+/* *** Definisi TYPE TREE  *** */
+typedef struct {
+    MAKANAN parent; /* parent dari TREE */
+    int numChild; /* jumlah anak dari TREE */
+    ListStatik listChild;  /* list anak yang dimiliki TREE */
+} TREE;
+
+#define NumOfChild(T) (T).numChild
+#define Childlist(T) (T).listChild
+
 /* *** Definisi LIST TREE  *** */
 typedef struct {
    TREE contents[100];
@@ -14,19 +25,6 @@ typedef struct {
 #define ELMTListTree(l, i) (l).contents[i]
 #define ListTreeLength(l) (l).length
 
-void insertLastTree(ListTree * L, TREE T);
-
-/* *** Definisi TYPE TREE  *** */
-typedef struct {
-    MAKANAN parent; /* parent dari TREE */
-    int numChild; /* jumlah anak dari TREE */
-    ListStatik listChild;  /* list anak yang dimiliki TREE */
-} TREE;
-
-/* *** Notasi Akses: Selektor Tree *** */
-#define Parent(T) (T).parent
-#define NumOfChild(T) (T).numChild
-#define Childlist(T) (T).listChild
 
 /* *** DEFINISI PROTOTIPE PRIMITIF *** */
 /* *** Konstruktor membentuk TREE *** */
@@ -43,9 +41,14 @@ MAKANAN getChild(TREE T, int idx);
 /* Mengembalikan anak ke-idx dari P */
 
 /* *** Fungsi yang berguna *** */
-
-ListStatik ableTo(int action, ListStatik listMakanan );
+ListStatik ableTo(int action, ListStatik listMakanan, ListTree listResep);
 /* Mengembalikan list yang berisi bahan makanan yang
    diolah dengna cara action*/
+
+/* *** Fungsi List Tree *** */
+void insertLastTree(ListTree * L, TREE T);
+/* *** Notasi Akses: Selektor Tree *** */
+#define Parent(T) (T).parent
+
 
 #endif   

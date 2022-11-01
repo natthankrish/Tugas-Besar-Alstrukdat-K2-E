@@ -2,7 +2,7 @@
 
 void insertLastTree(ListTree * L, TREE T) {
     if (ListTreeLength(*L) < 100) {
-        int i = LengthTreeLength(*L);
+        int i = ListTreeLength(*L);
         ELMTListTree(*L, i) = T;
         ListTreeLength(*L)++;
     }
@@ -14,7 +14,7 @@ void CreateTree (TREE * T, MAKANAN parent, int jumlahAnak) {
 /* I.S. Sembarang */
 /* F.S. Terbentuk TREE dengan jumlah anak yang terdefinisi dan listChild */
     NumOfChild(*T) = jumlahAnak;
-    Parent(T) = parent;
+    Parent(*T) = parent;
     ListStatik Childlist;
     CreateListStatik(&Childlist);
     Childlist(*T) = Childlist;
@@ -34,7 +34,7 @@ MAKANAN getChild(TREE T, int idx) {
 }
 
 /* *** Fungsi yang berguna *** */
-ListStatik ableTo(int action, ListStatik listMakanan, ListStatik listResep ) {
+ListStatik ableTo(int action, ListStatik listMakanan, ListTree listResep ) {
 /* Mengembalikan list yang berisi bahan makanan yang
    diolah dengna cara action*/
     ListStatik listAbleTo;
@@ -44,12 +44,13 @@ ListStatik ableTo(int action, ListStatik listMakanan, ListStatik listResep ) {
         // Jika makanan dibuat dengan cara action
         if (Action(curMakanan) == action ) { 
             for (int j = 0; j < Lengthlist(listResep); j++) {
-                TREE curTree = ELMTlist(listResep, j);
-                if (Parent(curTree) == curMakanan) {
+                TREE curTree = ELMTListTree(listResep, j);
+                if (ID(Parent(curTree)) == ID(curMakanan)) {
                     // Setiap anak dari parent curMakanan
                     for (int k = 0; k < NumOfChild(curTree); k++) {
                         insertLast(&listAbleTo,getChild(curTree, k));
                     }
+                    break;
                 }
             }
         }

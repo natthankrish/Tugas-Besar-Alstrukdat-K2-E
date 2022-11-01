@@ -6,6 +6,7 @@
 #include "dataStructure/ListStatik/liststatik.c"
 #include "dataStructure/PrioQueue/prioqueue.c"
 #include "dataStructure/Time/time.c"
+#include "dataStructure/Tree/tree.c"
 #include "procedure/command.c"
 #include "procedure/splashScreen.c"
 #include "procedure/printPeta.c"

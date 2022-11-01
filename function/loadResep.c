@@ -1,7 +1,7 @@
-#include "../boolean.h"
-#include "../Tree/tree.h"
-#include "../Makanan/makanan.h"
-#include "../WordMachine/wordmachinefile.h"
+#include "../dataStructure/boolean.h"
+#include "../dataStructure/Tree/tree.h"
+#include "../dataStructure/Makanan/makanan.h"
+#include "../dataStructure/WordMachine/wordmachinefile.h"
 
 MAKANAN getMakananByID(int ID, ListStatik listMakanan) {
     MAKANAN Food;
@@ -36,7 +36,7 @@ ListTree loadResep(ListStatik listMakanan) {
 
         // menentukan jumlah anak dari curTree
         int jumlahAnakCurTree;
-        copyIntegerFromWordMachine(&jumlahAnakCurFood, currentWordFile);
+        copyIntegerFromWordMachine(&jumlahAnakCurTree, currentWordFile);
         ADVWORDFILE();
 
         CreateTree(&curTree, curParent, jumlahAnakCurTree);
