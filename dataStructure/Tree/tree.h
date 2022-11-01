@@ -13,6 +13,8 @@ typedef struct {
     ListStatik listChild;  /* list anak yang dimiliki TREE */
 } TREE;
 
+/* *** Notasi Akses: Selektor Tree *** */
+#define Parent(T) (T).parent
 #define NumOfChild(T) (T).numChild
 #define Childlist(T) (T).listChild
 
@@ -46,9 +48,14 @@ ListStatik ableTo(int action, ListStatik listMakanan, ListTree listResep);
    diolah dengna cara action*/
 
 /* *** Fungsi List Tree *** */
+void CreateListTree(ListTree * L);
+/* I.S. l sembarang */
+/* F.S. Terbentuk ListTree L kosong dengan kapasitas 100 */
+/* dengan panjang 0*/
+
 void insertLastTree(ListTree * L, TREE T);
-/* *** Notasi Akses: Selektor Tree *** */
-#define Parent(T) (T).parent
+/* I.S. L terdefinisi */
+/* F.S. T menjadi elemen listchild terakhir */
 
 
 #endif   

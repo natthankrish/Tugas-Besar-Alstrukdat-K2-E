@@ -1,12 +1,6 @@
 #include "tree.h"
 
-void insertLastTree(ListTree * L, TREE T) {
-    if (ListTreeLength(*L) < 100) {
-        int i = ListTreeLength(*L);
-        ELMTListTree(*L, i) = T;
-        ListTreeLength(*L)++;
-    }
-}
+
 
 /* *** DEFINISI PROTOTIPE PRIMITIF *** */
 /* *** Konstruktor membentuk TREE *** */
@@ -56,4 +50,22 @@ ListStatik ableTo(int action, ListStatik listMakanan, ListTree listResep ) {
         }
     }
     return listAbleTo;
+}
+
+/* *** PRIMITIF LIST TREE *** */
+void CreateListTree(ListTree * L) {
+/* I.S. l sembarang */
+/* F.S. Terbentuk ListTree L kosong dengan kapasitas 100 */
+/* dengan panjang 0*/
+    ListTreeLength(*L) = 0;
+}
+
+void insertLastTree(ListTree * L, TREE T) {
+/* I.S. L terdefinisi */
+/* F.S. T menjadi elemen listchild terakhir */
+    if (ListTreeLength(*L) < 100) {
+        int i = ListTreeLength(*L);
+        ELMTListTree(*L, i) = T;
+        ListTreeLength(*L)++;
+    }
 }

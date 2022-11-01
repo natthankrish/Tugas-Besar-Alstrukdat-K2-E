@@ -9,7 +9,6 @@ void CreateListStatik(ListStatik *l){
 /* I.S. l sembarang */
 /* F.S. Terbentuk List l kosong dengan kapasitas CAPACITY */
     Lengthlist(*l)=0;
-    return;
 }
 
 //Mengambil elemen pertama

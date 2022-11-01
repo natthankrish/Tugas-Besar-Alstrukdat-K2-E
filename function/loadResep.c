@@ -18,6 +18,7 @@ MAKANAN getMakananByID(int ID, ListStatik listMakanan) {
 ListTree loadResep(ListStatik listMakanan) {
     // deklarasi listResep
     ListTree listResep;
+    CreateListTree(&listResep);
 
     STARTWORDFILE("config/resep.txt");
 
