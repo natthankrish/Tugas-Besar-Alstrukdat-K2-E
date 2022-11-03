@@ -27,12 +27,14 @@ ListTree loadResep(ListStatik listMakanan) {
     ADVWORDFILE();
 
     for (int i = 0; i < numberOfResep; i++) {
-        TREE curTree;
+        node curTree;
 
         // menentukan parent dari curTree
         int IDcurParent;
         copyIntegerFromWordMachine(&IDcurParent, currentWordFile);
-        MAKANAN curParent = getMakananByID(IDcurParent, listMakanan);
+        MAKANAN curParentFood = getMakananByID(IDcurParent, listMakanan);
+        node curParent;
+        CreateNode(curParent, curParentFood);
         ADVWORDFILE();        
 
         // menentukan jumlah anak dari curTree
@@ -40,15 +42,15 @@ ListTree loadResep(ListStatik listMakanan) {
         copyIntegerFromWordMachine(&jumlahAnakCurTree, currentWordFile);
         ADVWORDFILE();
 
-        CreateTree(&curTree, curParent, jumlahAnakCurTree);
+        setParent(curTree, curParent);
 
         // Menentukan anak dari curTree
         for (int j = 0; j < jumlahAnakCurTree; j++) {
             int IDcurChild;
             copyIntegerFromWordMachine(&IDcurChild, currentWordFile);
 
-            MAKANAN child = getMakananByID(IDcurChild, listMakanan);
-            setChild(&curTree, child);
+            MAKANAN childFood = getMakananByID(IDcurChild, listMakanan);
+            setChild(curTree, childFood);
             ADVWORDFILE();
         }
 
