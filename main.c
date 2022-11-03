@@ -20,7 +20,7 @@ int main () {
     ListTree resepconfig;
 
     CreateListTree(&resepconfig);
-    printf("%d\n", ListTreeLength(resepconfig));
+    // printf("%d\n", ListTreeLength(resepconfig));
 
     TIME machinetime;
     setClockZero(&machinetime);

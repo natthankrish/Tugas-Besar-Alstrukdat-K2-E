@@ -1,24 +1,28 @@
 #include "tree.h"
 #include <stdlib.h>
 
-
-void CreateNode(node T, MAKANAN food){
-    T->info = food;
-    T->numChild = 0;
-    T->parent = NULL;
+node newNode(){
+    node T = (node) malloc(sizeof(TREE));
 }
 
-void setParent(node T, node P){
-    T->parent = P;
+void CreateNode(node* T, MAKANAN food){
+    *T = newNode();
+    (*T)->info = food;
+    (*T)->numChild = 0;
+    (*T)->parent = NULL;
 }
 
-void setChild (node T, MAKANAN food) {
-    if(T->numChild < MAXCHILD){
+void setParent(node* T, node P){
+    (*T)->parent = P;
+}
+
+void setChild (node* T, MAKANAN food) {
+    if((*T)->numChild < MAXCHILD){
         node Child;
-        CreateNode(Child, food);
-        setParent(Child, T); 
-        T->listChild[T->numChild] = Child;
-        T->numChild++;
+        CreateNode(&Child, food);
+        setParent(&Child, *T); 
+        (*T)->listChild[(*T)->numChild] = Child;
+        (*T)->numChild++;
     }
 }
 

@@ -34,17 +34,17 @@ typedef struct {
 
 /* *** DEFINISI PROTOTIPE PRIMITIF *** */
 /* *** Konstruktor membentuk TREE *** */
-void CreateNode(node T, MAKANAN food);
+void CreateNode(node* T, MAKANAN food);
 /* I.S. Sembarang */
 /* F.S. Terbentuk node tree dengan jumlah anak 0 dan listChild kosong berukuran MAXCHILD
    dan parent menunjuk NULL (node adalah root) */
 
-void setParent(node T, node P);
+void setParent(node* T, node P);
 /* I.S. T terdefinisi, parent terdefinisi */
 /* F.S. T menjadi child dari P*/
 
 
-void setChild (node T, MAKANAN food);
+void setChild (node* T, MAKANAN food);
 /* I.S. T terdefinisi*/
 /* F.S. membuat child baru dengan makanan food dan menjadi element di listChild pada T */
 

@@ -8,7 +8,7 @@
 #include "moveEast.c"
 #include "moveWest.c"
 #include "catalog.c"
-//#include "cookbook.c"
+#include "cookBook.c"
 #include "loadConfig.c"
 
 
@@ -86,7 +86,7 @@ void inputCommand (boolean *isStarted, boolean *isExit, Matrix *peta, ListStatik
             } else {
                 printf("-----------------------------------------------\n");
                 printf("DAFTAR RESEP\n");
-                //printCookBook(*resep);
+                printCookBook(*resep);
                 printf("-----------------------------------------------\n");
             }
         } else {
