@@ -1,19 +1,20 @@
 #include <stdio.h>
 #include "../dataStructure/CharMachine/charmachine.c"
 #include "../dataStructure/WordMachine/wordmachine.c"
+#include "../dataStructure/Matrix/matrix.h"
 #include "../function/compareString.c"
 #include "moveNorth.c"
 #include "moveSouth.c"
 #include "moveEast.c"
 #include "moveWest.c"
 #include "catalog.c"
+//#include "cookbook.c"
 #include "loadConfig.c"
 
 
-void inputCommand (boolean *isStarted, boolean *isExit, Matrix *peta, ListStatik *makanan, TIME *machinetime, SIMULATOR *BNMO) {
+void inputCommand (boolean *isStarted, boolean *isExit, Matrix *peta, ListStatik *makanan, TIME *machinetime, SIMULATOR *BNMO, ListTree *resep) {
     printf("Enter Command: ");
     STARTWORD();
-
     if (compareString(currentWord.TabWord, currentWord.Length, "START", 5)) {
         if (currentChar == MARK) {
             if (*isStarted) {
@@ -22,7 +23,7 @@ void inputCommand (boolean *isStarted, boolean *isExit, Matrix *peta, ListStatik
             } else {
                 *isStarted = true;
                 printf("LOADING...\n");
-                loadConfig(peta, makanan);
+                loadConfig(peta, makanan, resep);
                 POINT p = getSimulatorLocation(*peta);
                 printf("Masukkan nama pengguna: ");
                 START();
@@ -78,7 +79,23 @@ void inputCommand (boolean *isStarted, boolean *isExit, Matrix *peta, ListStatik
             }
             printf("Command Salah! Masukkan command yang benar. Ketik HELP untuk bantuan.\n");
         }
-    } else if (compareString(currentWord.TabWord, currentWord.Length, "HELP", 4) && currentChar == MARK) {
+    } else if (compareString(currentWord.TabWord, currentWord.Length, "COOKBOOK", 8) && currentChar == MARK) {
+        if (currentChar == MARK) {
+            if (!(*isStarted)) {
+                printf("Program belum dimulai. silahkan jalankan command START terlebih dahulu.\n");
+            } else {
+                printf("-----------------------------------------------\n");
+                printf("DAFTAR RESEP\n");
+                //printCookBook(*resep);
+                printf("-----------------------------------------------\n");
+            }
+        } else {
+            while (!endWord) {
+                ADVWORD();
+            }
+            printf("Command Salah! Masukkan command yang benar. Ketik HELP untuk bantuan.\n");
+        }
+    }else if (compareString(currentWord.TabWord, currentWord.Length, "HELP", 4) && currentChar == MARK) {
         if (currentChar == MARK) {
             printf("-----------------------------------------------\n");
             printf("PUSAT BANTUAN BNMO\n");

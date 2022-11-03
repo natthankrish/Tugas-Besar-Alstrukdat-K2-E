@@ -6,7 +6,8 @@
 #include "../function/loadPeta.c"
 
 
-void loadConfig (Matrix *peta, ListStatik *makanan) {
+void loadConfig (Matrix *peta, ListStatik *makanan, ListTree *resep) {
     *peta = loadPeta();
     *makanan = loadMakanan();
+    *resep = loadResep(*makanan);
 }
