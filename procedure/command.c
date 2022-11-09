@@ -2,6 +2,7 @@
 #include "../dataStructure/CharMachine/charmachine.c"
 #include "../dataStructure/WordMachine/wordmachine.c"
 #include "../dataStructure/Matrix/matrix.h"
+#include "../dataStructure/PrioQueue/prioqueue.h"
 #include "../function/compareString.c"
 #include "moveNorth.c"
 #include "moveSouth.c"
@@ -10,9 +11,10 @@
 #include "catalog.c"
 #include "cookBook.c"
 #include "loadConfig.c"
+#include "buy.c"
 
 
-void inputCommand (boolean *isStarted, boolean *isExit, Matrix *peta, ListStatik *makanan, TIME *machinetime, SIMULATOR *BNMO, ListTree *resep) {
+void inputCommand (boolean *isStarted, boolean *isExit, Matrix *peta, ListStatik *makanan, TIME *machinetime, SIMULATOR *BNMO, ListTree *resep, PrioQueue *pesanan) {
     printf("Enter Command: ");
     STARTWORD();
     if (compareString(currentWord.TabWord, currentWord.Length, "START", 5)) {
@@ -57,6 +59,21 @@ void inputCommand (boolean *isStarted, boolean *isExit, Matrix *peta, ListStatik
         if (currentChar == MARK) {
             *isExit = true;
             printf("TERIMA KASIH TELAH MENGGUNAKAN BNMO, SAMPAI JUMPA KEMBALI!\n");
+        } else {
+            while (!endWord) {
+                ADVWORD();
+            }
+            printf("Command Salah! Masukkan command yang benar. Ketik HELP untuk bantuan.\n");
+        }
+    } else if (compareString(currentWord.TabWord, currentWord.Length, "BUY", 3) && currentChar == MARK) {
+        if (currentChar == MARK) {
+            if (!(*isStarted)) {
+                printf("Program belum dimulai. silahkan jalankan command START terlebih dahulu.\n");
+            } else if(!isInArea(* BNMO,* peta, 'T')){
+                printf("BNMO belum berada di area telepon!\n");
+            } else {
+                buy(*makanan , pesanan);
+            }
         } else {
             while (!endWord) {
                 ADVWORD();

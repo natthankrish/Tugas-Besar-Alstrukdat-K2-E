@@ -18,6 +18,9 @@ int main () {
     ListStatik makananconfig;
     SIMULATOR BNMO;
     ListTree resepconfig;
+    PrioQueue pesanan;
+
+    MakeEmpty(&pesanan, 101);
 
     CreateListTree(&resepconfig);
     // printf("%d\n", ListTreeLength(resepconfig));
@@ -26,12 +29,12 @@ int main () {
     setClockZero(&machinetime);
 
     welcomePage();
-    inputCommand(&isStarted, &isExit, &mapconfig, &makananconfig, &machinetime, &BNMO, &resepconfig);
+    inputCommand(&isStarted, &isExit, &mapconfig, &makananconfig, &machinetime, &BNMO, &resepconfig, &pesanan);
     while (!isExit) {
         if (isStarted) {
             printStatus(mapconfig, machinetime, BNMO);
         }
-        inputCommand(&isStarted, &isExit, &mapconfig, &makananconfig, &machinetime, &BNMO, &resepconfig);
+        inputCommand(&isStarted, &isExit, &mapconfig, &makananconfig, &machinetime, &BNMO, &resepconfig, &pesanan);
     }
 
     return 0;
