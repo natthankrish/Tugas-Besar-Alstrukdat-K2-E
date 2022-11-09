@@ -12,6 +12,7 @@
 #include "cookBook.c"
 #include "loadConfig.c"
 #include "buy.c"
+#include "delivery.c"
 
 
 void inputCommand (boolean *isStarted, boolean *isExit, Matrix *peta, ListStatik *makanan, TIME *machinetime, SIMULATOR *BNMO, ListTree *resep, PrioQueue *pesanan) {
@@ -73,6 +74,19 @@ void inputCommand (boolean *isStarted, boolean *isExit, Matrix *peta, ListStatik
                 printf("BNMO belum berada di area telepon!\n");
             } else {
                 buy(*makanan , pesanan);
+            }
+        } else {
+            while (!endWord) {
+                ADVWORD();
+            }
+            printf("Command Salah! Masukkan command yang benar. Ketik HELP untuk bantuan.\n");
+        }
+    } else if (compareString(currentWord.TabWord, currentWord.Length, "DELIVERY", 8) && currentChar == MARK) {
+        if (currentChar == MARK) {
+            if (!(*isStarted)) {
+                printf("Program belum dimulai. silahkan jalankan command START terlebih dahulu.\n");
+            } else {
+                delivery(*pesanan);
             }
         } else {
             while (!endWord) {
