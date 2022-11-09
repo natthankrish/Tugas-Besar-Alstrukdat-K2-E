@@ -3,6 +3,7 @@
 #include "../dataStructure/WordMachine/wordmachine.c"
 #include "../dataStructure/Matrix/matrix.h"
 #include "../dataStructure/PrioQueue/prioqueue.h"
+#include "../dataStructure/Stack/Undostack.h"
 #include "../function/compareString.c"
 #include "moveNorth.c"
 #include "moveSouth.c"
@@ -15,7 +16,7 @@
 #include "delivery.c"
 
 
-void inputCommand (boolean *isStarted, boolean *isExit, Matrix *peta, ListStatik *makanan, TIME *machinetime, SIMULATOR *BNMO, ListTree *resep, PrioQueue *pesanan) {
+void inputCommand (boolean *isStarted, boolean *isExit, Matrix *peta, ListStatik *makanan, TIME *machinetime, SIMULATOR *BNMO, ListTree *resep, PrioQueue *pesanan, Stack *UndoStack) {
     printf("Enter Command: ");
     STARTWORD();
     if (compareString(currentWord.TabWord, currentWord.Length, "START", 5)) {
@@ -274,11 +275,30 @@ void inputCommand (boolean *isStarted, boolean *isExit, Matrix *peta, ListStatik
         } else {
             printf("Command Salah! Masukkan command yang benar. Ketik HELP untuk bantuan.\n");
         }
-    } else {
+    }else if(compareString(currentWord.TabWord, currentWord.Length, "UNDO", 4)){
+        if (currentChar == MARK){
+            Undo(UndoStack, isStarted, isExit, peta, BNMO, machinetime);
+        }   
+    }else if(compareString(currentWord.TabWord, currentWord.Length, "REDO", 4)){
+        if (currentChar == MARK){
+            Redo(UndoStack, isStarted, isExit, peta, BNMO, machinetime);
+        }   
+    }else {
         while (!endWord) {
             ADVWORD();
         } 
         printf("Command Salah! Masukkan command yang benar. Ketik HELP untuk bantuan.\n");
+    }
+    
+    if(compareString(currentWord.TabWord, currentWord.Length, "UNDO", 4)){
+    }else if(compareString(currentWord.TabWord, currentWord.Length, "REDO", 4)){
+    }else{
+        allconfig StateConfig;
+        StateConfig.isstart = *isStarted;
+        StateConfig.isexit = *isExit;
+        StateConfig.bin = *BNMO;
+        StateConfig.waktu = *machinetime;
+        Push(UndoStack, StateConfig);
     }
     
 }

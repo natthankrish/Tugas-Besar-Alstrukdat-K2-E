@@ -6,6 +6,7 @@
 #include "dataStructure/Matrix/matrix.c"
 #include "dataStructure/ListStatik/liststatik.c"
 #include "dataStructure/PrioQueue/prioqueue.c"
+#include "dataStructure/Stack/UndoStack.c"
 #include "dataStructure/Time/time.c"
 #include "dataStructure/Tree/tree.c"
 #include "procedure/command.c"
@@ -19,22 +20,22 @@ int main () {
     SIMULATOR BNMO;
     ListTree resepconfig;
     PrioQueue pesanan;
+    Stack UndoStack;
 
+    CreateEmptyStack(&UndoStack);
     MakeEmpty(&pesanan, 101);
-
     CreateListTree(&resepconfig);
-    // printf("%d\n", ListTreeLength(resepconfig));
 
     TIME machinetime;
     setClockZero(&machinetime);
 
     welcomePage();
-    inputCommand(&isStarted, &isExit, &mapconfig, &makananconfig, &machinetime, &BNMO, &resepconfig, &pesanan);
+    inputCommand(&isStarted, &isExit, &mapconfig, &makananconfig, &machinetime, &BNMO, &resepconfig, &pesanan, &UndoStack);
     while (!isExit) {
         if (isStarted) {
             printStatus(mapconfig, machinetime, BNMO);
         }
-        inputCommand(&isStarted, &isExit, &mapconfig, &makananconfig, &machinetime, &BNMO, &resepconfig, &pesanan);
+        inputCommand(&isStarted, &isExit, &mapconfig, &makananconfig, &machinetime, &BNMO, &resepconfig, &pesanan, &UndoStack);
     }
 
     return 0;
