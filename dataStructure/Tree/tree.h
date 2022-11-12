@@ -17,9 +17,11 @@ typedef struct Tree{
 } TREE;
 
 /* *** Notasi Akses: Selektor Tree *** */
+/* misal T adalah node*/
 #define Parent(T) (T)->parent
 #define NumOfChild(T) (T)->numChild
 #define Childlist(T) (T)->listChild
+#define InfoTree(T) (T)->info
 
 /* *** Definisi LIST TREE  *** */
 #define MAXTREE 10 // jumlah maksimum tree yang dapat dimiliki listtree
@@ -56,6 +58,10 @@ ListStatik ableTo(int action, ListStatik listMakanan, ListTree listResep);
 /* Mengembalikan list yang berisi bahan makanan yang
    diolah dengna cara action*/
 
+ListStatik madeBy(int action, ListStatik listMakanan, ListTree listResep);
+/* Mengembalikan list yang berisi bahan makanan yang
+   dibuat dengan cara action*/
+
 /* *** Fungsi List Tree *** */
 void CreateListTree(ListTree * L);
 /* I.S. l sembarang */
@@ -66,5 +72,7 @@ void insertLastTree(ListTree * L, node T);
 /* I.S. L terdefinisi */
 /* F.S. T menjadi elemen listchild terakhir */
 
+ListStatik getListChildByFood(MAKANAN food, ListTree listResep);
+/* Mengembalikan list of all child of food*/
 
 #endif   

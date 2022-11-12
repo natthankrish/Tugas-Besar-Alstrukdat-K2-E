@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include "../dataStructure/Matrix/matrix.h"
 
-void printStatus (Matrix mapconfig, TIME time, SIMULATOR simulator) {
+void printStatus (Matrix mapConfig, TIME time, SIMULATOR simulator) {
     printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
     char simName[101];
     copySimulatorName(Nama(simulator), simName);
@@ -15,24 +15,24 @@ void printStatus (Matrix mapconfig, TIME time, SIMULATOR simulator) {
     displayCLOCK(time);
     printf("\n");
     printf("Notifikasi: \n");
-    for (int i = 0; i < mapconfig.colEff+2; i++) {
+    for (int i = 0; i < mapConfig.colEff+2; i++) {
         printf("* ");
     }
     printf("\n");
 
-    for (int i = 0; i < mapconfig.rowEff; i++) {
+    for (int i = 0; i < mapConfig.rowEff; i++) {
         printf("* ");
-        for (int j = 0; j < mapconfig.colEff; j++) {
-            if (ELMT(mapconfig, i, j) == '#') {
+        for (int j = 0; j < mapConfig.colEff; j++) {
+            if (ELMT(mapConfig, i, j) == '#') {
                 printf("  ");
             } else {
-                printf("%c ", ELMT(mapconfig, i, j));
+                printf("%c ", ELMT(mapConfig, i, j));
             }
         }
         printf("*\n");
     }
 
-    for (int i = 0; i < mapconfig.colEff+2; i++) {
+    for (int i = 0; i < mapConfig.colEff+2; i++) {
         printf("* ");
     }
     printf("\n");

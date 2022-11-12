@@ -15,7 +15,7 @@ typedef struct simulator {
 #define Nama(S) (S).NAMA
 #define Lokasi(S) (S).LOKASI
 #define Inventory(S) (S).INVENTORY
-        
+
 /* *** DEFINISI PROTOTIPE PRIMITIF *** */
 /* *** Konstruktor membentuk SIMULATOR *** */
 void CreateSIMULATOR (SIMULATOR * S, char X[], POINT Y, PrioQueue Z);

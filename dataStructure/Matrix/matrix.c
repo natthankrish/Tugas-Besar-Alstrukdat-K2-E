@@ -1,8 +1,3 @@
-/* NIM : 13521162 */
-/* Nama : Antonio Natthan Krishna */
-/* Tanggal Pengerjaan : 21 September 2022 */
-/* Topik Praktikum : ADT Matriks */
-/* Deskripsi : Implementasi Matrix */
 #include <stdio.h>
 #include "matrix.h"
 
@@ -586,4 +581,5 @@ POINT getSimulatorLocation (Matrix map) {
     }
     return MakePOINT(foundi, foundj);
 }
+
 
