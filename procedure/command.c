@@ -5,6 +5,7 @@
 #include "../dataStructure/PrioQueue/prioqueue.h"
 #include "../dataStructure/Stack/Undostack.h"
 #include "../function/compareString.c"
+#include "../function/wordToInt.c"
 #include "moveNorth.c"
 #include "moveSouth.c"
 #include "moveEast.c"
@@ -14,9 +15,11 @@
 #include "loadConfig.c"
 #include "buy.c"
 #include "delivery.c"
+#include "wait.c"
 
 
 void inputCommand (boolean *isStarted, boolean *isExit, Matrix *peta, ListStatik *makanan, TIME *machinetime, SIMULATOR *BNMO, ListTree *resep, PrioQueue *pesanan, Stack *UndoStack) {
+    boolean undoableMove = false;
     printf("Enter Command: ");
     STARTWORD();
     if (compareString(currentWord.TabWord, currentWord.Length, "START", 5)) {
@@ -43,6 +46,7 @@ void inputCommand (boolean *isStarted, boolean *isExit, Matrix *peta, ListStatik
                     idx++;
                 }
                 PrioQueue I;
+                MakeEmpty(&I, 101);
                 CreateSIMULATOR(BNMO, BNMOName, p, I);
                 printf("Konfigurasi berhasil dimuat.\n");
                 printf("Halo, ");
@@ -74,6 +78,7 @@ void inputCommand (boolean *isStarted, boolean *isExit, Matrix *peta, ListStatik
             } else if(!isInArea(* BNMO,* peta, 'T')){
                 printf("BNMO belum berada di area telepon!\n");
             } else {
+                undoableMove = true;
                 buy(*makanan , pesanan);
             }
         } else {
@@ -127,7 +132,7 @@ void inputCommand (boolean *isStarted, boolean *isExit, Matrix *peta, ListStatik
             }
             printf("Command Salah! Masukkan command yang benar. Ketik HELP untuk bantuan.\n");
         }
-    }else if (compareString(currentWord.TabWord, currentWord.Length, "HELP", 4) && currentChar == MARK) {
+    } else if (compareString(currentWord.TabWord, currentWord.Length, "HELP", 4) && currentChar == MARK) {
         if (currentChar == MARK) {
             printf("-----------------------------------------------\n");
             printf("PUSAT BANTUAN BNMO\n");
@@ -139,6 +144,7 @@ void inputCommand (boolean *isStarted, boolean *isExit, Matrix *peta, ListStatik
             printf("Command Salah! Masukkan command yang benar. Ketik HELP untuk bantuan.\n");
         }
     } else if (compareString(currentWord.TabWord, currentWord.Length, "MOVE", 4)) {
+        undoableMove = true;
         ADVWORD();
         if (compareString(currentWord.TabWord, currentWord.Length, "NORTH", 5)) {
             if (currentChar == MARK) {
@@ -168,6 +174,7 @@ void inputCommand (boolean *isStarted, boolean *isExit, Matrix *peta, ListStatik
                     }
                 }
             } else {
+                undoableMove = false;
                 while (!endWord) {
                     ADVWORD();
                 }
@@ -201,6 +208,7 @@ void inputCommand (boolean *isStarted, boolean *isExit, Matrix *peta, ListStatik
                     }
                 }
             } else {
+                undoableMove = false;
                 while (!endWord) {
                     ADVWORD();
                 }
@@ -234,6 +242,7 @@ void inputCommand (boolean *isStarted, boolean *isExit, Matrix *peta, ListStatik
                     }
                 }
             } else {
+                undoableMove = false;
                 while (!endWord) {
                     ADVWORD();
                 }
@@ -267,22 +276,55 @@ void inputCommand (boolean *isStarted, boolean *isExit, Matrix *peta, ListStatik
                     }
                 }
             } else {
+                undoableMove = false;
                 while (!endWord) {
                     ADVWORD();
                 }
                 printf("Command Salah! Masukkan command yang benar. Ketik HELP untuk bantuan.\n");
             }
         } else {
+            undoableMove = false;
+            while (!endWord) {
+                ADVWORD();
+            }
             printf("Command Salah! Masukkan command yang benar. Ketik HELP untuk bantuan.\n");
+        }
+        if(undoableMove == true){ // kalau undoableMove berarti command benar
+            wait(0, 1, pesanan, BNMO, machinetime);       
         }
     }else if(compareString(currentWord.TabWord, currentWord.Length, "UNDO", 4)){
         if (currentChar == MARK){
             Undo(UndoStack, isStarted, isExit, peta, BNMO, machinetime);
-        }   
+        } else {
+            while (!endWord) {
+                ADVWORD();
+            }
+            printf("Command Salah! Masukkan command yang benar. Ketik HELP untuk bantuan.\n");
+        }
     }else if(compareString(currentWord.TabWord, currentWord.Length, "REDO", 4)){
         if (currentChar == MARK){
             Redo(UndoStack, isStarted, isExit, peta, BNMO, machinetime);
-        }   
+        } else {
+            while (!endWord) {
+                ADVWORD();
+            }
+            printf("Command Salah! Masukkan command yang benar. Ketik HELP untuk bantuan.\n");
+        }
+    }else if(compareString(currentWord.TabWord, currentWord.Length, "WAIT", 4)){
+        ADVWORD();
+        int hour = wordToInt(currentWord);
+        ADVWORD();
+        int minute = wordToInt(currentWord);
+
+        boolean validtime = (hour != -1) && (minute != -1);
+        if (validtime){
+            wait(hour, minute, pesanan, BNMO, machinetime);
+        } else {
+            while (!endWord) {
+                ADVWORD();
+            }
+            printf("Command Salah! Masukkan command yang benar. Ketik HELP untuk bantuan.\n");
+        }
     }else {
         while (!endWord) {
             ADVWORD();
@@ -290,9 +332,10 @@ void inputCommand (boolean *isStarted, boolean *isExit, Matrix *peta, ListStatik
         printf("Command Salah! Masukkan command yang benar. Ketik HELP untuk bantuan.\n");
     }
     
-    if(compareString(currentWord.TabWord, currentWord.Length, "UNDO", 4)){
-    }else if(compareString(currentWord.TabWord, currentWord.Length, "REDO", 4)){
-    }else{
+
+    // mekanisme undo stack
+    // undoableMove = MOVE, BUY
+    if(undoableMove){
         allconfig StateConfig;
         StateConfig.isstart = *isStarted;
         StateConfig.isexit = *isExit;
