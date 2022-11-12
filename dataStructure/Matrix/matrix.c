@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include "matrix.h"
 
+
 /* ********** DEFINISI PROTOTIPE PRIMITIF ********** */
 /* *** Konstruktor membentuk Matrix *** */
 void createMatrix(int nRows, int nCols, Matrix *m) {
@@ -582,4 +583,30 @@ POINT getSimulatorLocation (Matrix map) {
     return MakePOINT(foundi, foundj);
 }
 
+<<<<<<< HEAD
+=======
+POINT getLegendaLocation (Matrix map, char Legenda) {
+    int foundi, foundj;
+    for (int i = 0; i < ROW_EFF(map); i++) {
+        for (int j = 0; j < COL_EFF(map); j++) {
+            if (ELMT(map, i, j) == Legenda) {
+                foundi = i;
+                foundj = j;
+            }
+        }
+    }
+    return MakePOINT(foundi, foundj);
+}
+
+boolean isInArea(SIMULATOR S,Matrix peta, char LEGENDA){
+    POINT lokasiSimulator = getPoint(S);
+    POINT lokasiLegenda = getLegendaLocation(peta, LEGENDA);
+    if( Panjang(lokasiLegenda,lokasiSimulator) <= 1.5 /* Jarak menyamping */ && Panjang(lokasiLegenda,lokasiSimulator) >= 0.9 //Untuk koreksi error float
+        ){
+            return true;
+    }
+
+    return false;
+}
+>>>>>>> edbbf718ea3a399d977fe7936b605af196518c01
 

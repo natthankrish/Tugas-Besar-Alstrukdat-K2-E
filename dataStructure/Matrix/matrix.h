@@ -5,6 +5,7 @@
 
 #include "../boolean.h"
 #include "../Point/point.h"
+#include "../Simulator/simulator.h"
 
 /* Ukuran maksimum baris dan kolom */
 #define ROW_CAP 100
@@ -139,5 +140,7 @@ int getWest (Matrix m, POINT currentpoint);
 int getNorth (Matrix m, POINT currentpoint);
 int getSouth (Matrix m, POINT currentpoint);
 POINT getSimulatorLocation (Matrix map);
+POINT getLegendaLocation (Matrix map, char Legenda);
+boolean isInArea(SIMULATOR BNMO, Matrix peta, char LEGENDA);
 
 #endif

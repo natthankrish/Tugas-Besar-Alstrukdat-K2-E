@@ -1,6 +1,8 @@
 {
-    "C_Cpp.errorSquiggles": "enabled",
+    "C_Cpp.errorSquiggles": "disabled",
     "files.associations": {
-        "wordmachinefile.h": "c"
+        "wordmachinefile.h": "c",
+        "charmachine.h": "c",
+        "matrix.h": "c"
     }
 }

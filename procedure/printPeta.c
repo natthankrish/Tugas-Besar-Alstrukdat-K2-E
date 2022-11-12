@@ -5,6 +5,7 @@ void printStatus (Matrix mapConfig, TIME time, SIMULATOR simulator) {
     printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
     char simName[101];
     copySimulatorName(Nama(simulator), simName);
+    int i = 0;    
     for (int i = 0; i < 101; i++) {
         printf("%c", simName[i]);
     }
