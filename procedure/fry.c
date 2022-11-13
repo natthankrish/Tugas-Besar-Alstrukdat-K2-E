@@ -8,26 +8,35 @@
 
 
 void doFry(ListStatik listMakanan, ListTree listResep, SIMULATOR * S, ListStatik madeByFry) {
-    if (!compareString(currentWord.TabWord, currentWord.Length, "0", 1) && currentChar == MARK) {
-        for (int i = 0; i < Lengthlist(madeByFry); i++) {
-            int order = ELMTlist(madeByFry, i) + 1;
-            if (compareString(currentWord.TabWord, currentWord.Length, (char)order, 1) && currentChar == MARK) {
-                // cek ketersedian bahan di inventory
-                ListStatik notAvailable = inventoryCheck(madeByFry[i], listMakanan, listResep, *S);
-                // jika semua bahan tersedia
-                if (Lengthlist(notAvailable) == 0) {
-                    InsertMakanan(&Inventory(*S), madeByFry[i]);
-                    printf("%s selesai dibuat dan sudah masuk ke inventory!\n", Name(madeByFry[i]));
-                } else {
-                    printf("Gagal membuat %s karena  kamu tidak memiliki bahan berikut:\n", Name(madeByFry[i]));
-                    for (int j=0; j<Lengthlist(notAvailable); j++) {
-                        printf("    %d. %s\n", j+1, Name(ELMTlist(notAvailable, j)))
-                    }
-                    printf("\nEnter Command: ");
-                    ADVWORD();
+    boolean done = false;
+    for (int i = 0; i < Lengthlist(madeByFry); i++) {
+        int order = ELMTlist(madeByFry, i) + 1;
+        if (compareString(currentWord.TabWord, currentWord.Length, (char)order, 1) && currentChar == MARK) {
+            // cek ketersedian bahan di inventory
+            ListStatik notAvailable = inventoryCheck(madeByFry[i], listMakanan, listResep, *S);
+            // jika semua bahan tersedia
+            if (Lengthlist(notAvailable) == 0) {
+                InsertMakanan(&Inventory(*S), madeByFry[i]);
+                printf("%s selesai dibuat dan sudah masuk ke inventory!\n", Name(madeByFry[i]));
+            } else {
+                printf("Gagal membuat %s karena  kamu tidak memiliki bahan berikut:\n", Name(madeByFry[i]));
+                for (int j=0; j<Lengthlist(notAvailable); j++) {
+                    printf("    %d. %s\n", j+1, Name(ELMTlist(notAvailable, j)))
                 }
+                printf("\nEnter Command: ");
+                ADVWORD();
             }
+            done = true;
         }
+    }
+
+    if (!done) {
+        while (!endWord) {
+            ADVWORD();
+        }
+        printf("Command Salah! silakan masukkan nomor urut makanan yang ingin anda buat. Ketik HELP untuk bantuan.\n");
+        printf("\nEnter Command: ");
+        ADVWORD();
     }
 }
 
@@ -47,8 +56,13 @@ void Fry (ListStatik listMakanan, ListTree listResep, SIMULATOR * S) {
     printf("\nKirim 0 untuk exit.\n");
     printf("Enter Command: ");
     ADVWORD();
-
+    boolean langsungExit = true;
     while (!compareString(currentWord.TabWord, currentWord.Length, "0", 1) && currentChar == MARK) {
         doFry(listMakanan, listResep, S, madeByFry);
+        langsungExit = false;
+    }
+
+    if (!langsungExit) {
+        ADVWORD();
     }
 }
