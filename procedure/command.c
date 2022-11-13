@@ -15,6 +15,7 @@
 #include "loadConfig.c"
 #include "buy.c"
 #include "fry.c"
+#include "mix.c"
 #include "delivery.c"
 #include "wait.c"
 

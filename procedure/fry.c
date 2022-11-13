@@ -6,22 +6,34 @@
 #include "../dataStructure/Inventory/inventory.h"
 #include <math.h>
 
+int countIntegerLength(int x) {
+    int count = 1;
+    while(x > 9) {
+        x = x/10;
+        count++;
+    }
+    return count;   
+}
+
+
 
 void doFry(ListStatik listMakanan, ListTree listResep, SIMULATOR * S, ListStatik madeByFry) {
     boolean done = false;
     for (int i = 0; i < Lengthlist(madeByFry); i++) {
-        int order = ELMTlist(madeByFry, i) + 1;
-        if (compareString(currentWord.TabWord, currentWord.Length, (char)order, 1) && currentChar == MARK) {
+        int order = i + 1;
+        char orderString [2];
+        sprintf(orderString, "%d", order);
+        if (compareString(currentWord.TabWord, currentWord.Length, orderString, countIntegerLength(order)) && currentChar == MARK) {
             // cek ketersedian bahan di inventory
-            ListStatik notAvailable = inventoryCheck(madeByFry[i], listMakanan, listResep, *S);
+            ListStatik notAvailable = inventoryCheck(ELMTlist(madeByFry, i), listMakanan, listResep, *S);
             // jika semua bahan tersedia
             if (Lengthlist(notAvailable) == 0) {
-                InsertMakanan(&Inventory(*S), madeByFry[i]);
-                printf("%s selesai dibuat dan sudah masuk ke inventory!\n", Name(madeByFry[i]));
+                InsertMakanan(&Inventory(*S), ELMTlist(madeByFry, i));
+                printf("%s selesai dibuat dan sudah masuk ke inventory!\n", Name(ELMTlist(madeByFry, i)));
             } else {
-                printf("Gagal membuat %s karena  kamu tidak memiliki bahan berikut:\n", Name(madeByFry[i]));
+                printf("Gagal membuat %s karena  kamu tidak memiliki bahan berikut:\n", Name(ELMTlist(madeByFry, i)));
                 for (int j=0; j<Lengthlist(notAvailable); j++) {
-                    printf("    %d. %s\n", j+1, Name(ELMTlist(notAvailable, j)))
+                    printf("    %d. %s\n", j+1, Name(ELMTlist(notAvailable, j)));
                 }
                 printf("\nEnter Command: ");
                 ADVWORD();
