@@ -41,7 +41,7 @@ void doMix (ListStatik listMakanan, ListTree listResep, SIMULATOR * S, ListStati
 
 }
 
-void Fry (ListStatik listMakanan, ListTree listResep, SIMULATOR * S) {
+void Mix (ListStatik listMakanan, ListTree listResep, SIMULATOR * S) {
     printf("==============================\n");
     printf("==========    MIX   ==========\n");
     printf("==============================\n");
