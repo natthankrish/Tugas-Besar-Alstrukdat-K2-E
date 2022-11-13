@@ -583,8 +583,6 @@ POINT getSimulatorLocation (Matrix map) {
     return MakePOINT(foundi, foundj);
 }
 
-<<<<<<< HEAD
-=======
 POINT getLegendaLocation (Matrix map, char Legenda) {
     int foundi, foundj;
     for (int i = 0; i < ROW_EFF(map); i++) {
@@ -608,5 +606,4 @@ boolean isInArea(SIMULATOR S,Matrix peta, char LEGENDA){
 
     return false;
 }
->>>>>>> edbbf718ea3a399d977fe7936b605af196518c01
 

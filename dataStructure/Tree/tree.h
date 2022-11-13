@@ -75,4 +75,7 @@ void insertLastTree(ListTree * L, node T);
 ListStatik getListChildByFood(MAKANAN food, ListTree listResep);
 /* Mengembalikan list of all child of food*/
 
+ListStatik inventoryCheck (MAKANAN foodToCheck, ListStatik listMakanan, ListTree listResep, SIMULATOR S);
+/* Mengembalikan child of foodToCheck yang tidak ada di inventory */
+
 #endif   

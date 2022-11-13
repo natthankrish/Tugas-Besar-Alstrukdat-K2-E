@@ -64,8 +64,6 @@ ListStatik ableTo(int action, ListStatik listMakanan, ListTree listResep ) {
 }
 
 
-
-
 /* Mengembalikan list yang berisi bahan makanan yang
    dibuat dengan cara action*/
 ListStatik madeBy(int action, ListStatik listMakanan, ListTree listResep) {
@@ -112,4 +110,18 @@ ListStatik getListChildByFood(MAKANAN food, ListTree listResep) {
             break;
         }
     }
+}
+
+/* Mengembalikan child of foodToCheck yang tidak ada di inventory */
+ListStatik inventoryCheck (MAKANAN foodToCheck, ListStatik listMakanan, ListTree listResep, SIMULATOR S) {
+    ListStatik ChildList = getListChildByFood(foodToCheck, listResep); 
+    ListStatik notAvailable;
+    CreateListStatik(&notAvailable);
+
+    for (int i = 0; i < Lengthlist(childrenList); i++) {
+        if (!MakananDalamInventory(Inventory(S), childrenList[i])) {
+            insertLast(&notAvailable, childrenList[i]);
+        }
+    }
+    return notAvailable;
 }

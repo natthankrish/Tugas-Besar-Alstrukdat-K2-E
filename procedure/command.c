@@ -14,6 +14,7 @@
 #include "cookBook.c"
 #include "loadConfig.c"
 #include "buy.c"
+#include "fry.c"
 #include "delivery.c"
 #include "wait.c"
 
@@ -80,6 +81,22 @@ void inputCommand (boolean *isStarted, boolean *isExit, Matrix *peta, ListStatik
             } else {
                 undoableMove = true;
                 buy(*makanan , pesanan);
+            }
+        } else {
+            while (!endWord) {
+                ADVWORD();
+            }
+            printf("Command Salah! Masukkan command yang benar. Ketik HELP untuk bantuan.\n");
+        }
+    } else if (compareString(currentWord.TabWord, currentWord.Length, "FRY", 3) && currentChar == MARK) {
+        if (currentChar == MARK) {
+            if (!(*isStarted)) {
+                printf("Program belum dimulai. silahkan jalankan command START terlebih dahulu.\n");
+            } else if(!isInArea(* BNMO,* peta, 'F')){
+                printf("BNMO belum berada di area penggorengan!\n");
+            } else {
+                undoableMove = true;
+                Fry(*makanan, *resep, BNMO);
             }
         } else {
             while (!endWord) {
