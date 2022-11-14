@@ -56,6 +56,12 @@ void inputCommand (boolean *isStarted, boolean *isExit, Matrix *peta, ListStatik
                     printf("%c", BNMOName[i]);
                 }
                 printf(". Selamat Memasak!\n");
+                allconfig StateConfig;
+                StateConfig.isstart = *isStarted;
+                StateConfig.isexit = *isExit;
+                StateConfig.bin = *BNMO;
+                StateConfig.waktu = *machinetime;
+                Push(UndoStack, StateConfig);
             }
         } else {
             while (!endWord) {
@@ -179,13 +185,14 @@ void inputCommand (boolean *isStarted, boolean *isExit, Matrix *peta, ListStatik
         }
     } else if (compareString(currentWord.TabWord, currentWord.Length, "MOVE", 4)) {
         undoableMove = true;
+        int movestatus = -1;
         ADVWORD();
         if (compareString(currentWord.TabWord, currentWord.Length, "NORTH", 5)) {
             if (currentChar == MARK) {
                 if (!(*isStarted)) {
                     printf("Program belum dimulai. silahkan jalankan command START terlebih dahulu.\n");
                 } else {
-                    int movestatus = getNorth(*peta, Lokasi(*BNMO));
+                    movestatus = getNorth(*peta, Lokasi(*BNMO));
                     if (movestatus == 0) {
                         moveNorth(BNMO, peta);
                     } else {
@@ -219,7 +226,7 @@ void inputCommand (boolean *isStarted, boolean *isExit, Matrix *peta, ListStatik
                 if (!(*isStarted)) {
                     printf("Program belum dimulai. silahkan jalankan command START terlebih dahulu.\n");
                 } else {
-                    int movestatus = getSouth(*peta, Lokasi(*BNMO));
+                    movestatus = getSouth(*peta, Lokasi(*BNMO));
                     if (movestatus == 0) {
                         moveSouth(BNMO, peta);
                     } else {
@@ -253,7 +260,7 @@ void inputCommand (boolean *isStarted, boolean *isExit, Matrix *peta, ListStatik
                 if (!(*isStarted)) {
                     printf("Program belum dimulai. silahkan jalankan command START terlebih dahulu.\n");
                 } else {
-                    int movestatus = getEast(*peta, Lokasi(*BNMO));
+                    movestatus = getEast(*peta, Lokasi(*BNMO));
                     if (movestatus == 0) {
                         moveEast(BNMO, peta);
                     } else {
@@ -287,7 +294,7 @@ void inputCommand (boolean *isStarted, boolean *isExit, Matrix *peta, ListStatik
                 if (!(*isStarted)) {
                     printf("Program belum dimulai. silahkan jalankan command START terlebih dahulu.\n");
                 } else {
-                    int movestatus = getWest(*peta, Lokasi(*BNMO));
+                    movestatus = getWest(*peta, Lokasi(*BNMO));
                     if (movestatus == 0) {
                         moveWest(BNMO, peta);
                     } else {
@@ -323,6 +330,9 @@ void inputCommand (boolean *isStarted, boolean *isExit, Matrix *peta, ListStatik
             }
             printf("Command Salah! Masukkan command yang benar. Ketik HELP untuk bantuan.\n");
         }
+        if(movestatus != 0){ // kalau dia mentok move tidak valid
+            undoableMove = false;
+        }
         if(undoableMove == true){ // kalau undoableMove berarti command benar
             wait(0, 1, pesanan, BNMO, machinetime);       
         }
@@ -353,6 +363,7 @@ void inputCommand (boolean *isStarted, boolean *isExit, Matrix *peta, ListStatik
         boolean validtime = (hour != -1) && (minute != -1);
         if (validtime){
             wait(hour, minute, pesanan, BNMO, machinetime);
+            undoableMove = true;
         } else {
             while (!endWord) {
                 ADVWORD();

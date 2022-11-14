@@ -9,6 +9,7 @@
 #include "dataStructure/Stack/UndoStack.c"
 #include "dataStructure/Time/time.c"
 #include "dataStructure/Tree/tree.c"
+#include "dataStructure/Inventory/inventory.c"
 #include "procedure/command.c"
 #include "procedure/splashScreen.c"
 #include "procedure/printPeta.c"

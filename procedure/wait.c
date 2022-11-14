@@ -19,7 +19,7 @@ void printDelivery(MAKANAN m){
 }
 
 void wait(int h, int m, PrioQueue *pesanan, SIMULATOR *BNMO, TIME *machinetime){
-    int waiting = h*24 + m;
+    int waiting = h*60 + m;
     int machtime = TIMEToMinute(*machinetime);
     int newtime = machtime + waiting;
     *machinetime = MinuteToTIME(newtime);

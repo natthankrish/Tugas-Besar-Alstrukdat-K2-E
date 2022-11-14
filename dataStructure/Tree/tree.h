@@ -4,6 +4,7 @@
 #include "../boolean.h"
 #include "../ListStatik/liststatik.h"
 #include "../Makanan/makanan.h"
+#include "../Inventory/inventory.h"
 
 
 /* *** Definisi TYPE TREE  *** */

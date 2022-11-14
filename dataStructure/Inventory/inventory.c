@@ -24,13 +24,13 @@ void PerbesarInventory(Inventory *I, int newcapacity){ // belum di tes
     Inventory TempInventory;
     MAKANAN TempMakanan;
     while(!InventoryKosong(*I)){
-        AmbilMakananTeratas(I, *TempMakanan);
-        InsertMakanan(*TempInventory, TempMakanan);
+        AmbilMakananTeratas(I, &TempMakanan);
+        InsertMakanan(&TempInventory, TempMakanan);
     }
 
     MakeInventoryKosong(I, newcapacity);
     while(!InventoryKosong(TempInventory)){
-        AmbilMakananTeratas(*TempInventory, *TempMakanan);
+        AmbilMakananTeratas(&TempInventory, &TempMakanan);
         InsertMakanan(I, TempMakanan);
     }
 }
