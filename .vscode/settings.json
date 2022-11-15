@@ -3,6 +3,7 @@
     "files.associations": {
         "wordmachinefile.h": "c",
         "charmachine.h": "c",
-        "matrix.h": "c"
+        "matrix.h": "c",
+        "undostack.h": "c"
     }
 }

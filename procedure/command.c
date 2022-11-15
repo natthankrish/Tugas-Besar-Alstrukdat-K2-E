@@ -4,6 +4,7 @@
 #include "../dataStructure/Matrix/matrix.h"
 #include "../dataStructure/PrioQueue/prioqueue.h"
 #include "../dataStructure/Stack/Undostack.h"
+#include "../dataStructure/Inventory/inventory.h"
 #include "../function/compareString.c"
 #include "../function/wordToInt.c"
 #include "moveNorth.c"
@@ -61,6 +62,7 @@ void inputCommand (boolean *isStarted, boolean *isExit, Matrix *peta, ListStatik
                 StateConfig.isexit = *isExit;
                 StateConfig.bin = *BNMO;
                 StateConfig.waktu = *machinetime;
+                StateConfig.pesanan = *pesanan;
                 Push(UndoStack, StateConfig);
             }
         } else {
@@ -120,6 +122,19 @@ void inputCommand (boolean *isStarted, boolean *isExit, Matrix *peta, ListStatik
             } else {
                 undoableMove = true;
                 Mix(*makanan, *resep, BNMO);
+            }
+        } else {
+            while (!endWord) {
+                ADVWORD();
+            }
+            printf("Command Salah! Masukkan command yang benar. Ketik HELP untuk bantuan.\n");
+        }
+    } else if (compareString(currentWord.TabWord, currentWord.Length, "INVENTORY", 9) && currentChar == MARK) {
+        if (currentChar == MARK) {
+            if (!(*isStarted)) {
+                printf("Program belum dimulai. silahkan jalankan command START terlebih dahulu.\n");
+            } else {
+                PrintInventory((BNMO->INVENTORY));
             }
         } else {
             while (!endWord) {
@@ -338,7 +353,7 @@ void inputCommand (boolean *isStarted, boolean *isExit, Matrix *peta, ListStatik
         }
     }else if(compareString(currentWord.TabWord, currentWord.Length, "UNDO", 4)){
         if (currentChar == MARK){
-            Undo(UndoStack, isStarted, isExit, peta, BNMO, machinetime);
+            Undo(UndoStack, isStarted, isExit, peta, BNMO, machinetime, pesanan);
         } else {
             while (!endWord) {
                 ADVWORD();
@@ -347,7 +362,7 @@ void inputCommand (boolean *isStarted, boolean *isExit, Matrix *peta, ListStatik
         }
     }else if(compareString(currentWord.TabWord, currentWord.Length, "REDO", 4)){
         if (currentChar == MARK){
-            Redo(UndoStack, isStarted, isExit, peta, BNMO, machinetime);
+            Redo(UndoStack, isStarted, isExit, peta, BNMO, machinetime, pesanan);
         } else {
             while (!endWord) {
                 ADVWORD();
@@ -386,6 +401,7 @@ void inputCommand (boolean *isStarted, boolean *isExit, Matrix *peta, ListStatik
         StateConfig.isexit = *isExit;
         StateConfig.bin = *BNMO;
         StateConfig.waktu = *machinetime;
+        StateConfig.pesanan = *pesanan;
         Push(UndoStack, StateConfig);
     }
     
