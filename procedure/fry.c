@@ -15,8 +15,6 @@ int countIntegerLength(int x) {
     return count;   
 }
 
-
-
 void doFry(ListStatik listMakanan, ListTree listResep, SIMULATOR * S, ListStatik madeByFry) {
     boolean done = false;
     for (int i = 0; i < Lengthlist(madeByFry); i++) {

@@ -2,7 +2,6 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-typedef PrioQueue Inventory;
 
 boolean InventoryKosong(Inventory I){
     return IsEmpty(I);

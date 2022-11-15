@@ -30,8 +30,6 @@ void CreateSetFromList(Set *S, ListStatik l){
             IDset(*S,5)=1;
         }
     }
-    
-    
 }
 
 Set Union(Set S1, Set S2){
