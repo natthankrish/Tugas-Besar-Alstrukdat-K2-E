@@ -4,7 +4,6 @@
 #include "../dataStructure/Tree/tree.h"
 #include "../dataStructure/ListStatik/liststatik.h"
 #include "../dataStructure/Inventory/inventory.h"
-#include "../function/countIntegerLength.c"
 #include <math.h>
 
 

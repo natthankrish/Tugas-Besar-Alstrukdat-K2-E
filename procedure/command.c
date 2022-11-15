@@ -7,6 +7,7 @@
 #include "../dataStructure/Inventory/inventory.h"
 #include "../function/compareString.c"
 #include "../function/wordToInt.c"
+#include "../function/countIntegerLength.c"
 #include "moveNorth.c"
 #include "moveSouth.c"
 #include "moveEast.c"
@@ -18,6 +19,7 @@
 #include "fry.c"
 #include "mix.c"
 #include "chop.c"
+#include "boil.c"
 #include "delivery.c"
 #include "wait.c"
 

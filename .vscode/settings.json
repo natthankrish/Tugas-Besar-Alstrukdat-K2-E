@@ -7,6 +7,9 @@
         "undostack.h": "c",
         "inventory.h": "c",
         "liststatik.h": "c",
-        "simulator.h": "c"
+        "simulator.h": "c",
+        "point.h": "c",
+        "tree.h": "c",
+        "prioqueue.h": "c"
     }
 }
