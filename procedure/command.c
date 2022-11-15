@@ -17,6 +17,7 @@
 #include "buy.c"
 #include "fry.c"
 #include "mix.c"
+#include "chop.c"
 #include "delivery.c"
 #include "wait.c"
 
@@ -122,6 +123,38 @@ void inputCommand (boolean *isStarted, boolean *isExit, Matrix *peta, ListStatik
             } else {
                 undoableMove = true;
                 Mix(*makanan, *resep, BNMO);
+            }
+        } else {
+            while (!endWord) {
+                ADVWORD();
+            }
+            printf("Command Salah! Masukkan command yang benar. Ketik HELP untuk bantuan.\n");
+        }
+    } else if (compareString(currentWord.TabWord, currentWord.Length, "CHOP", 4) && currentChar == MARK) {
+        if (currentChar == MARK) {
+            if (!(*isStarted)) {
+                printf("Program belum dimulai. silahkan jalankan command START terlebih dahulu.\n");
+            } else if(!isInArea(* BNMO,* peta, 'C')){
+                printf("BNMO belum berada di area pemotongan!\n");
+            } else {
+                undoableMove = true;
+                Chop(*makanan, *resep, BNMO);
+            }
+        } else {
+            while (!endWord) {
+                ADVWORD();
+            }
+            printf("Command Salah! Masukkan command yang benar. Ketik HELP untuk bantuan.\n");
+        }
+    } else if (compareString(currentWord.TabWord, currentWord.Length, "BOIL", 4) && currentChar == MARK) {
+        if (currentChar == MARK) {
+            if (!(*isStarted)) {
+                printf("Program belum dimulai. silahkan jalankan command START terlebih dahulu.\n");
+            } else if(!isInArea(* BNMO,* peta, 'B')){
+                printf("BNMO belum berada di area perebusan!\n");
+            } else {
+                undoableMove = true;
+                Boil(*makanan, *resep, BNMO);
             }
         } else {
             while (!endWord) {

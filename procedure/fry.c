@@ -4,16 +4,9 @@
 #include "../dataStructure/Tree/tree.h"
 #include "../dataStructure/ListStatik/liststatik.h"
 #include "../dataStructure/Inventory/inventory.h"
+#include "../function/countIntegerLength.c"
 #include <math.h>
 
-int countIntegerLength(int x) {
-    int count = 1;
-    while(x > 9) {
-        x = x/10;
-        count++;
-    }
-    return count;   
-}
 
 
 

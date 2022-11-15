@@ -4,17 +4,9 @@
 #include "../dataStructure/Tree/tree.h"
 #include "../dataStructure/ListStatik/liststatik.h"
 #include "../dataStructure/Inventory/inventory.h"
+#include "../function/countIntegerLength.c"
 #include <math.h>
 
-int countIntLength(int x) {
-    int count = 1;
-    while(x > 9) {
-        x = x/10;
-        count++;
-    }
-
-    return count;
-}
 
 void doMix (ListStatik listMakanan, ListTree listResep, SIMULATOR * S, ListStatik madeByMix) {
     boolean done = false;
@@ -22,7 +14,7 @@ void doMix (ListStatik listMakanan, ListTree listResep, SIMULATOR * S, ListStati
         int order = i + 1;
         char orderString [2];
         sprintf(orderString, "%d", order);
-        if (compareString(currentWord.TabWord, currentWord.Length, orderString, countIntLength(order)) && currentChar == MARK) {
+        if (compareString(currentWord.TabWord, currentWord.Length, orderString, countIntegerLength(order)) && currentChar == MARK) {
             // cek ketersedian bahan di inventory
             ListStatik notAvailable = inventoryCheck(ELMTlist(madeByMix, i), listMakanan, listResep, *S);
             // jika semua bahan tersedia

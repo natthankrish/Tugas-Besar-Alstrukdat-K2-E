@@ -4,6 +4,9 @@
         "wordmachinefile.h": "c",
         "charmachine.h": "c",
         "matrix.h": "c",
-        "undostack.h": "c"
+        "undostack.h": "c",
+        "inventory.h": "c",
+        "liststatik.h": "c",
+        "simulator.h": "c"
     }
 }
