@@ -110,6 +110,7 @@ ListStatik getListChildByFood(MAKANAN food, ListTree listResep) {
             break;
         }
     }
+    return listChildren;
 }
 
 /* Mengembalikan child of foodToCheck yang tidak ada di inventory */

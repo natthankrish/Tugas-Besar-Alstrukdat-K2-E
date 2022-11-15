@@ -40,13 +40,13 @@ void DealokasiInventory(Inventory *I){
 
 boolean MakananDalamInventory(Inventory I, MAKANAN X){ // belum selesai
     boolean found = false;
-
-    for (int i = Head(I); i < (NBElmt(I) + Head(I)); i++){
-        if (ID(X) == ID(Elmt(I, i%MaxEl(I)))) {
-            found = true;
+    if (!InventoryKosong(I)) {
+        for (int i = Head(I); i < (NBElmt(I) + Head(I)); i++){
+            if (ID(X) == ID(Elmt(I, i%MaxEl(I)))) {
+                found = true;
+            }
         }
     }
-
     return found;
 }
 

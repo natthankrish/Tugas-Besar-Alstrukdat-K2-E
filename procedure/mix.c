@@ -7,7 +7,7 @@
 #include <math.h>
 
 
-MAKANAN* doMix (ListStatik listMakanan, ListTree listResep, SIMULATOR * S, ListStatik madeByMix) {
+void doMix (MAKANAN ** buatNotif, ListStatik listMakanan, ListTree listResep, SIMULATOR * S, ListStatik madeByMix) {
     boolean done = false;
     for (int i = 0; i < Lengthlist(madeByMix); i++) {
         int order = i + 1;
@@ -18,17 +18,21 @@ MAKANAN* doMix (ListStatik listMakanan, ListTree listResep, SIMULATOR * S, ListS
             ListStatik notAvailable = inventoryCheck(ELMTlist(madeByMix, i), listMakanan, listResep, *S);
             // jika semua bahan tersedia
             if (Lengthlist(notAvailable) == 0) {
+                ListStatik childrenOfFood = getListChildByFood(ELMTlist(madeByMix, i), listResep);
+                for(int j=0; j < Lengthlist(childrenOfFood); j++) {
+                    AmbilMakanan(&Inventory(*S), ELMTlist(childrenOfFood, j));
+                }
                 InsertMakanan(&Inventory(*S), ELMTlist(madeByMix, i));
                 printf("%s selesai dibuat dan sudah masuk ke inventory!\n", Name(ELMTlist(madeByMix, i)));
-                MAKANAN *ret = &ELMTlist(madeByMix, i);
-                return ret;
+                *buatNotif = &ELMTlist(madeByMix, i);
+                ADVWORD();
             } else {
                 printf("Gagal membuat %s karena  kamu tidak memiliki bahan berikut:\n", Name(ELMTlist(madeByMix, i)));
                 for (int j=0; j<Lengthlist(notAvailable); j++) {
                     printf("    %d. %s\n", j+1, Name(ELMTlist(notAvailable, j)));
                 }
                 printf("\nEnter Command: ");
-                ADVWORD();
+                STARTWORD();
             }
             done = true;
         }
@@ -40,10 +44,8 @@ MAKANAN* doMix (ListStatik listMakanan, ListTree listResep, SIMULATOR * S, ListS
         }
         printf("Command Salah! silakan masukkan nomor urut makanan yang ingin anda buat. Ketik HELP untuk bantuan.\n");
         printf("\nEnter Command: ");
-        ADVWORD();
+        STARTWORD();
     }
-    return NULL;
-
 }
 
 MAKANAN* Mix (ListStatik listMakanan, ListTree listResep, SIMULATOR * S) {
@@ -53,7 +55,7 @@ MAKANAN* Mix (ListStatik listMakanan, ListTree listResep, SIMULATOR * S) {
 
     // inisialisasi list
     ListStatik madeByMix = madeBy(MIX, listMakanan, listResep);
-
+    MAKANAN * buatNotif = NULL;
     // menampilkan makanan yang bisa di goreng
     printf("List Bahan Makanan yang dapat dibuat: \n");
     for (int i = 0; i < Lengthlist(madeByMix); i++) {
@@ -61,15 +63,16 @@ MAKANAN* Mix (ListStatik listMakanan, ListTree listResep, SIMULATOR * S) {
     }
     printf("\nKirim 0 untuk exit.\n");
     printf("Enter Command: ");
-    ADVWORD();
+    STARTWORD();
 
     boolean langsungExit = true;
     while (!compareString(currentWord.TabWord, currentWord.Length, "0", 1) && currentChar == MARK) {
-        return doMix(listMakanan, listResep, S, madeByMix);
+        doMix(&buatNotif, listMakanan, listResep, S, madeByMix);
         langsungExit = false;
     }
 
     if (!langsungExit) {
         ADVWORD();
     }
+    return buatNotif;
 }

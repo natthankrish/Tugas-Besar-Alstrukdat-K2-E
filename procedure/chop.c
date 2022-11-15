@@ -7,7 +7,7 @@
 #include <math.h>
 
 
-MAKANAN* doChop (ListStatik listMakanan, ListTree listResep, SIMULATOR * S, ListStatik madeByChop) {
+void doChop (MAKANAN ** buatNotif, ListStatik listMakanan, ListTree listResep, SIMULATOR * S, ListStatik madeByChop) {
     boolean done = false;
     for (int i = 0; i < Lengthlist(madeByChop); i++) {
         int order = i + 1;
@@ -18,17 +18,21 @@ MAKANAN* doChop (ListStatik listMakanan, ListTree listResep, SIMULATOR * S, List
             ListStatik notAvailable = inventoryCheck(ELMTlist(madeByChop, i), listMakanan, listResep, *S);
             // jika semua bahan tersedia
             if (Lengthlist(notAvailable) == 0) {
+                ListStatik childrenOfFood = getListChildByFood(ELMTlist(madeByChop, i), listResep);
+                for(int j=0; j < Lengthlist(childrenOfFood); j++) {
+                    AmbilMakanan(&Inventory(*S), ELMTlist(childrenOfFood, j));
+                }
                 InsertMakanan(&Inventory(*S), ELMTlist(madeByChop, i));
                 printf("%s selesai dibuat dan sudah masuk ke inventory!\n", Name(ELMTlist(madeByChop, i)));
-                MAKANAN *ret = &ELMTlist(madeByChop, i);
-                return ret;
+                *buatNotif = &ELMTlist(madeByChop, i);
+                ADVWORD();
             } else {
                 printf("Gagal membuat %s karena  kamu tidak memiliki bahan berikut:\n", Name(ELMTlist(madeByChop, i)));
                 for (int j=0; j<Lengthlist(notAvailable); j++) {
                     printf("    %d. %s\n", j+1, Name(ELMTlist(notAvailable, j)));
                 }
                 printf("\nEnter Command: ");
-                ADVWORD();
+                STARTWORD();
             }
             done = true;
         }
@@ -40,9 +44,8 @@ MAKANAN* doChop (ListStatik listMakanan, ListTree listResep, SIMULATOR * S, List
         }
         printf("Command Salah! silakan masukkan nomor urut makanan yang ingin anda buat. Ketik HELP untuk bantuan.\n");
         printf("\nEnter Command: ");
-        ADVWORD();
+        STARTWORD();
     }
-    return NULL;
 }
 
 MAKANAN* Chop (ListStatik listMakanan, ListTree listResep, SIMULATOR * S) {
@@ -52,7 +55,7 @@ MAKANAN* Chop (ListStatik listMakanan, ListTree listResep, SIMULATOR * S) {
 
     // inisialisasi list
     ListStatik madeByChop = madeBy(CHOP, listMakanan, listResep);
-
+    MAKANAN * buatNotif = NULL;
     // menampilkan makanan yang bisa di goreng
     printf("List Bahan Makanan yang dapat dibuat: \n");
     for (int i = 0; i < Lengthlist(madeByChop); i++) {
@@ -60,15 +63,16 @@ MAKANAN* Chop (ListStatik listMakanan, ListTree listResep, SIMULATOR * S) {
     }
     printf("\nKirim 0 untuk exit.\n");
     printf("Enter Command: ");
-    ADVWORD();
+    STARTWORD();
 
     boolean langsungExit = true;
     while (!compareString(currentWord.TabWord, currentWord.Length, "0", 1) && currentChar == MARK) {
-        return doChop(listMakanan, listResep, S, madeByChop);
+        doChop(&buatNotif, listMakanan, listResep, S, madeByChop);
         langsungExit = false;
     }
 
     if (!langsungExit) {
         ADVWORD();
     }
+    return buatNotif;
 }
