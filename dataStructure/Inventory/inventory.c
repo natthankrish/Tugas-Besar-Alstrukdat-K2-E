@@ -23,13 +23,13 @@ void PerbesarInventory(Inventory *I, int newcapacity){ // belum di tes
     Inventory TempInventory;
     MAKANAN TempMakanan;
     while(!InventoryKosong(*I)){
-        AmbilMakananTeratas(I, *TempMakanan);
-        InsertMakanan(*TempInventory, TempMakanan);
+        AmbilMakananTeratas(I, &TempMakanan);
+        InsertMakanan(&TempInventory, TempMakanan);
     }
 
     MakeInventoryKosong(I, newcapacity);
     while(!InventoryKosong(TempInventory)){
-        AmbilMakananTeratas(*TempInventory, *TempMakanan);
+        AmbilMakananTeratas(&TempInventory, &TempMakanan);
         InsertMakanan(I, TempMakanan);
     }
 }
@@ -62,13 +62,29 @@ void AmbilMakananTeratas(Inventory *I, MAKANAN *X){
     Dequeue(I, X);
 }
 
-void PrintInventory(Inventory I){ // belum selesai print nama
+void PrintInventory(Inventory I){
+    printf("List Makanan dalam Inventory :\n\n");
     if (IsEmpty(I)) {
-        printf("Inventory Kosong\n");
+        printf("Inventory Kosong!\n");
     } else {
-        for (int i = Head(I); i < (NBElmt(I) + Head(I)); i++){
-            printf("%d %c\n", Elmt(I, i % MaxEl(I)).expiry, Elmt(I, i % MaxEl(I)).name);
+        for(int i = 0; i < NBElmt(I);i++){
+            printf("    %d. ",i+1);
+            for(int j = 0; j < 101; j++){
+                printf("%c",Elmt(I,i).name[j]);
+            }
+            printf("\n      Waktu sisa kadaluwarsa : ");
+            if (Elmt(I,i).expiry.D != 0) {
+                printf(" %d Hari", Elmt(I,i).expiry.D);
+            }
+
+            if (Elmt(I,i).expiry.HH != 0) {
+                printf(" %d Jam", Elmt(I,i).expiry.HH);
+            }
+
+            if (Elmt(I,i).expiry.MM != 0) {
+                printf(" %d Menit", Elmt(I,i).expiry.MM);
+            }
+            printf("\n\n");
         }
-        printf("#\n");
     }
 }

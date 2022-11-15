@@ -1,7 +1,8 @@
 #include <stdio.h>
 #include "../dataStructure/Matrix/matrix.h"
+#include "../dataStructure/ListStatik/ListNotif.h"
 
-void printStatus (Matrix mapConfig, TIME time, SIMULATOR simulator) {
+void printStatus (Matrix mapConfig, TIME time, SIMULATOR simulator, ListNotif notifikasi) {
     printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
     char simName[101];
     copySimulatorName(Nama(simulator), simName);
@@ -16,6 +17,12 @@ void printStatus (Matrix mapConfig, TIME time, SIMULATOR simulator) {
     displayCLOCK(time);
     printf("\n");
     printf("Notifikasi: \n");
+    if(notifikasi.tipenotif == 1){
+        printListNotifUndo(notifikasi);
+    }else{
+        printListNotifNormal(notifikasi);
+    }
+
     for (int i = 0; i < mapConfig.colEff+2; i++) {
         printf("* ");
     }

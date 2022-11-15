@@ -6,16 +6,10 @@
 #include "../dataStructure/Inventory/inventory.h"
 #include <math.h>
 
-int countIntegerLength(int x) {
-    int count = 1;
-    while(x > 9) {
-        x = x/10;
-        count++;
-    }
-    return count;   
-}
 
-void doFry(ListStatik listMakanan, ListTree listResep, SIMULATOR * S, ListStatik madeByFry) {
+
+
+MAKANAN* doFry(ListStatik listMakanan, ListTree listResep, SIMULATOR * S, ListStatik madeByFry) {
     boolean done = false;
     for (int i = 0; i < Lengthlist(madeByFry); i++) {
         int order = i + 1;
@@ -28,6 +22,8 @@ void doFry(ListStatik listMakanan, ListTree listResep, SIMULATOR * S, ListStatik
             if (Lengthlist(notAvailable) == 0) {
                 InsertMakanan(&Inventory(*S), ELMTlist(madeByFry, i));
                 printf("%s selesai dibuat dan sudah masuk ke inventory!\n", Name(ELMTlist(madeByFry, i)));
+                MAKANAN *ret = &ELMTlist(madeByFry, i);
+                return ret;
             } else {
                 printf("Gagal membuat %s karena  kamu tidak memiliki bahan berikut:\n", Name(ELMTlist(madeByFry, i)));
                 for (int j=0; j<Lengthlist(notAvailable); j++) {
@@ -48,9 +44,10 @@ void doFry(ListStatik listMakanan, ListTree listResep, SIMULATOR * S, ListStatik
         printf("\nEnter Command: ");
         ADVWORD();
     }
+    return NULL;
 }
 
-void Fry (ListStatik listMakanan, ListTree listResep, SIMULATOR * S) {
+MAKANAN* Fry (ListStatik listMakanan, ListTree listResep, SIMULATOR * S) {
     printf("==============================\n");
     printf("==========    FRY   ==========\n");
     printf("==============================\n");
@@ -68,7 +65,7 @@ void Fry (ListStatik listMakanan, ListTree listResep, SIMULATOR * S) {
     ADVWORD();
     boolean langsungExit = true;
     while (!compareString(currentWord.TabWord, currentWord.Length, "0", 1) && currentChar == MARK) {
-        doFry(listMakanan, listResep, S, madeByFry);
+        return doFry(listMakanan, listResep, S, madeByFry);
         langsungExit = false;
     }
 

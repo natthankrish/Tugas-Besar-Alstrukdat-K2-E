@@ -5,10 +5,12 @@
 #include "dataStructure/Simulator/simulator.c"
 #include "dataStructure/Matrix/matrix.c"
 #include "dataStructure/ListStatik/liststatik.c"
+#include "dataStructure/ListStatik/ListNotif.c"
 #include "dataStructure/PrioQueue/prioqueue.c"
 #include "dataStructure/Stack/UndoStack.c"
 #include "dataStructure/Time/time.c"
 #include "dataStructure/Tree/tree.c"
+#include "dataStructure/Inventory/inventory.c"
 #include "procedure/command.c"
 #include "procedure/splashScreen.c"
 #include "procedure/printPeta.c"
@@ -21,6 +23,7 @@ int main () {
     ListTree resepconfig;
     PrioQueue pesanan;
     Stack UndoStack;
+    ListNotif Notifikasi;
 
     CreateEmptyStack(&UndoStack);
     MakeEmpty(&pesanan, 101);
@@ -30,12 +33,12 @@ int main () {
     setClockZero(&machinetime);
 
     welcomePage();
-    inputCommand(&isStarted, &isExit, &mapconfig, &makananconfig, &machinetime, &BNMO, &resepconfig, &pesanan, &UndoStack);
+    inputCommand(&isStarted, &isExit, &mapconfig, &makananconfig, &machinetime, &BNMO, &resepconfig, &pesanan, &UndoStack, &Notifikasi);
     while (!isExit) {
         if (isStarted) {
-            printStatus(mapconfig, machinetime, BNMO);
+            printStatus(mapconfig, machinetime, BNMO, Notifikasi);
         }
-        inputCommand(&isStarted, &isExit, &mapconfig, &makananconfig, &machinetime, &BNMO, &resepconfig, &pesanan, &UndoStack);
+        inputCommand(&isStarted, &isExit, &mapconfig, &makananconfig, &machinetime, &BNMO, &resepconfig, &pesanan, &UndoStack, &Notifikasi);
     }
 
     return 0;

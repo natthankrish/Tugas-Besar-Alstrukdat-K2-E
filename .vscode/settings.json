@@ -4,6 +4,16 @@
         "wordmachinefile.h": "c",
         "charmachine.h": "c",
         "matrix.h": "c",
+<<<<<<< HEAD
         "set.h": "c"
+=======
+        "undostack.h": "c",
+        "inventory.h": "c",
+        "liststatik.h": "c",
+        "simulator.h": "c",
+        "point.h": "c",
+        "tree.h": "c",
+        "prioqueue.h": "c"
+>>>>>>> c4a1c46fc116330bf3446bc13900039e14512c2e
     }
 }

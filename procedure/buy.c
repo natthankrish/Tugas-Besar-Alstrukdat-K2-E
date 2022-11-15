@@ -5,7 +5,7 @@
 #include "../dataStructure/WordMachine/wordmachine.h"
 #include <stdio.h>
 
-void buy(ListStatik makanan, PrioQueue *pesanan){
+MAKANAN* buy(ListStatik makanan, PrioQueue *pesanan){
     int num = 0;
     int urutanDapatBuy[101];
     int inputBuy;
@@ -68,6 +68,8 @@ void buy(ListStatik makanan, PrioQueue *pesanan){
             printf("\n");
 
             Enqueue(pesanan, makanan.contents[urutanDapatBuy[inputBuy]]);
+            MAKANAN *ret = &makanan.contents[urutanDapatBuy[inputBuy]];
+            return ret;
 
         }
         } else {
@@ -78,5 +80,5 @@ void buy(ListStatik makanan, PrioQueue *pesanan){
         }
     }
 
-
+    return NULL; // ngecek berhasil beli atau tidak
 }

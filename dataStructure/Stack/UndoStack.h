@@ -8,6 +8,8 @@
 #include "../boolean.h"
 #include "../Simulator/simulator.h"
 #include "../Matrix/matrix.h"
+#include "../PrioQueue/prioqueue.h"
+#include "../ListStatik/ListNotif.h"
 
 #define Nil -1
 #define MaxElStack 100
@@ -17,6 +19,8 @@ typedef struct allconfig{
     boolean isstart, isexit;
     SIMULATOR bin;
     TIME waktu;
+    PrioQueue pesanan;
+    ListNotif notifikasi;
 } allconfig;
 
 typedef struct allconfig infotype;
@@ -66,10 +70,10 @@ void Push(Stack * S, infotype X);
 /* F.S. X menjadi TOP yang baru,TOP bertambah 1 */
 
 /* ************ Menghapus sebuah elemen Stack ************ */
-void Undo(Stack *S, boolean *isstart, boolean *isexit, Matrix *Peta, SIMULATOR *BNMO, TIME *waktu);
+void Undo(Stack *S, boolean *isstart, boolean *isexit, Matrix *Peta, SIMULATOR *BNMO, TIME *waktu, PrioQueue *pesanan, ListNotif *notifikasi);
 /* men-undo state */
 
-void Redo(Stack *S, boolean *isstart, boolean *isexit, Matrix *Peta, SIMULATOR *BNMO, TIME *waktu);
+void Redo(Stack *S, boolean *isstart, boolean *isexit, Matrix *Peta, SIMULATOR *BNMO, TIME *waktu, PrioQueue *pesanan, ListNotif *notifikasi);
 /* men-redo state */
 
 #endif
