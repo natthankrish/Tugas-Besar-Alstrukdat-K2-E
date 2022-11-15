@@ -5,6 +5,7 @@
 
 void CreateListNotif(ListNotif *l){
     l->length = 0; 
+    l->tipenotif = 0;
 }
 
 notif createNotif(int tipe, MAKANAN m){
