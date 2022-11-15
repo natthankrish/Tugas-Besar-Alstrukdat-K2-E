@@ -28,8 +28,7 @@ void wait(int h, int m, PrioQueue *pesanan, SIMULATOR *BNMO, TIME *machinetime){
     printf("Notifikasi: \n");
 
     if(!IsEmpty(BNMO->INVENTORY)){
-        printf("test");
-        for(int i=(BNMO->INVENTORY.HEAD);i<=(BNMO->INVENTORY.HEAD + NBElmt(BNMO->INVENTORY));i++){
+        for(int i=(BNMO->INVENTORY.HEAD);i<(BNMO->INVENTORY.HEAD + NBElmt(BNMO->INVENTORY));i++){
             int expirytime = TIMEToMinute(BNMO->INVENTORY.T[i%MaxEl(BNMO->INVENTORY)].expiry);
             int newexpiry = expirytime - waiting;
             BNMO->INVENTORY.T[i%MaxEl(BNMO->INVENTORY)].expiry = MinuteToTIME(newexpiry);
@@ -37,11 +36,11 @@ void wait(int h, int m, PrioQueue *pesanan, SIMULATOR *BNMO, TIME *machinetime){
     }
 
     if(!IsEmpty(*pesanan)){
-        for(int i=(pesanan->HEAD);i<=(pesanan->HEAD + NBElmt(*pesanan));i++){
+        for(int i=(pesanan->HEAD);i<(pesanan->HEAD + NBElmt(*pesanan));i++){
             int deliverytime = TIMEToMinute(pesanan->T[i%MaxEl(*pesanan)].deliveryTime);
             int newdelivery = deliverytime - waiting;
             if(newdelivery > 0){
-                pesanan->T[i%MaxEl(*pesanan)].expiry = MinuteToTIME(newdelivery);
+                pesanan->T[i%MaxEl(*pesanan)].deliveryTime = MinuteToTIME(newdelivery);
             }else{
                 MAKANAN tmp;
                 Dequeue(pesanan, &tmp);
