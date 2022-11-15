@@ -3,29 +3,13 @@
 #include "../dataStructure/Makanan/makanan.h"
 #include "../dataStructure/PrioQueue/prioqueue.h"
 #include "../dataStructure/Simulator/simulator.h"
+#include "../dataStructure/ListStatik/ListNotif.h"
 
-void printKadaluwarsa(MAKANAN m){
-    for(int i=0;i<101;i++){
-        printf("%c", m.name[i]);
-    }
-    printf(" kadaluwarsa...\n");
-}
-
-void printDelivery(MAKANAN m){
-    for(int i=0;i<101;i++){
-        printf("%c", m.name[i]);
-    }
-    printf(" sudah diterima...\n");
-}
-
-void wait(int h, int m, PrioQueue *pesanan, SIMULATOR *BNMO, TIME *machinetime){
+void wait(int h, int m, PrioQueue *pesanan, SIMULATOR *BNMO, TIME *machinetime, ListNotif *notifikasi){
     int waiting = h*60 + m;
     int machtime = TIMEToMinute(*machinetime);
     int newtime = machtime + waiting;
     *machinetime = MinuteToTIME(newtime);
-
-    int notifcount = 1;
-    printf("Notifikasi: \n");
 
     if(!IsEmpty(BNMO->INVENTORY)){
         for(int i=(BNMO->INVENTORY.HEAD);i<(BNMO->INVENTORY.HEAD + NBElmt(BNMO->INVENTORY));i++){
@@ -44,8 +28,7 @@ void wait(int h, int m, PrioQueue *pesanan, SIMULATOR *BNMO, TIME *machinetime){
             }else{
                 MAKANAN tmp;
                 Dequeue(pesanan, &tmp);
-                printf("%d. ", notifcount++);
-                printDelivery(tmp);
+                pushNotif(notifikasi, tmp, 6);
                 tmp.deliveryTime = MinuteToTIME(0);
                 int expirytime = TIMEToMinute(tmp.expiry);
                 int newexpiry = expirytime - newdelivery;
@@ -58,7 +41,6 @@ void wait(int h, int m, PrioQueue *pesanan, SIMULATOR *BNMO, TIME *machinetime){
     while(!IsEmpty(BNMO->INVENTORY) && TIMEToMinute(InfoHead(BNMO->INVENTORY).expiry) <= 0){
         MAKANAN tmp;
         Dequeue(&(BNMO->INVENTORY), &tmp);
-        printf("%d. ", notifcount++);
-        printKadaluwarsa(tmp);
+        pushNotif(notifikasi, tmp, 7);
     }
 }

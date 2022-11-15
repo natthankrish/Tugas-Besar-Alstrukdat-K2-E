@@ -5,6 +5,7 @@
 #include "../dataStructure/PrioQueue/prioqueue.h"
 #include "../dataStructure/Stack/Undostack.h"
 #include "../dataStructure/Inventory/inventory.h"
+#include "../dataStructure/ListStatik/ListNotif.h"
 #include "../function/compareString.c"
 #include "../function/wordToInt.c"
 #include "../function/countIntegerLength.c"
@@ -24,8 +25,10 @@
 #include "wait.c"
 
 
-void inputCommand (boolean *isStarted, boolean *isExit, Matrix *peta, ListStatik *makanan, TIME *machinetime, SIMULATOR *BNMO, ListTree *resep, PrioQueue *pesanan, Stack *UndoStack) {
+void inputCommand (boolean *isStarted, boolean *isExit, Matrix *peta, ListStatik *makanan, TIME *machinetime, SIMULATOR *BNMO, ListTree *resep, PrioQueue *pesanan, Stack *UndoStack, ListNotif *notifikasi) {
     boolean undoableMove = false;
+    CreateListNotif(notifikasi);
+
     printf("Enter Command: ");
     STARTWORD();
     if (compareString(currentWord.TabWord, currentWord.Length, "START", 5)) {
@@ -66,6 +69,7 @@ void inputCommand (boolean *isStarted, boolean *isExit, Matrix *peta, ListStatik
                 StateConfig.bin = *BNMO;
                 StateConfig.waktu = *machinetime;
                 StateConfig.pesanan = *pesanan;
+                StateConfig.notifikasi = *notifikasi;
                 Push(UndoStack, StateConfig);
             }
         } else {
@@ -92,7 +96,10 @@ void inputCommand (boolean *isStarted, boolean *isExit, Matrix *peta, ListStatik
                 printf("BNMO belum berada di area telepon!\n");
             } else {
                 undoableMove = true;
-                buy(*makanan , pesanan);
+                MAKANAN* beliMakanan = buy(*makanan , pesanan);
+                if(beliMakanan != NULL){
+                    pushNotif(notifikasi, *beliMakanan, 1);
+                }
             }
         } else {
             while (!endWord) {
@@ -108,7 +115,10 @@ void inputCommand (boolean *isStarted, boolean *isExit, Matrix *peta, ListStatik
                 printf("BNMO belum berada di area penggorengan!\n");
             } else {
                 undoableMove = true;
-                Fry(*makanan, *resep, BNMO);
+                MAKANAN* fryMakanan = Fry(*makanan, *resep, BNMO);
+                if(fryMakanan != NULL){
+                    pushNotif(notifikasi, *fryMakanan, 1);
+                }
             }
         } else {
             while (!endWord) {
@@ -124,7 +134,10 @@ void inputCommand (boolean *isStarted, boolean *isExit, Matrix *peta, ListStatik
                 printf("BNMO belum berada di area pencampuran!\n");
             } else {
                 undoableMove = true;
-                Mix(*makanan, *resep, BNMO);
+                MAKANAN* mixMakanan = Mix(*makanan, *resep, BNMO);
+                if(mixMakanan != NULL){
+                    pushNotif(notifikasi, *mixMakanan, 5);
+                }
             }
         } else {
             while (!endWord) {
@@ -140,7 +153,10 @@ void inputCommand (boolean *isStarted, boolean *isExit, Matrix *peta, ListStatik
                 printf("BNMO belum berada di area pemotongan!\n");
             } else {
                 undoableMove = true;
-                Chop(*makanan, *resep, BNMO);
+                MAKANAN* potongMakanan = Chop(*makanan, *resep, BNMO);
+                if(potongMakanan != NULL){
+                    pushNotif(notifikasi, *potongMakanan, 2);
+                }
             }
         } else {
             while (!endWord) {
@@ -156,7 +172,10 @@ void inputCommand (boolean *isStarted, boolean *isExit, Matrix *peta, ListStatik
                 printf("BNMO belum berada di area perebusan!\n");
             } else {
                 undoableMove = true;
-                Boil(*makanan, *resep, BNMO);
+                MAKANAN* rebusMakanan = Boil(*makanan, *resep, BNMO);
+                if(rebusMakanan != NULL){
+                    pushNotif(notifikasi, *rebusMakanan, 4);
+                }
             }
         } else {
             while (!endWord) {
@@ -384,11 +403,11 @@ void inputCommand (boolean *isStarted, boolean *isExit, Matrix *peta, ListStatik
             undoableMove = false;
         }
         if(undoableMove == true){ // kalau undoableMove berarti command benar
-            wait(0, 1, pesanan, BNMO, machinetime);       
+            wait(0, 1, pesanan, BNMO, machinetime, notifikasi);       
         }
     }else if(compareString(currentWord.TabWord, currentWord.Length, "UNDO", 4)){
         if (currentChar == MARK){
-            Undo(UndoStack, isStarted, isExit, peta, BNMO, machinetime, pesanan);
+            Undo(UndoStack, isStarted, isExit, peta, BNMO, machinetime, pesanan, notifikasi);
         } else {
             while (!endWord) {
                 ADVWORD();
@@ -397,7 +416,7 @@ void inputCommand (boolean *isStarted, boolean *isExit, Matrix *peta, ListStatik
         }
     }else if(compareString(currentWord.TabWord, currentWord.Length, "REDO", 4)){
         if (currentChar == MARK){
-            Redo(UndoStack, isStarted, isExit, peta, BNMO, machinetime, pesanan);
+            Redo(UndoStack, isStarted, isExit, peta, BNMO, machinetime, pesanan, notifikasi);
         } else {
             while (!endWord) {
                 ADVWORD();
@@ -412,7 +431,7 @@ void inputCommand (boolean *isStarted, boolean *isExit, Matrix *peta, ListStatik
 
         boolean validtime = (hour != -1) && (minute != -1);
         if (validtime){
-            wait(hour, minute, pesanan, BNMO, machinetime);
+            wait(hour, minute, pesanan, BNMO, machinetime, notifikasi);
             undoableMove = true;
         } else {
             while (!endWord) {
@@ -437,6 +456,7 @@ void inputCommand (boolean *isStarted, boolean *isExit, Matrix *peta, ListStatik
         StateConfig.bin = *BNMO;
         StateConfig.waktu = *machinetime;
         StateConfig.pesanan = *pesanan;
+        StateConfig.notifikasi = *notifikasi;
         Push(UndoStack, StateConfig);
     }
     

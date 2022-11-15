@@ -33,7 +33,7 @@ void Push(Stack * S, infotype X){
     }
 }
 
-void Undo(Stack *S, boolean *isstart, boolean *isexit, Matrix *Peta, SIMULATOR *BNMO, TIME *waktu, PrioQueue *pesanan){
+void Undo(Stack *S, boolean *isstart, boolean *isexit, Matrix *Peta, SIMULATOR *BNMO, TIME *waktu, PrioQueue *pesanan, ListNotif *notifikasi){
     if(!canUndo(*S)){
         printf("Anda sudah tidak bisa undo.\n");
     }else{
@@ -48,10 +48,12 @@ void Undo(Stack *S, boolean *isstart, boolean *isexit, Matrix *Peta, SIMULATOR *
         Peta->mem[newlocation.X][newlocation.Y] = 'S';
         *BNMO = S->T[S->currState].bin;
         *pesanan = S->T[S->currState].pesanan;
+        *notifikasi = S->T[S->currState + 1].notifikasi;
+        notifikasi->tipenotif = 1;
     }
 }
 
-void Redo(Stack *S, boolean *isstart, boolean *isexit, Matrix *Peta, SIMULATOR *BNMO, TIME *waktu, PrioQueue *pesanan){
+void Redo(Stack *S, boolean *isstart, boolean *isexit, Matrix *Peta, SIMULATOR *BNMO, TIME *waktu, PrioQueue *pesanan, ListNotif *notifikasi){
     if(!canRedo(*S)){
         printf("Anda sudah tidak bisa redo.\n");
     }else{
@@ -66,5 +68,7 @@ void Redo(Stack *S, boolean *isstart, boolean *isexit, Matrix *Peta, SIMULATOR *
         *waktu = S->T[S->currState].waktu;
         *BNMO = S->T[S->currState].bin;
         *pesanan = S->T[S->currState].pesanan;
+        *notifikasi = S->T[S->currState].notifikasi;
+        notifikasi->tipenotif = 0;
     }
 }

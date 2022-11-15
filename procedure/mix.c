@@ -7,7 +7,7 @@
 #include <math.h>
 
 
-void doMix (ListStatik listMakanan, ListTree listResep, SIMULATOR * S, ListStatik madeByMix) {
+MAKANAN* doMix (ListStatik listMakanan, ListTree listResep, SIMULATOR * S, ListStatik madeByMix) {
     boolean done = false;
     for (int i = 0; i < Lengthlist(madeByMix); i++) {
         int order = i + 1;
@@ -20,6 +20,8 @@ void doMix (ListStatik listMakanan, ListTree listResep, SIMULATOR * S, ListStati
             if (Lengthlist(notAvailable) == 0) {
                 InsertMakanan(&Inventory(*S), ELMTlist(madeByMix, i));
                 printf("%s selesai dibuat dan sudah masuk ke inventory!\n", Name(ELMTlist(madeByMix, i)));
+                MAKANAN *ret = &ELMTlist(madeByMix, i);
+                return ret;
             } else {
                 printf("Gagal membuat %s karena  kamu tidak memiliki bahan berikut:\n", Name(ELMTlist(madeByMix, i)));
                 for (int j=0; j<Lengthlist(notAvailable); j++) {
@@ -40,10 +42,11 @@ void doMix (ListStatik listMakanan, ListTree listResep, SIMULATOR * S, ListStati
         printf("\nEnter Command: ");
         ADVWORD();
     }
+    return NULL;
 
 }
 
-void Mix (ListStatik listMakanan, ListTree listResep, SIMULATOR * S) {
+MAKANAN* Mix (ListStatik listMakanan, ListTree listResep, SIMULATOR * S) {
     printf("==============================\n");
     printf("==========    MIX   ==========\n");
     printf("==============================\n");
@@ -62,7 +65,7 @@ void Mix (ListStatik listMakanan, ListTree listResep, SIMULATOR * S) {
 
     boolean langsungExit = true;
     while (!compareString(currentWord.TabWord, currentWord.Length, "0", 1) && currentChar == MARK) {
-        doFry(listMakanan, listResep, S, madeByMix);
+        return doMix(listMakanan, listResep, S, madeByMix);
         langsungExit = false;
     }
 

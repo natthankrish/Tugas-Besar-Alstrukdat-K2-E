@@ -7,7 +7,7 @@
 #include <math.h>
 
 
-void doChop (ListStatik listMakanan, ListTree listResep, SIMULATOR * S, ListStatik madeByChop) {
+MAKANAN* doChop (ListStatik listMakanan, ListTree listResep, SIMULATOR * S, ListStatik madeByChop) {
     boolean done = false;
     for (int i = 0; i < Lengthlist(madeByChop); i++) {
         int order = i + 1;
@@ -20,6 +20,8 @@ void doChop (ListStatik listMakanan, ListTree listResep, SIMULATOR * S, ListStat
             if (Lengthlist(notAvailable) == 0) {
                 InsertMakanan(&Inventory(*S), ELMTlist(madeByChop, i));
                 printf("%s selesai dibuat dan sudah masuk ke inventory!\n", Name(ELMTlist(madeByChop, i)));
+                MAKANAN *ret = &ELMTlist(madeByChop, i);
+                return ret;
             } else {
                 printf("Gagal membuat %s karena  kamu tidak memiliki bahan berikut:\n", Name(ELMTlist(madeByChop, i)));
                 for (int j=0; j<Lengthlist(notAvailable); j++) {
@@ -40,10 +42,10 @@ void doChop (ListStatik listMakanan, ListTree listResep, SIMULATOR * S, ListStat
         printf("\nEnter Command: ");
         ADVWORD();
     }
-
+    return NULL;
 }
 
-void Chop (ListStatik listMakanan, ListTree listResep, SIMULATOR * S) {
+MAKANAN* Chop (ListStatik listMakanan, ListTree listResep, SIMULATOR * S) {
     printf("===============================\n");
     printf("==========    CHOP   ==========\n");
     printf("===============================\n");
@@ -62,7 +64,7 @@ void Chop (ListStatik listMakanan, ListTree listResep, SIMULATOR * S) {
 
     boolean langsungExit = true;
     while (!compareString(currentWord.TabWord, currentWord.Length, "0", 1) && currentChar == MARK) {
-        doChop(listMakanan, listResep, S, madeByChop);
+        return doChop(listMakanan, listResep, S, madeByChop);
         langsungExit = false;
     }
 
