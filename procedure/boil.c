@@ -8,7 +8,7 @@
 #include <math.h>
 
 
-void doChop (ListStatik listMakanan, ListTree listResep, SIMULATOR * S, ListStatik madeByBoil) {
+void doBoil (ListStatik listMakanan, ListTree listResep, SIMULATOR * S, ListStatik madeByBoil) {
     boolean done = false;
     for (int i = 0; i < Lengthlist(madeByBoil); i++) {
         int order = i + 1;
@@ -44,13 +44,13 @@ void doChop (ListStatik listMakanan, ListTree listResep, SIMULATOR * S, ListStat
 
 }
 
-void Chop (ListStatik listMakanan, ListTree listResep, SIMULATOR * S) {
+void Boil (ListStatik listMakanan, ListTree listResep, SIMULATOR * S) {
     printf("===============================\n");
     printf("==========    BOIL   ==========\n");
     printf("===============================\n");
 
     // inisialisasi list
-    ListStatik madeByBoil = madeBy(CHOP, listMakanan, listResep);
+    ListStatik madeByBoil = madeBy(BOIL, listMakanan, listResep);
 
     // menampilkan makanan yang bisa di goreng
     printf("List Bahan Makanan yang dapat dibuat: \n");
@@ -63,7 +63,7 @@ void Chop (ListStatik listMakanan, ListTree listResep, SIMULATOR * S) {
 
     boolean langsungExit = true;
     while (!compareString(currentWord.TabWord, currentWord.Length, "0", 1) && currentChar == MARK) {
-        doChop(listMakanan, listResep, S, madeByBoil);
+        doBoil(listMakanan, listResep, S, madeByBoil);
         langsungExit = false;
     }
 
