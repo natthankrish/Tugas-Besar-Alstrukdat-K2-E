@@ -35,20 +35,5 @@ boolean isSubsetInventory(Set inventorySet, Set S, int numFoods);
 
 
 void displaySet(Set S, int numFoods);
-// Set Union(Set S1, Set S2);
-
-// Set Intersection(Set S1, Set S2);
-
-// Set Negasi(Set S);
-
-// Set Substraction(Set S1, Set S2);
-
-// int Ones(Set S);
-
-// int Zeroes(Set S);
-
-// boolean isAllZero(Set S);
-
-// boolean isAllOne(Set S);
 
 #endif
