@@ -8,7 +8,7 @@ void PrintCatalog (ListStatik makananconfig){
         }
         printf("\n");
         printf("   ID Makanan: %d\n", makananconfig.contents[i].idx);
-        printf("   Waktu Sebelum Kadaluarsa:");
+        printf("   Durasi Sebelum Kadaluarsa:");
 
         if (makananconfig.contents[i].expiry.D != 0) {
             printf(" %d Hari", makananconfig.contents[i].expiry.D);

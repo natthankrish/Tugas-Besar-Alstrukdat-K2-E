@@ -4,43 +4,51 @@
 #include "../boolean.h"
 #include "../Makanan/makanan.h"
 #include "../ListStatik/liststatik.h"
+#include "../Tree/tree.h"
+#include "../Simulator/simulator.h"
 
-#define AllFoods 6
+typedef struct Node* nodeAddress;
+typedef struct Node {
+    int infoNode;
+    nodeAddress nextNode;
+} SetNode;
 
-typedef struct
-{
-    int ID[AllFoods];
-} Set;
+typedef nodeAddress Set;
 
-#define IDset(S,i) (S).ID[i]
-
-/*Isi set sesuai jumlah makanan di file makanan dan berurut membesar berdasarkan ID makanan*/
-//IDset(S,0)= Tepung (ID:10)
-//IDset(S,1)= Ayam mentah (ID:11)
-//IDset(S,2)= Minyak goreng (ID:15)
-//IDset(S,3)= Ayam potong (ID:21)
-//IDset(S,4)= Ayam tepung (ID:31)
-//IDset(S,5)= Ayam goreng (ID:37)
+/* SELEKTOR SET */
+/* misal S adalah Set*/
+#define InfoNode(S) (S)->infoNode
+#define NextNode(S) (S)->nextNode
 
 
-void CreateEmptySet(Set *S);
+nodeAddress newSetNode(int x);
 
-void CreateSetFromList(Set *S, ListStatik l);
+void CreateEmptySet(Set *S, int numFoods);
 
-Set Union(Set S1, Set S2);
+void fillNode(Set* S, int idx);
 
-Set Intersection(Set S1, Set S2);
+Set CreateFoodSet(MAKANAN food, ListStatik listMakanan,ListTree listResep);
 
-Set Negasi(Set S);
+Set CreateInventorySet(SIMULATOR S, ListStatik listMakanan, ListTree listResep);
 
-Set Substraction(Set S1, Set S2);
+boolean isSubsetInventory(Set inventorySet, Set S, int numFoods);
 
-int Ones(Set S);
 
-int Zeroes(Set S);
+void displaySet(Set S, int numFoods);
+// Set Union(Set S1, Set S2);
 
-boolean isAllZero(Set S);
+// Set Intersection(Set S1, Set S2);
 
-boolean isAllOne(Set S);
+// Set Negasi(Set S);
+
+// Set Substraction(Set S1, Set S2);
+
+// int Ones(Set S);
+
+// int Zeroes(Set S);
+
+// boolean isAllZero(Set S);
+
+// boolean isAllOne(Set S);
 
 #endif

@@ -23,6 +23,7 @@
 #include "boil.c"
 #include "delivery.c"
 #include "wait.c"
+#include "foodRecom.c"
 
 
 void inputCommand (boolean *isStarted, boolean *isExit, Matrix *peta, ListStatik *makanan, TIME *machinetime, SIMULATOR *BNMO, ListTree *resep, PrioQueue *pesanan, Stack *UndoStack, ListNotif *notifikasi) {
@@ -215,7 +216,8 @@ void inputCommand (boolean *isStarted, boolean *isExit, Matrix *peta, ListStatik
                 printf("Program belum dimulai. silahkan jalankan command START terlebih dahulu.\n");
             } else {
                 printf("-----------------------------------------------\n");
-                printf("KATALOG MAKANAN\n");
+                printf("                KATALOG MAKANAN\n");
+                printf("-----------------------------------------------\n");
                 PrintCatalog(*makanan);
                 printf("-----------------------------------------------\n");
             }
@@ -231,9 +233,24 @@ void inputCommand (boolean *isStarted, boolean *isExit, Matrix *peta, ListStatik
                 printf("Program belum dimulai. silahkan jalankan command START terlebih dahulu.\n");
             } else {
                 printf("-----------------------------------------------\n");
-                printf("DAFTAR RESEP\n");
+                printf("                DAFTAR RESEP\n");
+                printf("-----------------------------------------------\n");
                 printCookBook(*resep);
                 printf("-----------------------------------------------\n");
+            }
+        } else {
+            while (!endWord) {
+                ADVWORD();
+            }
+            printf("Command Salah! Masukkan command yang benar. Ketik HELP untuk bantuan.\n");
+        }
+    } else if (compareString(currentWord.TabWord, currentWord.Length, "RECOMMENDATION", 14) && currentChar == MARK) {
+        if (currentChar == MARK) {
+            if (!(*isStarted)) {
+                printf("Program belum dimulai. silahkan jalankan command START terlebih dahulu.\n");
+            } else {
+                foodRecom(*BNMO, *makanan, *resep);
+                ADVWORD();
             }
         } else {
             while (!endWord) {
@@ -244,7 +261,7 @@ void inputCommand (boolean *isStarted, boolean *isExit, Matrix *peta, ListStatik
     } else if (compareString(currentWord.TabWord, currentWord.Length, "HELP", 4) && currentChar == MARK) {
         if (currentChar == MARK) {
             printf("-----------------------------------------------\n");
-            printf("PUSAT BANTUAN BNMO\n");
+            printf("                PUSAT BANTUAN BNMO\n");
             printf("-----------------------------------------------\n");
         } else {
             while (!endWord) {

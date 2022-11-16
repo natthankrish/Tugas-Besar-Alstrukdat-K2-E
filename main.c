@@ -11,9 +11,11 @@
 #include "dataStructure/Time/time.c"
 #include "dataStructure/Tree/tree.c"
 #include "dataStructure/Inventory/inventory.c"
+#include "dataStructure/Set/set.c"
 #include "procedure/command.c"
 #include "procedure/splashScreen.c"
 #include "procedure/printPeta.c"
+
 
 int main () {
     boolean isStarted = false, isExit = false;
