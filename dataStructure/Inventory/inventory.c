@@ -19,7 +19,7 @@ void MakeInventoryKosong(Inventory *I, int capacity){
     MakeEmpty(I, capacity);
 }
 
-void PerbesarInventory(Inventory *I, int newcapacity){ // belum di tes
+void PerbesarInventory(Inventory *I, int newcapacity){
     Inventory TempInventory;
     MAKANAN TempMakanan;
     while(!InventoryKosong(*I)){
@@ -38,7 +38,7 @@ void DealokasiInventory(Inventory *I){
     DeAlokasi(I);
 }
 
-boolean MakananDalamInventory(Inventory I, MAKANAN X){ // belum selesai
+boolean MakananDalamInventory(Inventory I, MAKANAN X){
     boolean found = false;
     if (!InventoryKosong(I)) {
         for (int i = Head(I); i < (NBElmt(I) + Head(I)); i++){
@@ -54,8 +54,28 @@ void InsertMakanan(Inventory *I, MAKANAN X){
     Enqueue(I, X);
 }
 
-void AmbilMakanan(Inventory *I, MAKANAN X){ // belum selesai
-
+void AmbilMakanan(Inventory *I, MAKANAN X){
+    if(!MakananDalamInventory(*I, X)){
+        printf("Makanan tidak ada dalam inventory\n");
+    }else{
+        int idx = 0; // index keberapa dari head
+        
+        for (int i = Head(*I); i < (NBElmt(*I) + Head(*I)); i++){
+            if (ID(X) == ID(Elmt(*I, i%MaxEl(*I)))) {
+                break;
+            }else{
+                idx++;
+            }
+        }
+        if(idx == 0){
+            Dequeue(I, &X);
+        }else{
+            for(int i=Head(*I) + idx;i < (NBElmt(*I) + Head(*I));i++){
+                I->T[i%MaxEl(*I)] = I->T[(i+1)%MaxEl(*I)];
+            }
+            Tail(*I) = (Tail(*I) + MaxEl(*I) - 1) % MaxEl(*I);
+        }
+    }
 }
 
 void AmbilMakananTeratas(Inventory *I, MAKANAN *X){
