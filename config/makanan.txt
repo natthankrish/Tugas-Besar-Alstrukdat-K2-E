@@ -8,7 +8,7 @@ Buy
 21
 Ayam Potong
 0 2 0
-0 0 15
+0 0 0
 Chop
 2 2
 10
@@ -26,12 +26,24 @@ Buy
 31
 Ayam Tepung
 0 0 30
-0 0 15
+0 0 0
 Mix
 5 5
 37
 Ayam Goreng
 0 0 15
-0 0 15
+0 0 0
 Fry
 6 6
+92 
+Telur
+0 2 0
+0 0 5
+Buy
+1 1
+93
+Telur Rebus
+0 2 0
+0 0 5
+Boil
+1 1
