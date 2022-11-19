@@ -93,7 +93,7 @@ boolean isExpired(MAKANAN M){
 }
 
 boolean isDelivered(MAKANAN M){
-/*Menentukan apakah makanan sudah expired atau belum*/
+/*Menentukan apakah makanan sudah delivered atau belum*/
     return (DeliveryTime(M)==0);
 }
 
