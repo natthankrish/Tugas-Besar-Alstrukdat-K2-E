@@ -9,7 +9,7 @@
 
 
 
-void doFry(MAKANAN ** buatNotif, ListStatik listMakanan, ListTree listResep, SIMULATOR * S, ListStatik madeByFry) {
+void doFry(MAKANAN ** buatNotif, ListStatik listMakanan, ListTree listResep, SIMULATOR * S, ListStatik madeByFry, PrioQueue * pesanan) {
     boolean done = false;
     for (int i = 0; i < Lengthlist(madeByFry); i++) {
         int order = i + 1;
@@ -24,10 +24,12 @@ void doFry(MAKANAN ** buatNotif, ListStatik listMakanan, ListTree listResep, SIM
                 for(int j=0; j < Lengthlist(childrenOfFood); j++) {
                     AmbilMakanan(&Inventory(*S), ELMTlist(childrenOfFood, j));
                 }
-                InsertMakanan(&Inventory(*S), ELMTlist(madeByFry, i));
-                printf("%s selesai dibuat dan sudah masuk ke inventory!\n", Name(ELMTlist(madeByFry, i)));
+                // InsertMakanan(&Inventory(*S), ELMTlist(madeByFry, i));
+                Enqueue(pesanan, ELMTlist(madeByFry, i));
+                printf("%s sedang digoreng! Mohon ditunggu!\n", Name(ELMTlist(madeByFry, i)));
                 *buatNotif = &ELMTlist(madeByFry, i);
-                ADVWORD();
+                printf("\nEnter Command: ");
+                STARTWORD();
             } else {
                 printf("Gagal membuat %s karena  kamu tidak memiliki bahan berikut:\n", Name(ELMTlist(madeByFry, i)));
                 for (int j=0; j<Lengthlist(notAvailable); j++) {
@@ -50,7 +52,7 @@ void doFry(MAKANAN ** buatNotif, ListStatik listMakanan, ListTree listResep, SIM
     }
 }
 
-MAKANAN* Fry (ListStatik listMakanan, ListTree listResep, SIMULATOR * S) {
+MAKANAN* Fry (ListStatik listMakanan, ListTree listResep, SIMULATOR * S, PrioQueue * pesanan) {
     printf("==============================\n");
     printf("==========    FRY   ==========\n");
     printf("==============================\n");
@@ -68,7 +70,7 @@ MAKANAN* Fry (ListStatik listMakanan, ListTree listResep, SIMULATOR * S) {
     STARTWORD();
     boolean langsungExit = true;
     while (!compareString(currentWord.TabWord, currentWord.Length, "0", 1) && currentChar == MARK) {
-        doFry(&buatNotif, listMakanan, listResep, S, madeByFry);
+        doFry(&buatNotif, listMakanan, listResep, S, madeByFry, pesanan);
         langsungExit = false;
     }
 

@@ -26,6 +26,4 @@ void delivery(PrioQueue pesanan){
             printf("\n\n");
         }
     }
-
-    
 }

@@ -7,7 +7,7 @@
 #include <math.h>
 
 
-void doBoil (MAKANAN ** buatNotif, ListStatik listMakanan, ListTree listResep, SIMULATOR * S, ListStatik madeByBoil) {
+void doBoil (MAKANAN ** buatNotif, ListStatik listMakanan, ListTree listResep, SIMULATOR * S, ListStatik madeByBoil, PrioQueue * pesanan) {
     boolean done = false;
     for (int i = 0; i < Lengthlist(madeByBoil); i++) {
         int order = i + 1;
@@ -22,10 +22,12 @@ void doBoil (MAKANAN ** buatNotif, ListStatik listMakanan, ListTree listResep, S
                 for(int j=0; j < Lengthlist(childrenOfFood); j++) {
                     AmbilMakanan(&Inventory(*S), ELMTlist(childrenOfFood, j));
                 }
-                InsertMakanan(&Inventory(*S), ELMTlist(madeByBoil, i));
-                printf("%s selesai dibuat dan sudah masuk ke inventory!\n", Name(ELMTlist(madeByBoil, i)));
+                Enqueue(pesanan, ELMTlist(madeByBoil, i));
+                // InsertMakanan(&Inventory(*S), ELMTlist(madeByBoil, i));
+                printf("%s sedang direbus! Mohon ditunggu!\n", Name(ELMTlist(madeByBoil, i)));
                 *buatNotif = &ELMTlist(madeByBoil, i);
-                ADVWORD();
+                printf("\nEnter Command: ");
+                STARTWORD();
             } else {
                 printf("Gagal membuat %s karena  kamu tidak memiliki bahan berikut:\n", Name(ELMTlist(madeByBoil, i)));
                 for (int j=0; j<Lengthlist(notAvailable); j++) {
@@ -48,7 +50,7 @@ void doBoil (MAKANAN ** buatNotif, ListStatik listMakanan, ListTree listResep, S
     }
 }
 
-MAKANAN* Boil (ListStatik listMakanan, ListTree listResep, SIMULATOR * S) {
+MAKANAN* Boil (ListStatik listMakanan, ListTree listResep, SIMULATOR * S, PrioQueue * pesanan) {
     printf("===============================\n");
     printf("==========    BOIL   ==========\n");
     printf("===============================\n");
@@ -67,7 +69,7 @@ MAKANAN* Boil (ListStatik listMakanan, ListTree listResep, SIMULATOR * S) {
 
     boolean langsungExit = true;
     while (!compareString(currentWord.TabWord, currentWord.Length, "0", 1) && currentChar == MARK) {
-        doBoil(&buatNotif, listMakanan, listResep, S, madeByBoil);
+        doBoil(&buatNotif, listMakanan, listResep, S, madeByBoil, pesanan);
         langsungExit = false;
     }
 

@@ -7,7 +7,7 @@
 #include <math.h>
 
 
-void doMix (MAKANAN ** buatNotif, ListStatik listMakanan, ListTree listResep, SIMULATOR * S, ListStatik madeByMix) {
+void doMix (MAKANAN ** buatNotif, ListStatik listMakanan, ListTree listResep, SIMULATOR * S, ListStatik madeByMix, PrioQueue * pesanan) {
     boolean done = false;
     for (int i = 0; i < Lengthlist(madeByMix); i++) {
         int order = i + 1;
@@ -22,10 +22,12 @@ void doMix (MAKANAN ** buatNotif, ListStatik listMakanan, ListTree listResep, SI
                 for(int j=0; j < Lengthlist(childrenOfFood); j++) {
                     AmbilMakanan(&Inventory(*S), ELMTlist(childrenOfFood, j));
                 }
-                InsertMakanan(&Inventory(*S), ELMTlist(madeByMix, i));
-                printf("%s selesai dibuat dan sudah masuk ke inventory!\n", Name(ELMTlist(madeByMix, i)));
+                Enqueue(pesanan, ELMTlist(madeByMix, i));
+                // InsertMakanan(&Inventory(*S), ELMTlist(madeByMix, i));
+                printf("%s sedang dalam proses pencampuran! Mohon ditunggu!\n", Name(ELMTlist(madeByMix, i)));
                 *buatNotif = &ELMTlist(madeByMix, i);
-                ADVWORD();
+                printf("\nEnter Command: ");
+                STARTWORD();
             } else {
                 printf("Gagal membuat %s karena  kamu tidak memiliki bahan berikut:\n", Name(ELMTlist(madeByMix, i)));
                 for (int j=0; j<Lengthlist(notAvailable); j++) {
@@ -48,7 +50,7 @@ void doMix (MAKANAN ** buatNotif, ListStatik listMakanan, ListTree listResep, SI
     }
 }
 
-MAKANAN* Mix (ListStatik listMakanan, ListTree listResep, SIMULATOR * S) {
+MAKANAN* Mix (ListStatik listMakanan, ListTree listResep, SIMULATOR * S, PrioQueue * pesanan) {
     printf("==============================\n");
     printf("==========    MIX   ==========\n");
     printf("==============================\n");
@@ -67,7 +69,7 @@ MAKANAN* Mix (ListStatik listMakanan, ListTree listResep, SIMULATOR * S) {
 
     boolean langsungExit = true;
     while (!compareString(currentWord.TabWord, currentWord.Length, "0", 1) && currentChar == MARK) {
-        doMix(&buatNotif, listMakanan, listResep, S, madeByMix);
+        doMix(&buatNotif, listMakanan, listResep, S, madeByMix, pesanan);
         langsungExit = false;
     }
 

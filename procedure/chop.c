@@ -7,7 +7,7 @@
 #include <math.h>
 
 
-void doChop (MAKANAN ** buatNotif, ListStatik listMakanan, ListTree listResep, SIMULATOR * S, ListStatik madeByChop) {
+void doChop (MAKANAN ** buatNotif, ListStatik listMakanan, ListTree listResep, SIMULATOR * S, ListStatik madeByChop, PrioQueue * pesanan) {
     boolean done = false;
     for (int i = 0; i < Lengthlist(madeByChop); i++) {
         int order = i + 1;
@@ -22,10 +22,12 @@ void doChop (MAKANAN ** buatNotif, ListStatik listMakanan, ListTree listResep, S
                 for(int j=0; j < Lengthlist(childrenOfFood); j++) {
                     AmbilMakanan(&Inventory(*S), ELMTlist(childrenOfFood, j));
                 }
-                InsertMakanan(&Inventory(*S), ELMTlist(madeByChop, i));
-                printf("%s selesai dibuat dan sudah masuk ke inventory!\n", Name(ELMTlist(madeByChop, i)));
+                Enqueue(pesanan, ELMTlist(madeByChop, i));
+                // InsertMakanan(&Inventory(*S), ELMTlist(madeByChop, i));
+                printf("%s sedang dipotong! Mohon Tunggu!\n", Name(ELMTlist(madeByChop, i)));
                 *buatNotif = &ELMTlist(madeByChop, i);
-                ADVWORD();
+                printf("\nEnter Command: ");
+                STARTWORD();
             } else {
                 printf("Gagal membuat %s karena  kamu tidak memiliki bahan berikut:\n", Name(ELMTlist(madeByChop, i)));
                 for (int j=0; j<Lengthlist(notAvailable); j++) {
@@ -48,7 +50,7 @@ void doChop (MAKANAN ** buatNotif, ListStatik listMakanan, ListTree listResep, S
     }
 }
 
-MAKANAN* Chop (ListStatik listMakanan, ListTree listResep, SIMULATOR * S) {
+MAKANAN* Chop (ListStatik listMakanan, ListTree listResep, SIMULATOR * S, PrioQueue * pesanan) {
     printf("===============================\n");
     printf("==========    CHOP   ==========\n");
     printf("===============================\n");
@@ -67,7 +69,7 @@ MAKANAN* Chop (ListStatik listMakanan, ListTree listResep, SIMULATOR * S) {
 
     boolean langsungExit = true;
     while (!compareString(currentWord.TabWord, currentWord.Length, "0", 1) && currentChar == MARK) {
-        doChop(&buatNotif, listMakanan, listResep, S, madeByChop);
+        doChop(&buatNotif, listMakanan, listResep, S, madeByChop, pesanan);
         langsungExit = false;
     }
 

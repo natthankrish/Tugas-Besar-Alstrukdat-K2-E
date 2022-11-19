@@ -116,7 +116,7 @@ void inputCommand (boolean *isStarted, boolean *isExit, Matrix *peta, ListStatik
                 printf("BNMO belum berada di area penggorengan!\n");
             } else {
                 undoableMove = true;
-                MAKANAN* fryMakanan = Fry(*makanan, *resep, BNMO);
+                MAKANAN* fryMakanan = Fry(*makanan, *resep, BNMO, pesanan);
                 if(fryMakanan != NULL){
                     pushNotif(notifikasi, *fryMakanan, 1);
                 }
@@ -135,7 +135,7 @@ void inputCommand (boolean *isStarted, boolean *isExit, Matrix *peta, ListStatik
                 printf("BNMO belum berada di area pencampuran!\n");
             } else {
                 undoableMove = true;
-                MAKANAN* mixMakanan = Mix(*makanan, *resep, BNMO);
+                MAKANAN* mixMakanan = Mix(*makanan, *resep, BNMO, pesanan);
                 if(mixMakanan != NULL){
                     pushNotif(notifikasi, *mixMakanan, 5);
                 }
@@ -154,7 +154,7 @@ void inputCommand (boolean *isStarted, boolean *isExit, Matrix *peta, ListStatik
                 printf("BNMO belum berada di area pemotongan!\n");
             } else {
                 undoableMove = true;
-                MAKANAN* potongMakanan = Chop(*makanan, *resep, BNMO);
+                MAKANAN* potongMakanan = Chop(*makanan, *resep, BNMO, pesanan);
                 if(potongMakanan != NULL){
                     pushNotif(notifikasi, *potongMakanan, 2);
                 }
@@ -173,7 +173,7 @@ void inputCommand (boolean *isStarted, boolean *isExit, Matrix *peta, ListStatik
                 printf("BNMO belum berada di area perebusan!\n");
             } else {
                 undoableMove = true;
-                MAKANAN* rebusMakanan = Boil(*makanan, *resep, BNMO);
+                MAKANAN* rebusMakanan = Boil(*makanan, *resep, BNMO, pesanan);
                 if(rebusMakanan != NULL){
                     pushNotif(notifikasi, *rebusMakanan, 4);
                 }
