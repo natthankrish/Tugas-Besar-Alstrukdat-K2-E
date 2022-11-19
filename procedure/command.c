@@ -24,6 +24,7 @@
 #include "delivery.c"
 #include "wait.c"
 #include "foodRecom.c"
+#include "help.c"
 
 
 void inputCommand (boolean *isStarted, boolean *isExit, Matrix *peta, ListStatik *makanan, TIME *machinetime, SIMULATOR *BNMO, ListTree *resep, PrioQueue *pesanan, Stack *UndoStack, ListNotif *notifikasi) {
@@ -260,9 +261,7 @@ void inputCommand (boolean *isStarted, boolean *isExit, Matrix *peta, ListStatik
         }
     } else if (compareString(currentWord.TabWord, currentWord.Length, "HELP", 4) && currentChar == MARK) {
         if (currentChar == MARK) {
-            printf("-----------------------------------------------\n");
-            printf("                PUSAT BANTUAN BNMO\n");
-            printf("-----------------------------------------------\n");
+            printHelp();
         } else {
             while (!endWord) {
                 ADVWORD();

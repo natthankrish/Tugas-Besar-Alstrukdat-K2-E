@@ -16,7 +16,6 @@ typedef struct
 {
   int height; /*Tinggi*/
   int width; /*Lebar*/
-
 } DIMENSION;
 
 typedef struct
