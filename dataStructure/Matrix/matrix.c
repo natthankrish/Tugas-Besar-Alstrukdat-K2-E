@@ -599,8 +599,7 @@ POINT getLegendaLocation (Matrix map, char Legenda) {
 boolean isInArea(SIMULATOR S,Matrix peta, char LEGENDA){
     POINT lokasiSimulator = getPoint(S);
     POINT lokasiLegenda = getLegendaLocation(peta, LEGENDA);
-    if( Panjang(lokasiLegenda,lokasiSimulator) <= 1.5 /* Jarak menyamping */ && Panjang(lokasiLegenda,lokasiSimulator) >= 0.9 //Untuk koreksi error float
-        ){
+    if( Panjang(lokasiLegenda,lokasiSimulator) == 1){
             return true;
     }
 
