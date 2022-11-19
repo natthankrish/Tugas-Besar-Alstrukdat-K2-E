@@ -46,7 +46,7 @@ void fridge(Inventory I, KULKAS *Kulkas){
                         // printf("keyboard:%c listinv:%d\n",currentWord.TabWord, i);
                         if(MakananDalamInventory(I, Elmt(I,idx))){
                             inToFridge(Kulkas, &Elmt(I,idx));
-                            printf("[debug] Nama food: %s\n");
+                            printf("[debug] Nama food: \n");
                             for(int j = 0; j < 101; j++){
                                 printf("%c",Elmt(I,idx).name[j]);
                             }
