@@ -1,9 +1,11 @@
-#include "../dataStructure/Inventory/inventory.c"
-#include "../dataStructure/PrioQueue/prioqueue.c"
-#include "../dataStructure/Makanan/makanan.c"
-#include "../dataStructure/Time/time.c"
+#include "../dataStructure/Inventory/inventory.h"
+#include "../dataStructure/PrioQueue/prioqueue.h"
+#include "../dataStructure/Makanan/makanan.h"
+#include "../dataStructure/Time/time.h"
+#include <stdio.h>
 
 int main(){
+    /*Run Driver: gcc ./driver/driver_inventory.c  ./datastructure/Inventory/inventory.c ./datastructure/PrioQueue/prioqueue.c ./datastructure/Makanan/makanan.c ./datastructure/Time/time.c -o main */
     
     Inventory inv;
     MAKANAN tmp;

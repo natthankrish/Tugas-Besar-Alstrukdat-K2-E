@@ -1,8 +1,10 @@
-#include "../dataStructure/PrioQueue/prioqueue.c"
-#include "../dataStructure/Makanan/makanan.c"
-#include "../dataStructure/Time/time.c"
+#include "../dataStructure/PrioQueue/prioqueue.h"
+#include "../dataStructure/Makanan/makanan.h"
+#include "../dataStructure/Time/time.h"
+#include <stdio.h>
 
 int main(){
+    /*Run Driver: gcc ./driver/driver_prioqueue.c ./datastructure/PrioQueue/prioqueue.c ./datastructure/Makanan/makanan.c ./datastructure/Time/time.c -o main */
     PrioQueue pq;
     MAKANAN tmp;
     tmp.name[0] = 'h';
