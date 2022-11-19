@@ -21,6 +21,7 @@ typedef struct {
     address HEAD;  /* alamat penghapusan */
     address TAIL;  /* alamat penambahan */
     int MaxEl;     /* Max elemen queue */
+    int sortBy; /* 0 sort by expiry, 1 sort by delivery */
 } PrioQueue;
 /* Definisi PrioQueue kosong: HEAD=Nil; TAIL=Nil. */
 

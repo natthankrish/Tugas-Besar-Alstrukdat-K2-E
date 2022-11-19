@@ -29,6 +29,7 @@ int main () {
 
     CreateEmptyStack(&UndoStack);
     MakeEmpty(&pesanan, 101);
+    pesanan.sortBy = 1; /* pesanan sort by delivery time */
     CreateListTree(&resepconfig);
 
     TIME machinetime;
