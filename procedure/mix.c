@@ -7,7 +7,7 @@
 #include <math.h>
 
 
-void doMix (MAKANAN ** buatNotif, ListStatik listMakanan, ListTree listResep, SIMULATOR * S, ListStatik madeByMix, PrioQueue * pesanan) {
+void doMix (MAKANAN ** buatNotif, ListStatik listMakanan, ListTree listResep, SIMULATOR * S, ListStatik madeByMix) {
     boolean done = false;
     for (int i = 0; i < Lengthlist(madeByMix); i++) {
         int order = i + 1;
@@ -22,9 +22,7 @@ void doMix (MAKANAN ** buatNotif, ListStatik listMakanan, ListTree listResep, SI
                 for(int j=0; j < Lengthlist(childrenOfFood); j++) {
                     AmbilMakanan(&Inventory(*S), ELMTlist(childrenOfFood, j));
                 }
-                Enqueue(pesanan, ELMTlist(madeByMix, i));
-                // InsertMakanan(&Inventory(*S), ELMTlist(madeByMix, i));
-                printf("%s sedang dalam proses pencampuran! Mohon ditunggu!\n", Name(ELMTlist(madeByMix, i)));
+                printf("%s berhasil dicampur!\n", Name(ELMTlist(madeByMix, i)));
                 *buatNotif = &ELMTlist(madeByMix, i);
                 printf("\nEnter Command: ");
                 STARTWORD();
@@ -50,7 +48,7 @@ void doMix (MAKANAN ** buatNotif, ListStatik listMakanan, ListTree listResep, SI
     }
 }
 
-MAKANAN* Mix (ListStatik listMakanan, ListTree listResep, SIMULATOR * S, PrioQueue * pesanan) {
+MAKANAN* Mix (ListStatik listMakanan, ListTree listResep, SIMULATOR * S) {
     printf("==============================\n");
     printf("==========    MIX   ==========\n");
     printf("==============================\n");
@@ -69,7 +67,7 @@ MAKANAN* Mix (ListStatik listMakanan, ListTree listResep, SIMULATOR * S, PrioQue
 
     boolean langsungExit = true;
     while (!compareString(currentWord.TabWord, currentWord.Length, "0", 1) && currentChar == MARK) {
-        doMix(&buatNotif, listMakanan, listResep, S, madeByMix, pesanan);
+        doMix(&buatNotif, listMakanan, listResep, S, madeByMix);
         langsungExit = false;
     }
 

@@ -108,44 +108,6 @@ void inputCommand (boolean *isStarted, boolean *isExit, Matrix *peta, ListStatik
             }
             printf("Command Salah! Masukkan command yang benar. Ketik HELP untuk bantuan.\n");
         }
-    } else if (compareString(currentWord.TabWord, currentWord.Length, "FRY", 3) && currentChar == MARK) {
-        if (currentChar == MARK) {
-            if (!(*isStarted)) {
-                printf("Program belum dimulai. silahkan jalankan command START terlebih dahulu.\n");
-            } else if(!isInArea(* BNMO,* peta, 'F')){
-                printf("BNMO belum berada di area penggorengan!\n");
-            } else {
-                undoableMove = true;
-                MAKANAN* fryMakanan = Fry(*makanan, *resep, BNMO, pesanan);
-                if(fryMakanan != NULL){
-                    pushNotif(notifikasi, *fryMakanan, 1);
-                }
-            }
-        } else {
-            while (!endWord) {
-                ADVWORD();
-            }
-            printf("Command Salah! Masukkan command yang benar. Ketik HELP untuk bantuan.\n");
-        }
-    } else if (compareString(currentWord.TabWord, currentWord.Length, "MIX", 3) && currentChar == MARK) {
-        if (currentChar == MARK) {
-            if (!(*isStarted)) {
-                printf("Program belum dimulai. silahkan jalankan command START terlebih dahulu.\n");
-            } else if(!isInArea(* BNMO,* peta, 'M')){
-                printf("BNMO belum berada di area pencampuran!\n");
-            } else {
-                undoableMove = true;
-                MAKANAN* mixMakanan = Mix(*makanan, *resep, BNMO, pesanan);
-                if(mixMakanan != NULL){
-                    pushNotif(notifikasi, *mixMakanan, 5);
-                }
-            }
-        } else {
-            while (!endWord) {
-                ADVWORD();
-            }
-            printf("Command Salah! Masukkan command yang benar. Ketik HELP untuk bantuan.\n");
-        }
     } else if (compareString(currentWord.TabWord, currentWord.Length, "CHOP", 4) && currentChar == MARK) {
         if (currentChar == MARK) {
             if (!(*isStarted)) {
@@ -153,10 +115,37 @@ void inputCommand (boolean *isStarted, boolean *isExit, Matrix *peta, ListStatik
             } else if(!isInArea(* BNMO,* peta, 'C')){
                 printf("BNMO belum berada di area pemotongan!\n");
             } else {
-                undoableMove = true;
-                MAKANAN* potongMakanan = Chop(*makanan, *resep, BNMO, pesanan);
-                if(potongMakanan != NULL){
-                    pushNotif(notifikasi, *potongMakanan, 2);
+                MAKANAN* makanandiproses = Chop(*makanan, *resep, BNMO);
+                if(makanandiproses != NULL){
+                    undoableMove = true;
+                    int waktuproses = TIMEToMinute(makanandiproses->deliveryTime);
+                    wait(0,waktuproses, pesanan, BNMO, machinetime, notifikasi);
+                    makanandiproses->deliveryTime = MinuteToTIME(0);
+                    InsertMakanan(&Inventory(*BNMO), *makanandiproses);
+                    pushNotif(notifikasi, *makanandiproses, 2);
+                }
+            }
+        } else {
+            while (!endWord) {
+                ADVWORD();
+            }
+            printf("Command Salah! Masukkan command yang benar. Ketik HELP untuk bantuan.\n");
+        }
+    } else if (compareString(currentWord.TabWord, currentWord.Length, "FRY", 3) && currentChar == MARK) {
+        if (currentChar == MARK) {
+            if (!(*isStarted)) {
+                printf("Program belum dimulai. silahkan jalankan command START terlebih dahulu.\n");
+            } else if(!isInArea(* BNMO,* peta, 'F')){
+                printf("BNMO belum berada di area penggorengan!\n");
+            } else {
+                MAKANAN* makanandiproses = Fry(*makanan, *resep, BNMO);
+                if(makanandiproses != NULL){
+                    undoableMove = true;
+                    int waktuproses = TIMEToMinute(makanandiproses->deliveryTime);
+                    wait(0,waktuproses, pesanan, BNMO, machinetime, notifikasi);
+                    makanandiproses->deliveryTime = MinuteToTIME(0);
+                    InsertMakanan(&Inventory(*BNMO), *makanandiproses);
+                    pushNotif(notifikasi, *makanandiproses, 3);
                 }
             }
         } else {
@@ -172,10 +161,37 @@ void inputCommand (boolean *isStarted, boolean *isExit, Matrix *peta, ListStatik
             } else if(!isInArea(* BNMO,* peta, 'B')){
                 printf("BNMO belum berada di area perebusan!\n");
             } else {
-                undoableMove = true;
-                MAKANAN* rebusMakanan = Boil(*makanan, *resep, BNMO, pesanan);
-                if(rebusMakanan != NULL){
-                    pushNotif(notifikasi, *rebusMakanan, 4);
+                MAKANAN* makanandiproses = Boil(*makanan, *resep, BNMO);
+                if(makanandiproses != NULL){
+                    undoableMove = true;
+                    int waktuproses = TIMEToMinute(makanandiproses->deliveryTime);
+                    wait(0,waktuproses, pesanan, BNMO, machinetime, notifikasi);
+                    makanandiproses->deliveryTime = MinuteToTIME(0);
+                    InsertMakanan(&Inventory(*BNMO), *makanandiproses);
+                    pushNotif(notifikasi, *makanandiproses, 4);
+                }
+            }
+        } else {
+            while (!endWord) {
+                ADVWORD();
+            }
+            printf("Command Salah! Masukkan command yang benar. Ketik HELP untuk bantuan.\n");
+        }
+    } else if (compareString(currentWord.TabWord, currentWord.Length, "MIX", 3) && currentChar == MARK) {
+        if (currentChar == MARK) {
+            if (!(*isStarted)) {
+                printf("Program belum dimulai. silahkan jalankan command START terlebih dahulu.\n");
+            } else if(!isInArea(* BNMO,* peta, 'M')){
+                printf("BNMO belum berada di area pencampuran!\n");
+            } else {
+                MAKANAN* makanandiproses = Mix(*makanan, *resep, BNMO);
+                if(makanandiproses != NULL){
+                    undoableMove = true;
+                    int waktuproses = TIMEToMinute(makanandiproses->deliveryTime);
+                    wait(0,waktuproses, pesanan, BNMO, machinetime, notifikasi);
+                    makanandiproses->deliveryTime = MinuteToTIME(0);
+                    InsertMakanan(&Inventory(*BNMO), *makanandiproses);
+                    pushNotif(notifikasi, *makanandiproses, 5);
                 }
             }
         } else {

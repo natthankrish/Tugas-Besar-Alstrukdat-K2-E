@@ -9,7 +9,7 @@
 
 
 
-void doFry(MAKANAN ** buatNotif, ListStatik listMakanan, ListTree listResep, SIMULATOR * S, ListStatik madeByFry, PrioQueue * pesanan) {
+void doFry(MAKANAN ** buatNotif, ListStatik listMakanan, ListTree listResep, SIMULATOR * S, ListStatik madeByFry) {
     boolean done = false;
     for (int i = 0; i < Lengthlist(madeByFry); i++) {
         int order = i + 1;
@@ -24,9 +24,7 @@ void doFry(MAKANAN ** buatNotif, ListStatik listMakanan, ListTree listResep, SIM
                 for(int j=0; j < Lengthlist(childrenOfFood); j++) {
                     AmbilMakanan(&Inventory(*S), ELMTlist(childrenOfFood, j));
                 }
-                // InsertMakanan(&Inventory(*S), ELMTlist(madeByFry, i));
-                Enqueue(pesanan, ELMTlist(madeByFry, i));
-                printf("%s sedang digoreng! Mohon ditunggu!\n", Name(ELMTlist(madeByFry, i)));
+                printf("%s berhasil digoreng!\n", Name(ELMTlist(madeByFry, i)));
                 *buatNotif = &ELMTlist(madeByFry, i);
                 printf("\nEnter Command: ");
                 STARTWORD();
@@ -52,7 +50,7 @@ void doFry(MAKANAN ** buatNotif, ListStatik listMakanan, ListTree listResep, SIM
     }
 }
 
-MAKANAN* Fry (ListStatik listMakanan, ListTree listResep, SIMULATOR * S, PrioQueue * pesanan) {
+MAKANAN* Fry (ListStatik listMakanan, ListTree listResep, SIMULATOR * S) {
     printf("==============================\n");
     printf("==========    FRY   ==========\n");
     printf("==============================\n");
@@ -70,7 +68,7 @@ MAKANAN* Fry (ListStatik listMakanan, ListTree listResep, SIMULATOR * S, PrioQue
     STARTWORD();
     boolean langsungExit = true;
     while (!compareString(currentWord.TabWord, currentWord.Length, "0", 1) && currentChar == MARK) {
-        doFry(&buatNotif, listMakanan, listResep, S, madeByFry, pesanan);
+        doFry(&buatNotif, listMakanan, listResep, S, madeByFry);
         langsungExit = false;
     }
 
