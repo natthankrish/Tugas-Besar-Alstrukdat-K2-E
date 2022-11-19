@@ -25,9 +25,10 @@
 #include "wait.c"
 #include "foodRecom.c"
 #include "help.c"
+#include "fridge.c"
 
 
-void inputCommand (boolean *isStarted, boolean *isExit, Matrix *peta, ListStatik *makanan, TIME *machinetime, SIMULATOR *BNMO, ListTree *resep, PrioQueue *pesanan, Stack *UndoStack, ListNotif *notifikasi) {
+void inputCommand (boolean *isStarted, boolean *isExit, Matrix *peta, ListStatik *makanan, TIME *machinetime, SIMULATOR *BNMO, ListTree *resep, PrioQueue *pesanan, Stack *UndoStack, ListNotif *notifikasi, KULKAS *kulkas) {
     boolean undoableMove = false;
     CreateListNotif(notifikasi);
 
@@ -438,64 +439,89 @@ void inputCommand (boolean *isStarted, boolean *isExit, Matrix *peta, ListStatik
             wait(0, 1, pesanan, BNMO, machinetime, notifikasi);       
         }
     }else if(compareString(currentWord.TabWord, currentWord.Length, "UNDO", 4)){
-        if (!*isStarted) {
-            printf("Program belum dimulai. silahkan jalankan command START terlebih dahulu.\n");
-        } else {
-            if (currentChar == MARK){
-                Undo(UndoStack, isStarted, isExit, peta, BNMO, machinetime, pesanan, notifikasi);
+        if (currentChar == MARK){
+            if (!(*isStarted)) {
+                printf("Program belum dimulai. silahkan jalankan command START terlebih dahulu.\n");
             } else {
-                while (!endWord) {
-                    ADVWORD();
-                }
-                printf("Command Salah! Masukkan command yang benar. Ketik HELP untuk bantuan.\n");
+                Undo(UndoStack, isStarted, isExit, peta, BNMO, machinetime, pesanan, notifikasi);
             }
+        } else {
+            while (!endWord) {
+                ADVWORD();
+            }
+            printf("Command Salah! Masukkan command yang benar. Ketik HELP untuk bantuan.\n");
         }
     }else if(compareString(currentWord.TabWord, currentWord.Length, "REDO", 4)){
-        if (!*isStarted) {
-            printf("Program belum dimulai. silahkan jalankan command START terlebih dahulu.\n");
-        } else {
-            if (currentChar == MARK){
-                Redo(UndoStack, isStarted, isExit, peta, BNMO, machinetime, pesanan, notifikasi);
+        if (currentChar == MARK){
+            if (!(*isStarted)) {
+                printf("Program belum dimulai. silahkan jalankan command START terlebih dahulu.\n");
             } else {
-                while (!endWord) {
-                    ADVWORD();
-                }
-                printf("Command Salah! Masukkan command yang benar. Ketik HELP untuk bantuan.\n");
+                Redo(UndoStack, isStarted, isExit, peta, BNMO, machinetime, pesanan, notifikasi);
             }
+        } else {
+            while (!endWord) {
+                ADVWORD();
+            }
+            printf("Command Salah! Masukkan command yang benar. Ketik HELP untuk bantuan.\n");
         }
-    } else if(compareString(currentWord.TabWord, currentWord.Length, "WAIT", 4)){
-        if (!*isStarted) {
-            printf("Program belum dimulai. silahkan jalankan command START terlebih dahulu.\n");
+    }else if(compareString(currentWord.TabWord, currentWord.Length, "WAIT", 4)){
+        if (currentChar == MARK) {
+            printf("Command Salah! Masukkan command yang benar. Ketik HELP untuk bantuan.\n");
         } else {
             ADVWORD();
             int hour = wordToInt(currentWord);
-            ADVWORD();
-            if (endWord) {
+            if (currentChar == MARK) {
                 printf("Command Salah! Masukkan command yang benar. Ketik HELP untuk bantuan.\n");
             } else {
+                ADVWORD();
                 int minute = wordToInt(currentWord);
 
                 boolean validtime = (hour != -1) && (minute != -1);
-                ADVWORD();
-                if (validtime && endWord){
-                    wait(hour, minute, pesanan, BNMO, machinetime, notifikasi);
-                    undoableMove = true;
+
+                if (currentChar == MARK) {
+                    if (!(*isStarted)) {
+                        printf("Program belum dimulai. silahkan jalankan command START terlebih dahulu.\n");
+                    } else {
+                        if (validtime){
+                            wait(hour, minute, pesanan, BNMO, machinetime, notifikasi);
+                            undoableMove = true;
+                        } else {
+                            while (!endWord) {
+                                ADVWORD();
+                            }
+                            printf("Command Salah! Masukkan command yang benar. Ketik HELP untuk bantuan.\n");
+                        }
+                    }
                 } else {
                     while (!endWord) {
-                        ADVWORD();
-                    }
+                            ADVWORD();
+                        }
                     printf("Command Salah! Masukkan command yang benar. Ketik HELP untuk bantuan.\n");
                 }
             }
         }
-    }else {
+
+    } else if(compareString(currentWord.TabWord, currentWord.Length, "FRIDGE", 6)){
+        if (currentChar == MARK) {
+            if (!(*isStarted)) {
+                printf("Program belum dimulai. silahkan jalankan command START terlebih dahulu.\n");
+            } else {
+                fridge(&(BNMO->INVENTORY), kulkas);
+                ADVWORD();
+            }
+        } else {
+            while (!endWord) {
+                ADVWORD();
+            }
+            printf("Command Salah! Masukkan command yang benar. Ketik HELP untuk bantuan.\n");
+        }
+    } else {
         while (!endWord) {
             ADVWORD();
         } 
         printf("Command Salah! Masukkan command yang benar. Ketik HELP untuk bantuan.\n");
     }
     
-
     // mekanisme undo stack
     // undoableMove = MOVE, BUY
     if(undoableMove){
@@ -510,5 +536,4 @@ void inputCommand (boolean *isStarted, boolean *isExit, Matrix *peta, ListStatik
         StateConfig.notifikasi = *notifikasi;
         Push(UndoStack, StateConfig);
     }
-    
 }
