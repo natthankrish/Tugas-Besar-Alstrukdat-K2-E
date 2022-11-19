@@ -29,6 +29,7 @@ int main () {
 
     CreateEmptyStack(&UndoStack);
     MakeEmpty(&pesanan, 101);
+    pesanan.sortBy = 1; /* pesanan sort by delivery time */
     CreateListTree(&resepconfig);
 
     TIME machinetime;
@@ -42,6 +43,7 @@ int main () {
         }
         inputCommand(&isStarted, &isExit, &mapconfig, &makananconfig, &machinetime, &BNMO, &resepconfig, &pesanan, &UndoStack, &Notifikasi);
     }
+    closePage();
 
     return 0;
 }

@@ -27,6 +27,7 @@ void MakeEmpty (PrioQueue * Q, int Max){
   MaxEl(*Q) = Max;
   Head(*Q) = Nil;
   Tail(*Q) = Nil;
+  Q->sortBy = 0;
 }
 
 void DeAlokasi(PrioQueue * Q){
@@ -44,23 +45,42 @@ void Enqueue (PrioQueue * Q, MAKANAN X){
     Tail(*Q) = (Tail(*Q)+1) % MaxEl(*Q);
     InfoTail(*Q) = X;
     int i = Tail(*Q) == 0 ? NBElmt(*Q) - 1 : Tail(*Q) - 1;
-    while (i != Head(*Q) && ExpiryLT(X, Elmt(*Q,i))) {
-      temp = Elmt(*Q,i);
-      Elmt(*Q,i) = X;
-      Elmt(*Q, i+1) = temp;
+    if(Q->sortBy == 0){ /* sort by expiry */
+      while (i != Head(*Q) && ExpiryLT(X, Elmt(*Q,i))) {
+        temp = Elmt(*Q,i);
+        Elmt(*Q,i) = X;
+        Elmt(*Q, i+1) = temp;
 
-      if (i == 0) {
-        i = MaxEl(*Q) - 1;
-      } else {
-        i-- ;
+        if (i == 0) {
+          i = MaxEl(*Q) - 1;
+        } else {
+          i-- ;
+        }
+      }
+      if (i == Head(*Q) && ExpiryLT(X, Elmt(*Q,i))) {
+        temp = Elmt(*Q,i);
+        Elmt(*Q,i) = X;
+        Elmt(*Q, i+1) = temp;
+      }
+    }else{ /* sort by delivery */
+      while (i != Head(*Q) && DeliveryLT(X, Elmt(*Q,i))) {
+        temp = Elmt(*Q,i);
+        Elmt(*Q,i) = X;
+        Elmt(*Q, i+1) = temp;
+
+        if (i == 0) {
+          i = MaxEl(*Q) - 1;
+        } else {
+          i-- ;
+        }
+      }
+      if (i == Head(*Q) && DeliveryLT(X, Elmt(*Q,i))) {
+        temp = Elmt(*Q,i);
+        Elmt(*Q,i) = X;
+        Elmt(*Q, i+1) = temp;
       }
     }
 
-    if (i == Head(*Q) && ExpiryLT(X, Elmt(*Q,i))) {
-      temp = Elmt(*Q,i);
-      Elmt(*Q,i) = X;
-      Elmt(*Q, i+1) = temp;
-    }
 
   }
 }
@@ -72,5 +92,14 @@ void Dequeue (PrioQueue * Q, MAKANAN * X){
     Tail(*Q) = Nil;
   } else {
     Head(*Q) = (Head(*Q) + 1) % MaxEl(*Q);
+  }
+}
+
+void CopyQueue(PrioQueue *Qcopy, PrioQueue *Qtarget){
+  // DeAlokasi(Qtarget);
+  MakeEmpty(Qtarget, Qcopy->MaxEl);
+  Qtarget->sortBy = Qcopy->sortBy;
+  for(int i=Qcopy->HEAD;i<(Qcopy->HEAD + NBElmt(*Qcopy));i++){
+    Enqueue(Qtarget, Qcopy->T[i%MaxEl(*Qcopy)]);
   }
 }

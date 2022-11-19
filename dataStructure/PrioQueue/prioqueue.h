@@ -21,6 +21,7 @@ typedef struct {
     address HEAD;  /* alamat penghapusan */
     address TAIL;  /* alamat penambahan */
     int MaxEl;     /* Max elemen queue */
+    int sortBy; /* 0 sort by expiry, 1 sort by delivery */
 } PrioQueue;
 /* Definisi PrioQueue kosong: HEAD=Nil; TAIL=Nil. */
 
@@ -67,5 +68,10 @@ void Dequeue (PrioQueue * Q, MAKANAN * X);
 /* I.S. Q tidak mungkin kosong */
 /* F.S. X = nilai elemen HEAD pd I.S., HEAD "maju" dengan mekanisme circular buffer;
         Q mungkin kosong */
+
+void CopyQueue (PrioQueue *Qcopy, PrioQueue *Qtarget);
+/* Peoses: Mengcopy Qcopy kepada Qtarget */
+/* I.S. Qtarget sembarang */
+/* F.S. terbentuk priority queue baru yaitu Qtarget dengan isi sama dengan Qcopy */
 
 #endif

@@ -27,16 +27,11 @@ void wait(int h, int m, PrioQueue *pesanan, SIMULATOR *BNMO, TIME *machinetime, 
                 pesanan->T[i%MaxEl(*pesanan)].deliveryTime = MinuteToTIME(newdelivery);
             }else{
                 MAKANAN tmp = pesanan->T[i%MaxEl(*pesanan)];
-                if(ID(tmp) == ID(pesanan->T[Head(*pesanan)])){
-                    Dequeue(pesanan, &tmp);
-                }else{
-                    AmbilMakanan(pesanan, tmp);
-                    i--;
-                }
+                Dequeue(pesanan, &tmp);
                 pushNotif(notifikasi, tmp, 6);
                 tmp.deliveryTime = MinuteToTIME(0);
                 int expirytime = TIMEToMinute(tmp.expiry);
-                int newexpiry = expirytime - newdelivery;
+                int newexpiry = expirytime + newdelivery;
                 tmp.expiry = MinuteToTIME(newexpiry);
                 Enqueue(&(BNMO->INVENTORY), tmp);
             }
