@@ -1,11 +1,12 @@
 #include <stdio.h>
-#include "../dataStructure/Kulkas/kulkas.c"
-#include "../dataStructure/Time/time.c"
-#include "../dataStructure/Makanan/makanan.c"
-#include "../dataStructure/Point/point.c"
-#include "../dataStructure/Simulator/simulator.c"
+#include "../dataStructure/Kulkas/kulkas.h"
+#include "../dataStructure/Time/time.h"
+#include "../dataStructure/Makanan/makanan.h"
+#include "../dataStructure/Point/point.h"
+#include "../dataStructure/Simulator/simulator.h"
 
 int main(){
+    /*Run Driver: gcc ./driver/driver_kulkas.c  ./datastructure/Time/time.h ./dataStructure/Makanan/makanan.h ./dataStructure/Kulkas/kulkas.h ./dataStructure/Point/point.h ./dataStructure/Simulator/simulator.h -o main */
     KULKAS K;
     DIMENSION D;
     

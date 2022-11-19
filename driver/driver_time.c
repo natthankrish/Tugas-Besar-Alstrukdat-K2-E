@@ -1,7 +1,8 @@
 #include <stdio.h>
-#include "../dataStructure/Time/time.c"
+#include "../dataStructure/Time/time.h"
 
 int main(){
+    /*Run Driver: gcc ./driver/driver_time.c  ./datastructure/Time/time.h -o main */
     TIME T1;
     TIME T2;
 

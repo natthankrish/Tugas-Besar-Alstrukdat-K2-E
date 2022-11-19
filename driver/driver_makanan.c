@@ -1,9 +1,9 @@
 #include <stdio.h>
-#include "../dataStructure/Makanan/makanan.c"
-#include "../dataStructure/Time/time.c"
+#include "../dataStructure/Makanan/makanan.h"
+#include "../dataStructure/Time/time.h"
 
 int main(){
-    
+    /*Run Driver: gcc ./driver/driver_makanan.c  ./datastructure/Time/time.h ./dataStructure/Makanan/makanan.h -o main */
     MAKANAN M1;
     TIME Expiry1;
     TIME delivery1;

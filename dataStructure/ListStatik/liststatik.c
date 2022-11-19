@@ -49,37 +49,20 @@ boolean isListFull(ListStatik l){
     return (Lengthlist(l)==CAPACITY);
 }
 
-/* ********** BACA dan TULIS dengan INPUT/OUTPUT device ********** */
-/* *** Mendefinisikan isi List dari pembacaan *** */
-void readList(ListStatik *l){
-/* I.S. l sembarang */
-/* F.S. List l terdefinisi */
-/* Proses: membaca banyaknya elemen l dan mengisi nilainya */
-    int i,n;
-    scanf("%d", &n);
-    while(n<0 || n>CAPACITY){
-        scanf("%d", &n);
-    }
-    CreateListStatik(l);
-    if(n!=0){
-        i=0;
-        MAKANAN temp;
-        while(i<n){
-            Lengthlist(*l)++;
-            scanf("%d",&temp);
-            ELMTlist(*l,i)=temp;
-            i++;
-        }
-    }
-}
-
-
 /* ********** OPERATOR RELASIONAL ********** */
 /* *** Operasi pembandingan List: *** */
 boolean isListEqual(ListStatik l1, ListStatik l2){
 /* Mengirimkan true jika l1 sama dengan l2 yaitu jika ukuran l1 = l2 dan semua 
    elemennya sama */
-    return (Lengthlist(l1)==Lengthlist(l2));
+    if(Lengthlist(l1)==Lengthlist(l2)){
+        for(int i=0;i<Lengthlist(l1);i++){
+            if(ID(ELMTlist(l1,i))!=ID(ELMTlist(l2,i))){
+                return false;
+            }
+        }
+        return true;
+    }
+    return false;
 }
 
 /* ********** SEARCHING ********** */
@@ -91,7 +74,7 @@ int indexOfID(ListStatik l, int val){
 /* Skema Searching yang digunakan bebas */
     int i=0;
     while(i<Lengthlist(l)){
-       if(ELMTlist(l,i).idx==val){
+       if(ID(ELMTlist(l,i))==val){
         break;
        }
        i++; 
@@ -103,6 +86,32 @@ int indexOfID(ListStatik l, int val){
     }
 }
 
+boolean isNameEQ(char name1[101],char name2[101]){
+    int i=0;
+    int len1=0;
+    while(name1[i]!='\0'){
+        len1++;
+        i++;
+    }
+    i=0;
+    int len2=0;
+    while(name2[i]!='\0'){
+        len2++;
+        i++;
+    }
+    if(len1==len2){
+        i=0;
+        while(i<len1){
+            if(name1[i]!=name2[i]){
+                return false;
+            }
+            i++;
+        }
+        return true;
+    }
+    return false;
+}
+
 int indexOfFood(ListStatik l, char val[101]){
 /* Search apakah ada elemen List l yang bernilai val */
 /* Jika ada, menghasilkan indeks i terkecil, dengan ELMTlist(l,i) = val */
@@ -110,7 +119,7 @@ int indexOfFood(ListStatik l, char val[101]){
 /* Skema Searching yang digunakan bebas */
     int i=0;
     while(i<Lengthlist(l)){
-       if(Name(ELMTlist(l,i))==val){
+       if(isNameEQ(Name(ELMTlist(l,i)),val)){
         break;
        }
        i++; 
