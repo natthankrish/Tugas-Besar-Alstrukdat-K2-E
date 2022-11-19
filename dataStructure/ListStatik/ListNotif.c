@@ -50,18 +50,16 @@ MAKANAN KADALUWARSA 7
         }
 
         if(tipenotif == '1'){
-            printf("sudah dibeli");
+            printf(" sudah dibeli");
         }else if(tipenotif == '2'){
-            printf("sudah selesai dipotong ");
+            printf(" sudah selesai dipotong ");
         }else if(tipenotif == '3'){
-            printf("sudah selesai digoreng ");
+            printf(" sudah selesai digoreng ");
         }else if(tipenotif == '4'){
-            printf("sudah selesai direbus ");
+            printf(" sudah selesai direbus ");
         }else if(tipenotif == '5'){
-            printf("sudah dibuat");
-        }
-
-        if(tipenotif == '6'){
+            printf(" sudah dibuat");
+        }else if(tipenotif == '6'){
             printf(" sudah diterima");
         }else if(tipenotif == '7'){
             printf(" sudah kadaluwarsa");
@@ -95,7 +93,7 @@ MAKANAN KADALUWARSA 7
         }else if(tipenotif == '2'){
             printf("Pemotongan ");
         }else if(tipenotif == '3'){
-            printf("Penggorengan");
+            printf("Penggorengan ");
         }else if(tipenotif == '4'){
             printf("Perebusan ");
         }else if(tipenotif == '5'){
