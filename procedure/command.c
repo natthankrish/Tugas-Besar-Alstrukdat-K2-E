@@ -16,6 +16,7 @@
 #include "catalog.c"
 #include "cookBook.c"
 #include "loadConfig.c"
+#include "help.c"
 #include "buy.c"
 #include "fry.c"
 #include "mix.c"
@@ -24,10 +25,10 @@
 #include "delivery.c"
 #include "wait.c"
 #include "foodRecom.c"
-#include "help.c"
+#include "fridge.c"
 
 
-void inputCommand (boolean *isStarted, boolean *isExit, Matrix *peta, ListStatik *makanan, TIME *machinetime, SIMULATOR *BNMO, ListTree *resep, PrioQueue *pesanan, Stack *UndoStack, ListNotif *notifikasi) {
+void inputCommand (boolean *isStarted, boolean *isExit, Matrix *peta, ListStatik *makanan, TIME *machinetime, SIMULATOR *BNMO, ListTree *resep, PrioQueue *pesanan, Stack *UndoStack, ListNotif *notifikasi, KULKAS *kulkas) {
     boolean undoableMove = false;
     CreateListNotif(notifikasi);
 
@@ -141,7 +142,7 @@ void inputCommand (boolean *isStarted, boolean *isExit, Matrix *peta, ListStatik
             } else {
                 MAKANAN* makanandiproses = Fry(*makanan, *resep, BNMO);
                 if(makanandiproses != NULL){
-                    undoableMove = true;
+                undoableMove = true;
                     int waktuproses = TIMEToMinute(makanandiproses->deliveryTime);
                     wait(0,waktuproses, pesanan, BNMO, machinetime, notifikasi);
                     makanandiproses->deliveryTime = MinuteToTIME(0);
@@ -187,7 +188,7 @@ void inputCommand (boolean *isStarted, boolean *isExit, Matrix *peta, ListStatik
             } else {
                 MAKANAN* makanandiproses = Mix(*makanan, *resep, BNMO);
                 if(makanandiproses != NULL){
-                    undoableMove = true;
+                undoableMove = true;
                     int waktuproses = TIMEToMinute(makanandiproses->deliveryTime);
                     wait(0,waktuproses, pesanan, BNMO, machinetime, notifikasi);
                     makanandiproses->deliveryTime = MinuteToTIME(0);
@@ -277,7 +278,10 @@ void inputCommand (boolean *isStarted, boolean *isExit, Matrix *peta, ListStatik
         }
     } else if (compareString(currentWord.TabWord, currentWord.Length, "HELP", 4) && currentChar == MARK) {
         if (currentChar == MARK) {
+            printf("-----------------------------------------------\n");
+            printf("PUSAT BANTUAN BNMO\n");
             printHelp();
+            printf("-----------------------------------------------\n");
         } else {
             while (!endWord) {
                 ADVWORD();
@@ -327,7 +331,7 @@ void inputCommand (boolean *isStarted, boolean *isExit, Matrix *peta, ListStatik
                 if (!(*isStarted)) {
                     printf("Program belum dimulai. silahkan jalankan command START terlebih dahulu.\n");
                 } else {
-                    movestatus = getSouth(*peta, Lokasi(*BNMO));
+                    int movestatus = getSouth(*peta, Lokasi(*BNMO));
                     if (movestatus == 0) {
                         moveSouth(BNMO, peta);
                     } else {
@@ -361,7 +365,7 @@ void inputCommand (boolean *isStarted, boolean *isExit, Matrix *peta, ListStatik
                 if (!(*isStarted)) {
                     printf("Program belum dimulai. silahkan jalankan command START terlebih dahulu.\n");
                 } else {
-                    movestatus = getEast(*peta, Lokasi(*BNMO));
+                    int movestatus = getEast(*peta, Lokasi(*BNMO));
                     if (movestatus == 0) {
                         moveEast(BNMO, peta);
                     } else {
@@ -395,7 +399,7 @@ void inputCommand (boolean *isStarted, boolean *isExit, Matrix *peta, ListStatik
                 if (!(*isStarted)) {
                     printf("Program belum dimulai. silahkan jalankan command START terlebih dahulu.\n");
                 } else {
-                    movestatus = getWest(*peta, Lokasi(*BNMO));
+                    int movestatus = getWest(*peta, Lokasi(*BNMO));
                     if (movestatus == 0) {
                         moveWest(BNMO, peta);
                     } else {
@@ -454,14 +458,14 @@ void inputCommand (boolean *isStarted, boolean *isExit, Matrix *peta, ListStatik
         if (!*isStarted) {
             printf("Program belum dimulai. silahkan jalankan command START terlebih dahulu.\n");
         } else {
-            if (currentChar == MARK){
+        if (currentChar == MARK){
                 Redo(UndoStack, isStarted, isExit, peta, BNMO, machinetime, pesanan, notifikasi);
-            } else {
-                while (!endWord) {
-                    ADVWORD();
-                }
-                printf("Command Salah! Masukkan command yang benar. Ketik HELP untuk bantuan.\n");
+        } else {
+            while (!endWord) {
+                ADVWORD();
             }
+            printf("Command Salah! Masukkan command yang benar. Ketik HELP untuk bantuan.\n");
+        }
         }
     }else if(compareString(currentWord.TabWord, currentWord.Length, "WAIT", 4)){
         if (!*isStarted) {
@@ -487,6 +491,20 @@ void inputCommand (boolean *isStarted, boolean *isExit, Matrix *peta, ListStatik
                     printf("Command Salah! Masukkan command yang benar. Ketik HELP untuk bantuan.\n");
                 }
             }
+        }
+    }else if(compareString(currentWord.TabWord, currentWord.Length, "FRIDGE", 6)){
+        if (currentChar == MARK) {
+            if (!(*isStarted)) {
+                printf("Program belum dimulai. silahkan jalankan command START terlebih dahulu.\n");
+            } else {
+                fridge(&(BNMO->INVENTORY), kulkas);
+                ADVWORD();
+            }
+        } else {
+            while (!endWord) {
+                ADVWORD();
+            }
+            printf("Command Salah! Masukkan command yang benar. Ketik HELP untuk bantuan.\n");
         }
     }else {
         while (!endWord) {

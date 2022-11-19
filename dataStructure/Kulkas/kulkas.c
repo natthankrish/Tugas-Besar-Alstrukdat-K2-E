@@ -1,15 +1,8 @@
 #include <stdio.h>
 #include "kulkas.h"
-#include "../Matrix/matrix.c"
-#include "../ListStatik/liststatik.c"
+#include "../Matrix/matrix.h"
+#include "../ListStatik/liststatik.h"
 
-#define Contents(K) (K).contents  /*Isi kulkas dalam Matrix*/
-#define FoodList(K) (K).foodList /*Isi kulkas dalam list*/
-#define FridgeListLength(K) Lengthlist((K).foodList)
-#define FoodListELMT(K,N) (K).foodList.contents[N]  /*Elemen makanan dalam list kulkas*/
-#define FridgeHeight(K) (K).capacity.height /*Tinggi kulkas*/
-#define FridgeWidth(K) (K).capacity.width /*Lebar kulkas*/
-#define FridgeELMT(K,i,j) ELMT((K).contents,i,j) /*Cell pada isi matrix kulkas*/
 
 /*Konstruktor kulkas*/
 void CreateFridge(KULKAS *K, DIMENSION D){
@@ -33,7 +26,9 @@ boolean isFridgeFull(KULKAS K){
             if(FridgeELMT(K,i,j)==0){
                 space=true;
             }
+            j++;
         }
+        i++;
     }
     return !space;
 }
@@ -375,4 +370,19 @@ void outFromFridge(KULKAS *K, int FoodNum,MAKANAN *M){
     }
 
 
+}
+
+/* Mengcopy kulkas Kcopy menjadi kulkas baru Ktarget */
+void copyFridge(KULKAS Kcopy, KULKAS *Ktarget){
+    (*Ktarget).capacity = (Kcopy).capacity;   
+    createMatrix(Kcopy.capacity.height,Kcopy.capacity.width,&Contents(*Ktarget));
+    for(int i=0;i<FridgeHeight(*Ktarget);i++){
+        for(int j=0;j<FridgeWidth(*Ktarget);j++){
+            FridgeELMT(*Ktarget,i,j)=FridgeELMT(Kcopy, i, j);
+        }
+    }
+    CreateListStatik(&(Ktarget->foodList));
+    for(int i=0;i<Lengthlist(Kcopy.foodList);i++){
+        insertLast(&(Ktarget->foodList), ELMTlist(Kcopy.foodList, i));
+    }
 }
