@@ -438,42 +438,54 @@ void inputCommand (boolean *isStarted, boolean *isExit, Matrix *peta, ListStatik
             wait(0, 1, pesanan, BNMO, machinetime, notifikasi);       
         }
     }else if(compareString(currentWord.TabWord, currentWord.Length, "UNDO", 4)){
-        if (currentChar == MARK){
-            Undo(UndoStack, isStarted, isExit, peta, BNMO, machinetime, pesanan, notifikasi);
+        if (!*isStarted) {
+            printf("Program belum dimulai. silahkan jalankan command START terlebih dahulu.\n");
         } else {
-            while (!endWord) {
-                ADVWORD();
-            }
-            printf("Command Salah! Masukkan command yang benar. Ketik HELP untuk bantuan.\n");
-        }
-    }else if(compareString(currentWord.TabWord, currentWord.Length, "REDO", 4)){
-        if (currentChar == MARK){
-            Redo(UndoStack, isStarted, isExit, peta, BNMO, machinetime, pesanan, notifikasi);
-        } else {
-            while (!endWord) {
-                ADVWORD();
-            }
-            printf("Command Salah! Masukkan command yang benar. Ketik HELP untuk bantuan.\n");
-        }
-    }else if(compareString(currentWord.TabWord, currentWord.Length, "WAIT", 4)){
-        ADVWORD();
-        int hour = wordToInt(currentWord);
-        ADVWORD();
-        if (endWord) {
-            printf("Command Salah! Masukkan command yang benar. Ketik HELP untuk bantuan.\n");
-        } else {
-            int minute = wordToInt(currentWord);
-
-            boolean validtime = (hour != -1) && (minute != -1);
-            ADVWORD();
-            if (validtime && endWord){
-                wait(hour, minute, pesanan, BNMO, machinetime, notifikasi);
-                undoableMove = true;
+            if (currentChar == MARK){
+                Undo(UndoStack, isStarted, isExit, peta, BNMO, machinetime, pesanan, notifikasi);
             } else {
                 while (!endWord) {
                     ADVWORD();
                 }
                 printf("Command Salah! Masukkan command yang benar. Ketik HELP untuk bantuan.\n");
+            }
+        }
+    }else if(compareString(currentWord.TabWord, currentWord.Length, "REDO", 4)){
+        if (!*isStarted) {
+            printf("Program belum dimulai. silahkan jalankan command START terlebih dahulu.\n");
+        } else {
+            if (currentChar == MARK){
+                Redo(UndoStack, isStarted, isExit, peta, BNMO, machinetime, pesanan, notifikasi);
+            } else {
+                while (!endWord) {
+                    ADVWORD();
+                }
+                printf("Command Salah! Masukkan command yang benar. Ketik HELP untuk bantuan.\n");
+            }
+        }
+    }else if(compareString(currentWord.TabWord, currentWord.Length, "WAIT", 4)){
+        if (!*isStarted) {
+            printf("Program belum dimulai. silahkan jalankan command START terlebih dahulu.\n");
+        } else {
+            ADVWORD();
+            int hour = wordToInt(currentWord);
+            ADVWORD();
+            if (endWord) {
+                printf("Command Salah! Masukkan command yang benar. Ketik HELP untuk bantuan.\n");
+            } else {
+                int minute = wordToInt(currentWord);
+
+                boolean validtime = (hour != -1) && (minute != -1);
+                ADVWORD();
+                if (validtime && endWord){
+                    wait(hour, minute, pesanan, BNMO, machinetime, notifikasi);
+                    undoableMove = true;
+                } else {
+                    while (!endWord) {
+                        ADVWORD();
+                    }
+                    printf("Command Salah! Masukkan command yang benar. Ketik HELP untuk bantuan.\n");
+                }
             }
         }
     }else {
