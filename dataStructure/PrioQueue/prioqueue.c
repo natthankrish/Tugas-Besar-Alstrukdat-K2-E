@@ -94,3 +94,12 @@ void Dequeue (PrioQueue * Q, MAKANAN * X){
     Head(*Q) = (Head(*Q) + 1) % MaxEl(*Q);
   }
 }
+
+void CopyQueue(PrioQueue *Qcopy, PrioQueue *Qtarget){
+  // DeAlokasi(Qtarget);
+  MakeEmpty(Qtarget, Qcopy->MaxEl);
+  Qtarget->sortBy = Qcopy->sortBy;
+  for(int i=Qcopy->HEAD;i<(Qcopy->HEAD + NBElmt(*Qcopy));i++){
+    Enqueue(Qtarget, Qcopy->T[i%MaxEl(*Qcopy)]);
+  }
+}

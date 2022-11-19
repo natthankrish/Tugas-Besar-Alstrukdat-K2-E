@@ -486,8 +486,10 @@ void inputCommand (boolean *isStarted, boolean *isExit, Matrix *peta, ListStatik
         StateConfig.isstart = *isStarted;
         StateConfig.isexit = *isExit;
         StateConfig.bin = *BNMO;
+        CopyQueue(&BNMO->INVENTORY, &StateConfig.bin.INVENTORY);
         StateConfig.waktu = *machinetime;
-        StateConfig.pesanan = *pesanan;
+        // StateConfig.pesanan = *pesanan;
+        CopyQueue(pesanan, &StateConfig.pesanan);
         StateConfig.notifikasi = *notifikasi;
         Push(UndoStack, StateConfig);
     }

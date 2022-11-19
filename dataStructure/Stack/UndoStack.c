@@ -47,7 +47,9 @@ void Undo(Stack *S, boolean *isstart, boolean *isexit, Matrix *Peta, SIMULATOR *
         *waktu = S->T[S->currState].waktu;
         Peta->mem[newlocation.X][newlocation.Y] = 'S';
         *BNMO = S->T[S->currState].bin;
-        *pesanan = S->T[S->currState].pesanan;
+        CopyQueue(&S->T[S->currState].bin.INVENTORY, &BNMO->INVENTORY);
+        // *pesanan = S->T[S->currState].pesanan;
+        CopyQueue(&S->T[S->currState].pesanan, pesanan);
         *notifikasi = S->T[S->currState + 1].notifikasi;
         notifikasi->tipenotif = 1;
     }
@@ -67,7 +69,9 @@ void Redo(Stack *S, boolean *isstart, boolean *isexit, Matrix *Peta, SIMULATOR *
         Peta->mem[newlocation.X][newlocation.Y] = 'S';
         *waktu = S->T[S->currState].waktu;
         *BNMO = S->T[S->currState].bin;
-        *pesanan = S->T[S->currState].pesanan;
+        CopyQueue(&S->T[S->currState].bin.INVENTORY, &BNMO->INVENTORY);
+        // *pesanan = S->T[S->currState].pesanan;
+        CopyQueue(&S->T[S->currState].pesanan, pesanan);
         *notifikasi = S->T[S->currState].notifikasi;
         notifikasi->tipenotif = 0;
     }

@@ -69,4 +69,9 @@ void Dequeue (PrioQueue * Q, MAKANAN * X);
 /* F.S. X = nilai elemen HEAD pd I.S., HEAD "maju" dengan mekanisme circular buffer;
         Q mungkin kosong */
 
+void CopyQueue (PrioQueue *Qcopy, PrioQueue *Qtarget);
+/* Peoses: Mengcopy Qcopy kepada Qtarget */
+/* I.S. Qtarget sembarang */
+/* F.S. terbentuk priority queue baru yaitu Qtarget dengan isi sama dengan Qcopy */
+
 #endif
