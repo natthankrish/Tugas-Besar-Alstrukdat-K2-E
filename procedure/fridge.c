@@ -10,7 +10,7 @@
 #include "../dataStructure/Kulkas/kulkas.h"
 #include "../dataStructure/Makanan/makanan.h"
 
-void fridge(Inventory *I, KULKAS *Kulkas){
+void fridge(Inventory I, KULKAS *Kulkas){
     printf("===============================================\n");
     printf("                      FRIDGE\n");
     printf("===============================================\n");
