@@ -43,6 +43,7 @@ int main () {
         }
         inputCommand(&isStarted, &isExit, &mapconfig, &makananconfig, &machinetime, &BNMO, &resepconfig, &pesanan, &UndoStack, &Notifikasi);
     }
+    closePage();
 
     return 0;
 }
