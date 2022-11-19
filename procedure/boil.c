@@ -7,7 +7,7 @@
 #include <math.h>
 
 
-void doBoil (MAKANAN ** buatNotif, ListStatik listMakanan, ListTree listResep, SIMULATOR * S, ListStatik madeByBoil, PrioQueue * pesanan) {
+void doBoil (MAKANAN ** buatNotif, ListStatik listMakanan, ListTree listResep, SIMULATOR * S, ListStatik madeByBoil) {
     boolean done = false;
     for (int i = 0; i < Lengthlist(madeByBoil); i++) {
         int order = i + 1;
@@ -22,9 +22,7 @@ void doBoil (MAKANAN ** buatNotif, ListStatik listMakanan, ListTree listResep, S
                 for(int j=0; j < Lengthlist(childrenOfFood); j++) {
                     AmbilMakanan(&Inventory(*S), ELMTlist(childrenOfFood, j));
                 }
-                Enqueue(pesanan, ELMTlist(madeByBoil, i));
-                // InsertMakanan(&Inventory(*S), ELMTlist(madeByBoil, i));
-                printf("%s sedang direbus! Mohon ditunggu!\n", Name(ELMTlist(madeByBoil, i)));
+                printf("%s berhasil direbus!\n", Name(ELMTlist(madeByBoil, i)));
                 *buatNotif = &ELMTlist(madeByBoil, i);
                 printf("\nEnter Command: ");
                 STARTWORD();
@@ -50,7 +48,7 @@ void doBoil (MAKANAN ** buatNotif, ListStatik listMakanan, ListTree listResep, S
     }
 }
 
-MAKANAN* Boil (ListStatik listMakanan, ListTree listResep, SIMULATOR * S, PrioQueue * pesanan) {
+MAKANAN* Boil (ListStatik listMakanan, ListTree listResep, SIMULATOR * S) {
     printf("===============================\n");
     printf("==========    BOIL   ==========\n");
     printf("===============================\n");
@@ -69,7 +67,7 @@ MAKANAN* Boil (ListStatik listMakanan, ListTree listResep, SIMULATOR * S, PrioQu
 
     boolean langsungExit = true;
     while (!compareString(currentWord.TabWord, currentWord.Length, "0", 1) && currentChar == MARK) {
-        doBoil(&buatNotif, listMakanan, listResep, S, madeByBoil, pesanan);
+        doBoil(&buatNotif, listMakanan, listResep, S, madeByBoil);
         langsungExit = false;
     }
 
