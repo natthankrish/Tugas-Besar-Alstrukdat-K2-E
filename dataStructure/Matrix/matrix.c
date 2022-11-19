@@ -184,14 +184,14 @@ POINT getLegendaLocation (Matrix map, char Legenda) {
     return MakePOINT(foundi, foundj);
 }
 
-// boolean isInArea(SIMULATOR S,Matrix peta, char LEGENDA){
-//     POINT lokasiSimulator = getPoint(S);
-//     POINT lokasiLegenda = getLegendaLocation(peta, LEGENDA);
-//     if( Panjang(lokasiLegenda,lokasiSimulator) <= 1.5 /* Jarak menyamping */ && Panjang(lokasiLegenda,lokasiSimulator) >= 0.9 //Untuk koreksi error float
-//         ){
-//             return true;
-//     }
+boolean isInArea(SIMULATOR S,Matrix peta, char LEGENDA){
+    POINT lokasiSimulator = getPoint(S);
+    POINT lokasiLegenda = getLegendaLocation(peta, LEGENDA);
+    if( Panjang(lokasiLegenda,lokasiSimulator) <= 1.5 /* Jarak menyamping */ && Panjang(lokasiLegenda,lokasiSimulator) >= 0.9 //Untuk koreksi error float
+        ){
+            return true;
+    }
 
-//     return false;
-// }
+    return false;
+}
 

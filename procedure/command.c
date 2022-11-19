@@ -6,6 +6,7 @@
 #include "../dataStructure/Stack/Undostack.h"
 #include "../dataStructure/Inventory/inventory.h"
 #include "../dataStructure/ListStatik/ListNotif.h"
+#include "../dataStructure/Kulkas/kulkas.h"
 #include "../function/compareString.c"
 #include "../function/wordToInt.c"
 #include "../function/countIntegerLength.c"
@@ -25,9 +26,10 @@
 #include "wait.c"
 #include "foodRecom.c"
 #include "help.c"
+#include "fridge.c"
 
 
-void inputCommand (boolean *isStarted, boolean *isExit, Matrix *peta, ListStatik *makanan, TIME *machinetime, SIMULATOR *BNMO, ListTree *resep, PrioQueue *pesanan, Stack *UndoStack, ListNotif *notifikasi) {
+void inputCommand (boolean *isStarted, boolean *isExit, Matrix *peta, ListStatik *makanan, TIME *machinetime, SIMULATOR *BNMO, ListTree *resep, PrioQueue *pesanan, Stack *UndoStack, ListNotif *notifikasi, KULKAS *kulkas) {
     boolean undoableMove = false;
     CreateListNotif(notifikasi);
 
@@ -214,7 +216,20 @@ void inputCommand (boolean *isStarted, boolean *isExit, Matrix *peta, ListStatik
             }
             printf("Command Salah! Masukkan command yang benar. Ketik HELP untuk bantuan.\n");
         }
-    } else if (compareString(currentWord.TabWord, currentWord.Length, "DELIVERY", 8) && currentChar == MARK) {
+    } else if (compareString(currentWord.TabWord, currentWord.Length, "FRIDGE", 6) && currentChar == MARK) {
+        if (currentChar == MARK) {
+            if (!(*isStarted)) {
+                printf("Program belum dimulai. silahkan jalankan command START terlebih dahulu.\n");
+            } else {
+                fridge(BNMO->INVENTORY,kulkas);
+            }
+        } else {
+            while (!endWord) {
+                ADVWORD();
+            }
+            printf("Command Salah! Masukkan command yang benar. Ketik HELP untuk bantuan.\n");
+        }
+    }else if (compareString(currentWord.TabWord, currentWord.Length, "DELIVERY", 8) && currentChar == MARK) {
         if (currentChar == MARK) {
             if (!(*isStarted)) {
                 printf("Program belum dimulai. silahkan jalankan command START terlebih dahulu.\n");

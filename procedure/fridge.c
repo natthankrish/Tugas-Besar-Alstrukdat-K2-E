@@ -10,7 +10,7 @@
 #include "../dataStructure/Kulkas/kulkas.h"
 #include "../dataStructure/Makanan/makanan.h"
 
-void fridge(Inventory I, KULKAS *Kulkas){
+void fridge(Inventory *I, KULKAS *Kulkas){
     printf("===============================================\n");
     printf("                      FRIDGE\n");
     printf("===============================================\n");
@@ -46,13 +46,15 @@ void fridge(Inventory I, KULKAS *Kulkas){
                         // printf("keyboard:%c listinv:%d\n",currentWord.TabWord, i);
                         if(MakananDalamInventory(I, Elmt(I,idx))){
                             inToFridge(Kulkas, &Elmt(I,idx));
+                            printf("[debug] Nama food: %s\n");
                             for(int j = 0; j < 101; j++){
                                 printf("%c",Elmt(I,idx).name[j]);
                             }
+                            printf("\n");
                             AmbilMakanan(&I, Elmt(I,idx));
                             displayFridge(*Kulkas);
                             PrintInventory((I));
-                            I = I;
+                            // I = I;
                             
                             // delElmtInventory(I, i);
                         }
@@ -76,7 +78,7 @@ void fridge(Inventory I, KULKAS *Kulkas){
                     sprintf(orderString, "%d", order);
                     if (compareString(currentWord.TabWord, currentWord.Length,  orderString, countIntegerLength(order)) && currentChar == MARK){
                         // printf("keyboard:%c listinv:%d\n",currentWord.TabWord, i);
-                        printf("%s", Name(FoodListELMT(*Kulkas,i)));
+                        printf("[debug] Nama food: %s\n", Name(FoodListELMT(*Kulkas,i)));
                         outFromFridge(Kulkas, i, &FoodListELMT(*Kulkas,i));
                         InsertMakanan(&I, FoodListELMT(*Kulkas,i));
                         // outFromFridge(Kulkas, &Elmt(Kulkas->foodList,i));

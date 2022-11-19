@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include "kulkas.h"
-#include "../Matrix/matrix.c"
-#include "../ListStatik/liststatik.c"
+// #include "../Matrix/matrix.c"
+// #include "../ListStatik/liststatik.c"
 
 #define Contents(K) (K).contents  /*Isi kulkas dalam Matrix*/
 #define FoodList(K) (K).foodList /*Isi kulkas dalam list*/
