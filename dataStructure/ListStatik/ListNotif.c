@@ -44,20 +44,21 @@ MAKANAN SAMPAI 6
 MAKANAN KADALUWARSA 7
  */
         tipenotif = notifikasi.contents[0];
-        if(tipenotif == '1'){
-            printf("Membeli ");
-        }else if(tipenotif == '2'){
-            printf("Memotong ");
-        }else if(tipenotif == '3'){
-            printf("Menggoreng");
-        }else if(tipenotif == '4'){
-            printf("Merebus ");
-        }else if(tipenotif == '5'){
-            printf("Membuat ");
-        }
 
         for(int i=1;i<102;i++){ /* print nama makanan */
             printf("%c", notifikasi.contents[i]);
+        }
+
+        if(tipenotif == '1'){
+            printf("sudah dibeli");
+        }else if(tipenotif == '2'){
+            printf("sudah selesai dipotong ");
+        }else if(tipenotif == '3'){
+            printf("sudah selesai digoreng ");
+        }else if(tipenotif == '4'){
+            printf("sudah selesai direbus ");
+        }else if(tipenotif == '5'){
+            printf("sudah dibuat");
         }
 
         if(tipenotif == '6'){
@@ -90,15 +91,15 @@ MAKANAN KADALUWARSA 7
  */
         tipenotif = notifikasi.contents[0];
         if(tipenotif == '1'){
-            printf("Membeli ");
+            printf("Pembelian ");
         }else if(tipenotif == '2'){
-            printf("Memotong ");
+            printf("Pemotongan ");
         }else if(tipenotif == '3'){
-            printf("Menggoreng");
+            printf("Penggorengan");
         }else if(tipenotif == '4'){
-            printf("Merebus ");
+            printf("Perebusan ");
         }else if(tipenotif == '5'){
-            printf("Membuat ");
+            printf("Pembuatan ");
         }
 
         for(int i=1;i<102;i++){ /* print nama makanan */
