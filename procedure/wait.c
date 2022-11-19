@@ -36,7 +36,7 @@ void wait(int h, int m, PrioQueue *pesanan, SIMULATOR *BNMO, TIME *machinetime, 
                 pushNotif(notifikasi, tmp, 6);
                 tmp.deliveryTime = MinuteToTIME(0);
                 int expirytime = TIMEToMinute(tmp.expiry);
-                int newexpiry = expirytime - newdelivery;
+                int newexpiry = expirytime + newdelivery;
                 tmp.expiry = MinuteToTIME(newexpiry);
                 Enqueue(&(BNMO->INVENTORY), tmp);
             }

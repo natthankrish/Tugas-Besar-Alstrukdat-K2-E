@@ -48,7 +48,9 @@ boolean isFridgeEmpty(KULKAS K){
             if(FridgeELMT(K,i,j)!=0){
                 zero=false;
             }
+            j++;
         }
+        i++;
     }
     return zero;
 }
@@ -79,11 +81,11 @@ boolean isFitFirstGlance(KULKAS K, MAKANAN M){
 
 /* Mengirimkan true jika Makanan M dapat muat ke dalam Kulkas K */
 boolean isFitFinal(KULKAS K, MAKANAN M){
-    printf("---Detail Kulkas---\nTinggi Kulkas: %d\nLebar Kulkas: %d\n",ROW_EFF(Contents(K)),COL_EFF(Contents(K)));
+    // printf("---Detail Kulkas---\nTinggi Kulkas: %d\nLebar Kulkas: %d\n",ROW_EFF(Contents(K)),COL_EFF(Contents(K)));
     if(isFitFirstGlance(K,M)){
         Matrix food;
         createMatrix(Height(M),Width(M),&food);
-        printf("---Detail Makanan---\nTinggi Makanan: %d\nLebar Makanan: %d\n", ROW_EFF(food),COL_EFF(food));
+        // printf("---Detail Makanan---\nTinggi Makanan: %d\nLebar Makanan: %d\n", ROW_EFF(food),COL_EFF(food));
         int possibleSpace=0;
         for(int i=0;i<FridgeHeight(K);i++){
             for(int j=0;j<FridgeWidth(K);j++){
@@ -137,7 +139,7 @@ boolean isFitFinal(KULKAS K, MAKANAN M){
             }
         }
 
-        printf("Possible Spaces: %d\n",possibleSpace);
+        // printf("Possible Spaces: %d\n",possibleSpace);
 
         return (possibleSpace>0);
     }

@@ -54,7 +54,7 @@ void DisplayExpiryTIME (TIME T){
     if(Hour(T)>0){
         printf("%d jam ", Hour(T));
     }
-    if(Hour(T)>0){
+    if(Minute(T)>0){
         printf("%d menit", Minute(T));
     }
     printf("\n");
@@ -87,7 +87,7 @@ TIME MinuteToCLOCK (long N){
 }
 
 boolean TEQ (TIME T1, TIME T2){
-    return (Day(T1)==Day(T2) || Hour(T1)==Hour(T2) || Minute(T1)==Minute(T2));
+    return (Day(T1)==Day(T2) && Hour(T1)==Hour(T2) && Minute(T1)==Minute(T2));
 }
 
 boolean TNEQ (TIME T1, TIME T2){
@@ -134,7 +134,7 @@ void NextMinuteClock (TIME *T){
 }
 
 
-void NextNMinute (TIME *T, int N){
+void NextNMinuteClock (TIME *T, int N){
     long minute = CLOCKToMinute(*T);
     if(minute+N>=1440){
         minute-=1440;
@@ -143,7 +143,7 @@ void NextNMinute (TIME *T, int N){
     *T= MinuteToCLOCK(minute);
 }
 
-void NextNMinuteClock (TIME *T, int N){
+void NextNMinute (TIME *T, int N){
     long minute = TIMEToMinute(*T);
     minute=minute+N;
     *T= MinuteToTIME(minute);
