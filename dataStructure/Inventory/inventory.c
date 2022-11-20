@@ -90,7 +90,7 @@ void PrintInventory(Inventory I){
         printf("Inventory Kosong!\n");
     } else {
         for(int i = 0; i < NBElmt(I);i++){
-            int idx = (i + Head(I))%NBElmt(I);
+            int idx = (i + Head(I))%MaxEl(I);
             printf("    %d. ",i+1);
             for(int j = 0; j < 101; j++){
                 printf("%c",Elmt(I,idx).name[j]);
