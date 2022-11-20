@@ -55,7 +55,7 @@ int Kuadran (POINT P);
 
 /* *** KELOMPOK OPERASI LAIN TERHADAP TYPE *** */                           
 POINT NextX (POINT P);
-/* Mengirim salinan P dengan absis ditambah satu */              
+/* Mengirim salinan P dengan absis ditambah satuf */              
 POINT NextY (POINT P);
 /* Mengirim salinan P dengan ordinat ditambah satu */
 POINT PlusDelta (POINT P, float deltaX, float deltaY);
