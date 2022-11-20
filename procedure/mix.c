@@ -7,7 +7,7 @@
 #include <math.h>
 
 
-void doMix (MAKANAN ** buatNotif, ListStatik listMakanan, ListTree listResep, SIMULATOR * S, ListStatik madeByMix) {
+void doMix (MAKANAN ** buatNotif, ListStatik listMakanan, ListTree listResep, SIMULATOR * S, ListStatik madeByMix, boolean* haveCooked) {
     boolean done = false;
     for (int i = 0; i < Lengthlist(madeByMix); i++) {
         int order = i + 1;
@@ -23,7 +23,9 @@ void doMix (MAKANAN ** buatNotif, ListStatik listMakanan, ListTree listResep, SI
                     AmbilMakanan(&Inventory(*S), ELMTlist(childrenOfFood, j));
                 }
                 printf("%s berhasil dicampur!\n", Name(ELMTlist(madeByMix, i)));
+                *haveCooked = true;
                 *buatNotif = &ELMTlist(madeByMix, i);
+                printf("Sudah melakukan command mix, silahkan lakukan command 0 sebelum melakukan mix bahan lain.");
                 printf("\nEnter Command: ");
                 STARTWORD();
             } else {
@@ -66,9 +68,16 @@ MAKANAN* Mix (ListStatik listMakanan, ListTree listResep, SIMULATOR * S) {
     STARTWORD();
 
     boolean langsungExit = true;
+    boolean haveCooked = false;
     while (!compareString(currentWord.TabWord, currentWord.Length, "0", 1) && currentChar == MARK) {
-        doMix(&buatNotif, listMakanan, listResep, S, madeByMix);
-        langsungExit = false;
+        if (!haveCooked) {
+            doMix(&buatNotif, listMakanan, listResep, S, madeByMix, &haveCooked);
+            langsungExit = false;
+        } else {
+            printf("Sudah melakukan command mix, silahkan lakukan command 0 sebelum melakukan mix bahan lain.");
+            printf("\nEnter Command: ");
+            STARTWORD();
+        }
     }
 
     if (!langsungExit) {
