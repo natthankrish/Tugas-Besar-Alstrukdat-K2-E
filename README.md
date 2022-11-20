@@ -12,11 +12,11 @@ gcc main.c -o main
 ## Pembagian Tugas
 |To Do|PIC|
 |-----|---|
-|Main, Splash Screen, START & EXIT, ADT Mesin Karakter dan Kata, Konfigurasi Makanan, ADT Matrix, Konfigurasi File Peta, Pembacaan Peta dari File, MOVE (NORTH, SOUTH, EAST & WEST), CATALOG, COOKING|Antonio Natthan Krishna|
+|Main, Splash Screen, START & EXIT, Parsing Command, ADT Mesin Karakter dan Kata, Konfigurasi Makanan, ADT Matrix, Konfigurasi File Peta, Pembacaan Peta dari File, MOVE (NORTH, SOUTH, EAST & WEST), CATALOG, COOKING|Antonio Natthan Krishna|
 |ADT Simulator, ADT Point, BUY, DELIVERY, CookBook|Muhammad Abdul Aziz G|
 |Parsing Command, Konfigurasi File Resep, ADT Tree, ADT Inventory, CHOP, BOIL, WAIT, Undo/Redo, CookBook|Dewana Gustavus Haraka O|
 |ADT Makanan, ADT Time, ADT List Statik, MOVE (NORTH, SOUTH, EAST & WEST), ADT Kulkas|Edia Zaki Naufal Ilman|
-|Konfigurasi File Resep, ADT Tree, MIX, ADT Stack, Rekomendasi Makanan|Muhammad Rizky Sya'ban|
+|Konfigurasi File Resep, ADT Tree, MIX, FRY, ADT Stack, Rekomendasi Makanan|Muhammad Rizky Sya'ban|
 |FRIDGE, HELP|Farhan Fadhilah Rafi|
 
 ## Daftar Fitur
