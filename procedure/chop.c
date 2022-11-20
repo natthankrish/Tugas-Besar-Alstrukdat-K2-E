@@ -7,7 +7,7 @@
 #include <math.h>
 
 
-void doChop (MAKANAN ** buatNotif, ListStatik listMakanan, ListTree listResep, SIMULATOR * S, ListStatik madeByChop) {
+void doChop (MAKANAN ** buatNotif, ListStatik listMakanan, ListTree listResep, SIMULATOR * S, ListStatik madeByChop, boolean* haveCooked) {
     boolean done = false;
     for (int i = 0; i < Lengthlist(madeByChop); i++) {
         int order = i + 1;
@@ -23,7 +23,9 @@ void doChop (MAKANAN ** buatNotif, ListStatik listMakanan, ListTree listResep, S
                     AmbilMakanan(&Inventory(*S), ELMTlist(childrenOfFood, j));
                 }
                 printf("%s berhasil dipotong!\n", Name(ELMTlist(madeByChop, i)));
+                *haveCooked = true;
                 *buatNotif = &ELMTlist(madeByChop, i);
+                printf("Sudah melakukan command chop, silahkan lakukan command 0 sebelum melakukan chop bahan lain.");
                 printf("\nEnter Command: ");
                 STARTWORD();
             } else {
@@ -66,9 +68,16 @@ MAKANAN* Chop (ListStatik listMakanan, ListTree listResep, SIMULATOR * S) {
     STARTWORD();
 
     boolean langsungExit = true;
+    boolean haveCooked = false;
     while (!compareString(currentWord.TabWord, currentWord.Length, "0", 1) && currentChar == MARK) {
-        doChop(&buatNotif, listMakanan, listResep, S, madeByChop);
-        langsungExit = false;
+        if (!haveCooked) {
+            doChop(&buatNotif, listMakanan, listResep, S, madeByChop, &haveCooked);
+            langsungExit = false;
+        } else {
+            printf("Sudah melakukan command chop, silahkan lakukan command 0 sebelum melakukan chop bahan lain.");
+            printf("\nEnter Command: ");
+            STARTWORD();
+        }
     }
 
     if (!langsungExit) {
